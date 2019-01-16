@@ -182,6 +182,8 @@ function readReflectionPropertyValue(object $object, string $propertyName)
 /**
  * Extract property
  *
+ * @internal
+ *
  * @param object $object
  * @param string $propertyName
  *
