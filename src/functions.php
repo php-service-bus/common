@@ -75,7 +75,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
                 $timezone = new \DateTimeZone($timezone);
             }
 
-            /** @noinspection PhpUnhandledExceptionInspection */
+            /** @var \DateTimeZone|null $timezone */
             return new \DateTimeImmutable($datetimeString, $timezone);
         }
         catch(\Throwable $throwable)
