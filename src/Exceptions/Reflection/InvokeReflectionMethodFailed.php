@@ -15,7 +15,7 @@ namespace Desperado\ServiceBus\Common\Exceptions\Reflection;
 /**
  *
  */
-final class InvokeReflectionMethodFailed extends \InvalidArgumentException
+final class InvokeReflectionMethodFailed extends \InvalidArgumentException implements ReflectionExceptionMarker
 {
 
 }

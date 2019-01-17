@@ -33,28 +33,6 @@ function uuid(): string
 }
 
 /**
- * @param string $path
- *
- * @return void
- */
-function removeDirectory(string $path): void
-{
-    $files = \glob(\preg_replace('/(\*|\?|\[)/', '[$1]', $path) . '/{,.}*', GLOB_BRACE);
-
-    foreach($files as $file)
-    {
-        if($file === $path . '/.' || $file === $path . '/..')
-        {
-            continue;
-        }
-
-        \is_dir($file) ? removeDirectory($file) : \unlink($file);
-    }
-
-    \rmdir($path);
-}
-
-/**
  * Create datetime object from valid string
  *
  * @param string|null               $datetimeString

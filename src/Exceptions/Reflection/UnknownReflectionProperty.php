@@ -15,7 +15,7 @@ namespace Desperado\ServiceBus\Common\Exceptions\Reflection;
 /**
  *
  */
-final class UnknownReflectionProperty extends \InvalidArgumentException
+final class UnknownReflectionProperty extends \InvalidArgumentException implements ReflectionExceptionMarker
 {
 
 }

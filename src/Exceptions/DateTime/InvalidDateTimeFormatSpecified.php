@@ -15,7 +15,7 @@ namespace Desperado\ServiceBus\Common\Exceptions\DateTime;
 /**
  *
  */
-final class InvalidDateTimeFormatSpecified extends \InvalidArgumentException
+final class InvalidDateTimeFormatSpecified extends \InvalidArgumentException implements DateTimeExceptionMarker
 {
     /**
      * @param string $format

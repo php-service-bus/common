@@ -15,7 +15,7 @@ namespace Desperado\ServiceBus\Common\Exceptions\Reflection;
 /**
  *
  */
-final class ReflectionClassNotFound extends \InvalidArgumentException
+final class ReflectionClassNotFound extends \InvalidArgumentException implements ReflectionExceptionMarker
 {
 
 }

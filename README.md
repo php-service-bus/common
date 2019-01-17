@@ -8,7 +8,6 @@ Common parts for all components of the [service-bus](https://github.com/mmasiuke
 
 List of implemented functions:
 * [uuid()](https://github.com/mmasiukevich/common/blob/master/src/functions.php#L29): Generate a version 4 (random) UUID
-* [removeDirectory()](https://github.com/mmasiukevich/common/blob/master/src/functions.php#L40): Recursive directory deletion
 * [datetimeInstantiator()](https://github.com/mmasiukevich/common/blob/master/src/functions.php#L67): Creating an instance of an \DateTimeImmutable from a text
 * [datetimeToString()](https://github.com/mmasiukevich/common/blob/master/src/functions.php#L100): Format DateTimeImmutable to string
 * [invokeReflectionMethod()](https://github.com/mmasiukevich/common/blob/master/src/functions.php#L127): Invokes a reflected method

@@ -10,12 +10,12 @@
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\Common\Exceptions\DateTime;
+namespace Desperado\ServiceBus\Common\Exceptions\Reflection;
 
 /**
  *
  */
-final class CreateDateTimeFailed extends \InvalidArgumentException implements DateTimeExceptionMarker
+interface ReflectionExceptionMarker
 {
 
 }

@@ -15,7 +15,7 @@ namespace Desperado\ServiceBus\Common\Exceptions\DateTime;
 /**
  *
  */
-final class CreateDateTimeFailed extends \InvalidArgumentException implements DateTimeExceptionMarker
+interface DateTimeExceptionMarker
 {
 
 }
