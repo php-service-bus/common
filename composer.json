@@ -2,7 +2,7 @@
   "name": "php-service-bus/common",
   "description": "PHP Service Bus common component",
   "type": "library",
-  "keywords": [],
+  "keywords": ["cqrs", "event-sourcing", "async-php", "command-bus", "messaging"],
   "authors": [
     {
       "name": "Masiukevich Maksim",

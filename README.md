@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.org/mmasiukevich/common.svg?branch=master)](https://travis-ci.org/mmasiukevich/common)
-[![Code Coverage](https://scrutinizer-ci.com/g/mmasiukevich/common/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/mmasiukevich/common/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mmasiukevich/common/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mmasiukevich/common/?branch=master)
-[![License](https://poser.pugx.org/mmasiukevich/common/license)](https://packagist.org/packages/mmasiukevich/common)
+[![Build Status](https://travis-ci.org/php-service-bus/common.svg?branch=master)](https://travis-ci.org/php-service-bus/common)
+[![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/common/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/common/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=master)
 
 ## What is it?
 Common parts for components of the [service-bus](https://github.com/php-service-bus/service-bus) framework
