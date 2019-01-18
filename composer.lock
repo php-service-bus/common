@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0746a8fe2b09e5b8689342dc7366b665",
-    "content-hash": "64020b0ad1fd4616f88b81f9573c5baa",
+    "hash": "291762c941804d50e6d179b525cc5ce0",
+    "content-hash": "20d6a727306b6376304bf71e7e0c5194",
     "packages": [
         {
             "name": "paragonie/random_compat",
@@ -179,7 +179,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

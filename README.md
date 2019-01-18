@@ -4,7 +4,7 @@
 [![License](https://poser.pugx.org/mmasiukevich/common/license)](https://packagist.org/packages/mmasiukevich/common)
 
 ## What is it?
-Common parts for all components of the [service-bus](https://github.com/mmasiukevich/service-bus) framework
+Common parts for components of the [service-bus](https://github.com/php-service-bus/service-bus) framework
 
 List of implemented functions:
 * [uuid()](https://github.com/mmasiukevich/common/blob/master/src/functions.php#L29): Generate a version 4 (random) UUID

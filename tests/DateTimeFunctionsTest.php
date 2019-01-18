@@ -1,21 +1,21 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) Common component
+ * PHP Service Bus (publish-subscribe pattern implementation) common component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\Common\Tests;
+namespace ServiceBus\Common\Tests;
 
-use function Desperado\ServiceBus\Common\datetimeInstantiator;
-use function Desperado\ServiceBus\Common\datetimeToString;
-use Desperado\ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
-use Desperado\ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
+use function ServiceBus\Common\datetimeInstantiator;
+use function ServiceBus\Common\datetimeToString;
+use ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
+use ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,6 +33,8 @@ final class DateTimeFunctionsTest extends TestCase
      * @param bool        $expectException
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function datetimeInstantiator(
         string $date,
@@ -88,6 +90,8 @@ final class DateTimeFunctionsTest extends TestCase
      * @param bool                    $expectException
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function datetimeToString(
         ?\DateTimeImmutable $dateTime,

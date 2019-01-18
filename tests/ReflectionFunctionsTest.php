@@ -1,21 +1,21 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) Common component
+ * PHP Service Bus (publish-subscribe pattern implementation) common component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\Common\Tests;
+namespace ServiceBus\Common\Tests;
 
-use function Desperado\ServiceBus\Common\createWithoutConstructor;
-use function Desperado\ServiceBus\Common\invokeReflectionMethod;
-use function Desperado\ServiceBus\Common\readReflectionPropertyValue;
-use function Desperado\ServiceBus\Common\writeReflectionPropertyValue;
+use function ServiceBus\Common\createWithoutConstructor;
+use function ServiceBus\Common\invokeReflectionMethod;
+use function ServiceBus\Common\readReflectionPropertyValue;
+use function ServiceBus\Common\writeReflectionPropertyValue;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -43,7 +43,7 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+     * @expectedException \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
      *
      * @return void
      *
@@ -85,6 +85,8 @@ final class ReflectionFunctionsTest extends TestCase
      * @test
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function invokeReflectionMethod(): void
     {
@@ -96,7 +98,7 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed
+     * @expectedException \ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed
      *
      * @return void
      */
@@ -109,6 +111,8 @@ final class ReflectionFunctionsTest extends TestCase
      * @test
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function createWithoutConstructor(): void
     {
@@ -119,7 +123,7 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Desperado\ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
+     * @expectedException \ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
      *
      * @return void
      */
@@ -132,6 +136,8 @@ final class ReflectionFunctionsTest extends TestCase
      * @test
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function writeReflectionPropertyValue(): void
     {

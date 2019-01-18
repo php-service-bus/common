@@ -1,22 +1,22 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) Common component
+ * PHP Service Bus (publish-subscribe pattern implementation) common component
  *
- * @author  Maksim Masiukevich <desperado@minsk-info.ru>
+ * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types = 1);
 
-namespace Desperado\ServiceBus\Common;
+namespace ServiceBus\Common;
 
-use Desperado\ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound;
-use Desperado\ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
-use Desperado\ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
-use Desperado\ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed;
-use Desperado\ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty;
+use ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound;
+use ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
+use ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
+use ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed;
+use ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -40,7 +40,7 @@ function uuid(): string
  *
  * @return \DateTimeImmutable|null
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed
+ * @throws \ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed
  */
 function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
 {
@@ -73,7 +73,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
  *
  * @return string|null
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified
+ * @throws \ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified
  */
 function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d H:i:s'): ?string
 {
@@ -100,7 +100,7 @@ function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d
  *
  * @return mixed
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed
+ * @throws \ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed
  */
 function invokeReflectionMethod(object $object, string $methodName, ...$parameters)
 {
@@ -126,7 +126,7 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
  *
  * @return void
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+ * @throws \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
  */
 function writeReflectionPropertyValue(object $object, string $propertyName, $value): void
 {
@@ -146,7 +146,7 @@ function writeReflectionPropertyValue(object $object, string $propertyName, $val
  *
  * @return mixed
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+ * @throws \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
  */
 function readReflectionPropertyValue(object $object, string $propertyName)
 {
@@ -167,7 +167,7 @@ function readReflectionPropertyValue(object $object, string $propertyName)
  *
  * @return \ReflectionProperty
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+ * @throws \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
  */
 function extractReflectionProperty(object $object, string $propertyName): \ReflectionProperty
 {
@@ -203,7 +203,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
  *
  * @return object
  *
- * @throws \Desperado\ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
+ * @throws \ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
  */
 function createWithoutConstructor(string $class): object
 {

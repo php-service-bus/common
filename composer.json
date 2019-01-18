@@ -1,20 +1,20 @@
 {
-  "name": "mmasiukevich/common",
+  "name": "php-service-bus/common",
   "description": "PHP Service Bus common component",
   "type": "library",
   "keywords": [],
   "authors": [
     {
       "name": "Masiukevich Maksim",
-      "email": "desperado@minsk-info.ru",
+      "email": "dev@async-php.com",
       "homepage": "https://github.com/mmasiukevich",
-      "role": "Developer"
+      "role": "Maintainer"
     }
   ],
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Desperado\\ServiceBus\\Common\\": "src/"
+      "ServiceBus\\Common\\": "src/"
     },
     "files": [
       "src/functions.php"
@@ -22,7 +22,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Desperado\\ServiceBus\\Common\\Tests\\": "tests/"
+      "ServiceBus\\Common\\Tests\\": "tests/"
     },
     "files": [
       "src/functions.php"
