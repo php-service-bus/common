@@ -23,6 +23,8 @@ interface ServiceBusModule
      * @param ContainerBuilder $containerBuilder
      *
      * @return void
+     *
+     * @throws \Throwable Boot module failed
      */
     public function boot(ContainerBuilder $containerBuilder): void;
 }
