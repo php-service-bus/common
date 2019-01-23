@@ -5,7 +5,7 @@
 ## What is it?
 Common parts for components of the [service-bus](https://github.com/php-service-bus/service-bus) framework
 
-List of implemented functions:
+Functions:
 * [uuid()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L29): Generate a version 4 (random) UUID
 * [datetimeInstantiator()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L45): Creating an instance of an \DateTimeImmutable from a text
 * [datetimeToString()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L78): Format DateTimeImmutable to string
@@ -14,7 +14,16 @@ List of implemented functions:
 * [readReflectionPropertyValue()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L151): Read property value
 * [createWithoutConstructor()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L208): Creates a new class instance without invoking the constructor
 
-Interfaces:
+Messages:
 * [Message](https://github.com/php-service-bus/common/blob/master/src/Messages/Message.php): Message marker (command/event)
 * [Command](https://github.com/php-service-bus/common/blob/master/src/Messages/Command.php): Used to request that an action should be taken
 * [Event](https://github.com/php-service-bus/common/blob/master/src/Messages/Event.php): Used to communicate that some action has taken place
+
+Context:
+* [ServiceBusContext](https://github.com/php-service-bus/common/blob/master/src/Context/ServiceBusContext.php): Message execution context interface
+
+Endpoint:
+* [DeliveryOptions](https://github.com/php-service-bus/common/blob/master/src/Endpoint/DeliveryOptions.php): Interface indicating the configuration of message sending parameters
+
+Module:
+* [ServiceBusModule](https://github.com/php-service-bus/common/blob/master/src/Module/ServiceBusModule.php): Application module interface

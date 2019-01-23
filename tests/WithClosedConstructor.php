@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern implementation) common component
+ * PHP Service Bus common component
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
