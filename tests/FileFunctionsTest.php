@@ -33,7 +33,7 @@ final class FileFunctionsTest extends TestCase
     {
         $files = \iterator_to_array(searchFiles(canonicalizeFilesPath([__DIR__]), '/\.php/i'));
 
-        static::assertCount(7, $files);
+        static::assertCount(8, $files);
     }
 
     /**
