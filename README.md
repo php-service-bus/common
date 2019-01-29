@@ -13,6 +13,9 @@ Functions:
 * [writeReflectionPropertyValue()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L131): Write property value
 * [readReflectionPropertyValue()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L151): Read property value
 * [createWithoutConstructor()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L208): Creates a new class instance without invoking the constructor
+* [extractNamespaceFromFile()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L227): Getting the namespace of the specified file
+* [searchFiles()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L255): Recursive search of all files in the directory
+* [canonicalizeFilesPath()](https://github.com/php-service-bus/common/blob/master/src/functions.php#L277): Casting paths to canonical form
 
 Messages:
 * [Message](https://github.com/php-service-bus/common/blob/master/src/Messages/Message.php): Message marker (command/event)

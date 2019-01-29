@@ -216,3 +216,72 @@ function createWithoutConstructor(string $class): object
         throw new ReflectionClassNotFound($throwable->getMessage());
     }
 }
+
+/**
+ * Extract namespace from file content
+ *
+ * @param string $filePath
+ *
+ * @return string|null
+ */
+function extractNamespaceFromFile(string $filePath): ?string
+{
+    $matches = [];
+
+    if(
+        false !== \preg_match('#^namespace\s+(.+?);$#sm', \file_get_contents($filePath), $matches) &&
+        true === isset($matches[1])
+    )
+    {
+        return \sprintf('%s\\%s',
+            $matches[1],
+            \pathinfo($filePath)['filename']
+        );
+    }
+
+    return null;
+}
+
+/**
+ * Recursive search of all files in the directory
+ *
+ * Search for files matching the specified regular expression
+ *
+ * @param array<mixed, string> $directories
+ * @param string               $regExp
+ *
+ * @return \Generator<mixed, \SplFileInfo>
+ */
+function searchFiles(array $directories, string $regExp): \Generator
+{
+    foreach($directories as $directory)
+    {
+        $regexIterator = new \RegexIterator(
+            new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($directory)
+            ),
+            $regExp
+        );
+
+        yield from $regexIterator;
+    }
+}
+
+/**
+ * Casting paths to canonical form
+ *
+ * @param array<mixed, string> $paths
+ *
+ * @return array<int, string>
+ */
+function canonicalizeFilesPath(array $paths): array
+{
+    $result = [];
+
+    foreach($paths as $path)
+    {
+        $result[] = (new \SplFileInfo($path))->getRealPath();
+    }
+
+    return $result;
+}
