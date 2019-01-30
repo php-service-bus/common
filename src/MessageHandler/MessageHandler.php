@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\MessageHandler;
 
 use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
+use ServiceBus\Common\Messages\Message;
 
 /**
  * @property-read string                                                                      $methodName
@@ -98,9 +99,10 @@ final class MessageHandler
         $this->closure           = $closure;
         $this->options           = $options;
         $this->methodName        = $reflectionMethod->getName();
-        $this->arguments         = self::extractArguments($reflectionMethod);
+        $this->arguments         = $this->extractArguments($reflectionMethod);
         $this->hasArguments      = 0 !== \count($this->arguments);
-        $this->returnDeclaration = self::extractReturnDeclaration($reflectionMethod);
+        $this->returnDeclaration = $this->extractReturnDeclaration($reflectionMethod);
+        $this->messageClass      = $this->extractMessageClass();
     }
 
     /**
@@ -108,7 +110,7 @@ final class MessageHandler
      *
      * @return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
      */
-    private static function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
+    private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
         $argumentCollection = new \SplObjectStorage();
 
@@ -127,7 +129,7 @@ final class MessageHandler
      *
      * @return MessageHandlerReturnDeclaration
      */
-    private static function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
+    private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
         if(null !== $reflectionMethod->getReturnType())
         {
@@ -138,5 +140,22 @@ final class MessageHandler
         }
 
         return MessageHandlerReturnDeclaration::createVoid();
+    }
+
+    /**
+     * @return string|null
+     */
+    private function extractMessageClass(): ?string
+    {
+        /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument $argument */
+        foreach($this->arguments as $argument)
+        {
+            if(true === $argument->isA(Message::class))
+            {
+                return (string) $argument->typeClass;
+            }
+        }
+
+        return null;
     }
 }
