@@ -18,9 +18,11 @@ namespace ServiceBus\Common\Messages;
 interface MessageExecutorFactory
 {
     /**
-     * Create message executor
+     * @param \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+     * @param array<array-key, \ReflectionParameter> $arguments
+     * @param MessageExecutorOptions $options
      *
      * @return MessageExecutor
      */
-    public function create(): MessageExecutor;
+    public function create(\Closure $closure, array $arguments, MessageExecutorOptions $options): MessageExecutor;
 }
