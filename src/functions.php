@@ -244,13 +244,14 @@ function extractNamespaceFromFile(string $filePath): ?string
 
 /**
  * Recursive search of all files in the directory
- *
  * Search for files matching the specified regular expression
+ *
+ * @psalm-suppress MixedTypeCoercion
  *
  * @param array<mixed, string> $directories
  * @param string               $regExp
  *
- * @return \Generator<mixed, \SplFileInfo>
+ * @return \Generator<\SplFileInfo>
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {

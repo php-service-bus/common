@@ -21,6 +21,7 @@ use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
  * @property-read MessageHandlerReturnDeclaration                                             $returnDeclaration
  * @property-read MessageHandlerOptions                                                       $options
  * @property-read string|null                                                                 $messageClass
+ * @property-read \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
  */
 final class MessageHandler
 {
@@ -67,60 +68,35 @@ final class MessageHandler
     public $options;
 
     /**
-     * Handler reflection method
-     *
-     * @var \ReflectionMethod
+     * @var \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
      */
-    private $reflectionMethod;
+    public $closure;
 
     /**
+     * @param \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
      * @param \ReflectionMethod     $reflectionMethod
      * @param MessageHandlerOptions $options
      *
      * @return self
      */
-    public static function create(\ReflectionMethod $reflectionMethod, MessageHandlerOptions $options): self
+    public static function create(
+        \Closure $closure,
+        \ReflectionMethod $reflectionMethod,
+        MessageHandlerOptions $options
+    ): self
     {
-        return new self($options, $reflectionMethod);
+        return new self($closure, $options, $reflectionMethod);
     }
 
     /**
-     * Receive method as closure
-     *
-     * @param object|callable $objectOrCallable
-     *
-     * @return \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
-     *
-     * @throws \LogicException The argument must be either an object or a callback function
-     */
-    public function toClosure($objectOrCallable): \Closure
-    {
-        $isClosure = $objectOrCallable instanceof \Closure;
-
-        if(true === \is_object($objectOrCallable) && false === $isClosure)
-        {
-            /** @var \Closure $closure */
-            $closure = $this->reflectionMethod->getClosure($objectOrCallable);
-
-            return $closure;
-        }
-
-        if(true === \is_callable($objectOrCallable))
-        {
-            return \Closure::fromCallable($objectOrCallable);
-        }
-
-        throw new \LogicException('The argument must be either an object or a callback function');
-    }
-
-    /**
+     * @param \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
      * @param MessageHandlerOptions $options
      * @param \ReflectionMethod     $reflectionMethod
      */
-    private function __construct(MessageHandlerOptions $options, \ReflectionMethod $reflectionMethod)
+    private function __construct(\Closure $closure, MessageHandlerOptions $options, \ReflectionMethod $reflectionMethod)
     {
+        $this->closure           = $closure;
         $this->options           = $options;
-        $this->reflectionMethod  = $reflectionMethod;
         $this->methodName        = $reflectionMethod->getName();
         $this->arguments         = self::extractArguments($reflectionMethod);
         $this->hasArguments      = 0 !== \count($this->arguments);
