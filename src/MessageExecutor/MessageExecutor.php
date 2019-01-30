@@ -10,10 +10,11 @@
 
 declare(strict_types = 1);
 
-namespace ServiceBus\Common\Messages;
+namespace ServiceBus\Common\MessageExecutor;
 
 use Amp\Promise;
 use ServiceBus\Common\Context\ServiceBusContext;
+use ServiceBus\Common\Messages\Message;
 
 /**
  *
@@ -23,7 +24,7 @@ interface MessageExecutor
     /**
      * Handle message
      *
-     * @param Message       $message
+     * @param Message           $message
      * @param ServiceBusContext $context
      *
      * @return Promise It does not return any result

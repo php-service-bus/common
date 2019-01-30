@@ -10,12 +10,12 @@
 
 declare(strict_types = 1);
 
-namespace ServiceBus\Common\Messages;
+namespace ServiceBus\Common\MessageExecutor;
 
 /**
- * Message execution options marker
+ * Message handler options marker
  */
-interface MessageExecutorOptions
+interface MessageHandlerOptions
 {
 
 }
