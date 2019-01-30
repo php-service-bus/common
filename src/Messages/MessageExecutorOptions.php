@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\Messages;
 
 /**
- * Message execution options
+ * Message execution options marker
  */
 interface MessageExecutorOptions
 {
