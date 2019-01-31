@@ -14,7 +14,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Service Bus common">
+        <testsuite name="PHP Service Bus common component">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

@@ -33,7 +33,7 @@ final class FileFunctionsTest extends TestCase
     {
         $files = \iterator_to_array(searchFiles(canonicalizeFilesPath([__DIR__]), '/\.php/i'));
 
-        static::assertCount(8, $files);
+        static::assertCount(9, $files);
     }
 
     /**
@@ -47,5 +47,18 @@ final class FileFunctionsTest extends TestCase
     {
         static::assertSame(__CLASS__, extractNamespaceFromFile(__FILE__));
         static::assertNull(extractNamespaceFromFile(__DIR__ . '/empty_php_file.php'));
+    }
+
+    /**
+     * @test
+     * @expectedException \ServiceBus\Common\Exceptions\File\NonexistentFile
+     *
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function extractFromNonexistentFile(): void
+    {
+        extractNamespaceFromFile('qwerty.exe');
     }
 }

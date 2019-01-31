@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Common;
 
+use ServiceBus\Common\Exceptions\File\LoadContentFailed;
+use ServiceBus\Common\Exceptions\File\NonexistentFile;
 use ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound;
 use ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
 use ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
@@ -223,13 +225,30 @@ function createWithoutConstructor(string $class): object
  * @param string $filePath
  *
  * @return string|null
+ *
+ * @throws \ServiceBus\Common\Exceptions\File\NonexistentFile
+ * @throws \ServiceBus\Common\Exceptions\File\LoadContentFailed
  */
 function extractNamespaceFromFile(string $filePath): ?string
 {
+    if(false === \file_exists($filePath) || false === \is_readable($filePath))
+    {
+        throw new NonexistentFile($filePath);
+    }
+
     $matches = [];
 
+    $fileContents = \file_get_contents($filePath);
+
+    // @codeCoverageIgnoreStart
+    if(false === $fileContents)
+    {
+        throw new LoadContentFailed($filePath);
+    }
+    // @codeCoverageIgnoreEnd
+
     if(
-        false !== \preg_match('#^namespace\s+(.+?);$#sm', \file_get_contents($filePath), $matches) &&
+        false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
         true === isset($matches[1])
     )
     {

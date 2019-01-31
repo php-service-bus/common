@@ -16,12 +16,12 @@ use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 use ServiceBus\Common\Messages\Message;
 
 /**
- * @property-read string                                                                      $methodName
- * @property-read bool                                                                        $hasArguments
- * @property-read \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $arguments
- * @property-read MessageHandlerReturnDeclaration                                             $returnDeclaration
- * @property-read MessageHandlerOptions                                                       $options
- * @property-read string|null                                                                 $messageClass
+ * @property-read string                                                                                                   $methodName
+ * @property-read bool                                                                                                     $hasArguments
+ * @property-read \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>                      $arguments
+ * @property-read MessageHandlerReturnDeclaration                                                                          $returnDeclaration
+ * @property-read MessageHandlerOptions                                                                                    $options
+ * @property-read string|null                                                                                              $messageClass
  * @property-read \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
  */
 final class MessageHandler
@@ -43,7 +43,7 @@ final class MessageHandler
     /**
      * Collection of arguments to the message handler
      *
-     * @var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
+     * @var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>
      */
     public $arguments;
 

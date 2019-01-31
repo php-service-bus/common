@@ -2,7 +2,11 @@
   "name": "php-service-bus/common",
   "description": "PHP Service Bus common component",
   "type": "library",
-  "keywords": ["cqrs", "event-sourcing", "async-php", "command-bus", "messaging"],
+  "keywords": [
+    "async-php",
+    "command-bus",
+    "messaging"
+  ],
   "authors": [
     {
       "name": "Masiukevich Maksim",
@@ -36,7 +40,7 @@
   "require-dev": {
     "symfony/dependency-injection": "^v4.2",
     "phpunit/phpunit": "^7",
-    "vimeo/psalm": "^3"
+    "vimeo/psalm": "dev-master"
   },
   "prefer-stable": true,
   "minimum-stability": "dev",
