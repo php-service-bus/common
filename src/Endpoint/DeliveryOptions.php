@@ -46,7 +46,7 @@ interface DeliveryOptions
     /**
      * Receive trace id
      *
-     * @return string|int|float
+     * @return string|int|null
      */
     public function traceId();
 
