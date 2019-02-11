@@ -36,8 +36,8 @@ interface DeliveryOptions
     /**
      * Apply headers
      *
-     * @param string                          $key
-     * @param array<string, string|int|float> $value
+     * @param string           $key
+     * @param string|int|float $value
      *
      * @return void
      */
