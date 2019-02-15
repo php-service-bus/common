@@ -56,4 +56,25 @@ interface DeliveryOptions
      * @return array<string, string|int|float>
      */
     public function headers(): array;
+
+    /**
+     * Should the message be saved?
+     *
+     * @return bool
+     */
+    public function isPersistent(): bool;
+
+    /**
+     * Should the message be processed with the highest priority?
+     *
+     * @return bool
+     */
+    public function isHighestPriority(): bool;
+
+    /**
+     * After how many seconds the message will be marked as expired
+     *
+     * @return int|null
+     */
+    public function expirationAfter(): ?int;
 }

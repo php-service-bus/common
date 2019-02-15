@@ -13,6 +13,9 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\Tests;
 
 use function ServiceBus\Common\createWithoutConstructor;
+use ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed;
+use ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound;
+use ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty;
 use function ServiceBus\Common\invokeReflectionMethod;
 use function ServiceBus\Common\readReflectionPropertyValue;
 use function ServiceBus\Common\writeReflectionPropertyValue;
@@ -43,7 +46,6 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
      *
      * @return void
      *
@@ -51,6 +53,8 @@ final class ReflectionFunctionsTest extends TestCase
      */
     public function readUnknownProperty(): void
     {
+        $this->expectException(UnknownReflectionProperty::class);
+
         readReflectionPropertyValue(new SecondClass(), 'qwerty');
     }
 
@@ -98,12 +102,15 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function invokeUnknownReflectionMethod(): void
     {
+        $this->expectException(InvokeReflectionMethodFailed::class);
+
         invokeReflectionMethod(new SecondClass(), 'abube');
     }
 
@@ -123,12 +130,15 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function createWithUnknownClass(): void
     {
+        $this->expectException(ReflectionClassNotFound::class);
+
         createWithoutConstructor(__METHOD__);
     }
 

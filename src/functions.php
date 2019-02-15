@@ -201,6 +201,8 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
 }
 
 /**
+ * @psalm-param class-string $class
+ *
  * @param string $class
  *
  * @return object
