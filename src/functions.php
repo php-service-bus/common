@@ -12,14 +12,10 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Common;
 
-use ServiceBus\Common\Exceptions\File\LoadContentFailed;
-use ServiceBus\Common\Exceptions\File\NonexistentFile;
-use ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound;
-use ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
-use ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
-use ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed;
-use ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty;
 use Ramsey\Uuid\Uuid;
+use ServiceBus\Common\Exceptions\DateTimeException;
+use ServiceBus\Common\Exceptions\FileSystemException;
+use ServiceBus\Common\Exceptions\ReflectionApiException;
 
 /**
  * @noinspection PhpDocMissingThrowsInspection
@@ -42,7 +38,7 @@ function uuid(): string
  *
  * @return \DateTimeImmutable|null
  *
- * @throws \ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed
+ * @throws \ServiceBus\Common\Exceptions\DateTimeException
  */
 function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
 {
@@ -60,7 +56,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
         }
         catch(\Throwable $throwable)
         {
-            throw new CreateDateTimeFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
+            throw DateTimeException::fromThrowable($throwable);
         }
     }
 
@@ -75,7 +71,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
  *
  * @return string|null
  *
- * @throws \ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified
+ * @throws \ServiceBus\Common\Exceptions\DateTimeException
  */
 function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d H:i:s'): ?string
 {
@@ -89,7 +85,7 @@ function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d
             return $result;
         }
 
-        throw new InvalidDateTimeFormatSpecified($format);
+        throw DateTimeException::wrongFormat($format);
     }
 
     return null;
@@ -102,7 +98,7 @@ function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d
  *
  * @return mixed
  *
- * @throws \ServiceBus\Common\Exceptions\Reflection\InvokeReflectionMethodFailed
+ * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function invokeReflectionMethod(object $object, string $methodName, ...$parameters)
 {
@@ -115,7 +111,7 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
     }
     catch(\ReflectionException $exception)
     {
-        throw new InvokeReflectionMethodFailed($exception->getMessage(), (int) $exception->getCode(), $exception);
+        throw ReflectionApiException::fromThrowable($exception);
     }
 }
 
@@ -128,7 +124,7 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
  *
  * @return void
  *
- * @throws \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+ * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function writeReflectionPropertyValue(object $object, string $propertyName, $value): void
 {
@@ -148,7 +144,7 @@ function writeReflectionPropertyValue(object $object, string $propertyName, $val
  *
  * @return mixed
  *
- * @throws \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+ * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function readReflectionPropertyValue(object $object, string $propertyName)
 {
@@ -169,7 +165,7 @@ function readReflectionPropertyValue(object $object, string $propertyName)
  *
  * @return \ReflectionProperty
  *
- * @throws \ServiceBus\Common\Exceptions\Reflection\UnknownReflectionProperty
+ * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function extractReflectionProperty(object $object, string $propertyName): \ReflectionProperty
 {
@@ -194,9 +190,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
             }
         }
 
-        throw new UnknownReflectionProperty(
-            \sprintf('Property "%s" not exists in "%s"', $propertyName, \get_class($object))
-        );
+        throw ReflectionApiException::propertyNotExists($propertyName, $object);
     }
 }
 
@@ -207,7 +201,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
  *
  * @return object
  *
- * @throws \ServiceBus\Common\Exceptions\Reflection\ReflectionClassNotFound
+ * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function createWithoutConstructor(string $class): object
 {
@@ -217,8 +211,37 @@ function createWithoutConstructor(string $class): object
     }
     catch(\Throwable $throwable)
     {
-        throw new ReflectionClassNotFound($throwable->getMessage());
+        throw ReflectionApiException::classNotExists($class);
     }
+}
+
+/**
+ * Reads entire file into a string
+ *
+ * @param string $filePath
+ *
+ * @return string
+ *
+ * @throws FileSystemException
+ */
+function fileGetContents(string $filePath): string
+{
+    if(false === \file_exists($filePath) || false === \is_readable($filePath))
+    {
+        throw FileSystemException::nonExistentFile($filePath);
+    }
+
+    $fileContents = \file_get_contents($filePath);
+
+    // @codeCoverageIgnoreStart
+    if(false === $fileContents)
+    {
+        throw FileSystemException::getContentFailed($filePath);
+    }
+
+    // @codeCoverageIgnoreEnd
+
+    return $fileContents;
 }
 
 /**
@@ -228,26 +251,13 @@ function createWithoutConstructor(string $class): object
  *
  * @return string|null
  *
- * @throws \ServiceBus\Common\Exceptions\File\NonexistentFile
- * @throws \ServiceBus\Common\Exceptions\File\LoadContentFailed
+ * @throws \ServiceBus\Common\Exceptions\FileSystemException
  */
 function extractNamespaceFromFile(string $filePath): ?string
 {
-    if(false === \file_exists($filePath) || false === \is_readable($filePath))
-    {
-        throw new NonexistentFile($filePath);
-    }
+    $fileContents = fileGetContents($filePath);
 
     $matches = [];
-
-    $fileContents = \file_get_contents($filePath);
-
-    // @codeCoverageIgnoreStart
-    if(false === $fileContents)
-    {
-        throw new LoadContentFailed($filePath);
-    }
-    // @codeCoverageIgnoreEnd
 
     if(
         false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
@@ -306,4 +316,26 @@ function canonicalizeFilesPath(array $paths): array
     }
 
     return $result;
+}
+
+/**
+ * Formats bytes into a human readable string
+ *
+ * @param int $bytes
+ *
+ * @return string
+ */
+function formatBytes(int $bytes): string
+{
+    if(1024 * 1024 < $bytes)
+    {
+        return \round($bytes / 1024 / 1024, 2) . ' mb';
+    }
+
+    if(1024 < $bytes)
+    {
+        return \round($bytes / 1024, 2) . ' kb';
+    }
+
+    return $bytes . ' b';
 }

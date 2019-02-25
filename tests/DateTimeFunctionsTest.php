@@ -14,9 +14,8 @@ namespace ServiceBus\Common\Tests;
 
 use function ServiceBus\Common\datetimeInstantiator;
 use function ServiceBus\Common\datetimeToString;
-use ServiceBus\Common\Exceptions\DateTime\CreateDateTimeFailed;
-use ServiceBus\Common\Exceptions\DateTime\InvalidDateTimeFormatSpecified;
 use PHPUnit\Framework\TestCase;
+use ServiceBus\Common\Exceptions\DateTimeException;
 
 /**
  *
@@ -45,7 +44,7 @@ final class DateTimeFunctionsTest extends TestCase
     {
         if(true === $expectException)
         {
-            $this->expectException(CreateDateTimeFailed::class);
+            $this->expectException(DateTimeException::class);
         }
 
         $result = datetimeInstantiator($date, $timezone);
@@ -102,7 +101,7 @@ final class DateTimeFunctionsTest extends TestCase
     {
         if(true === $expectException)
         {
-            $this->expectException(InvalidDateTimeFormatSpecified::class);
+            $this->expectException(DateTimeException::class);
         }
 
         $result = datetimeToString($dateTime, $format);

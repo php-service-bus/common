@@ -14,7 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 use PHPUnit\Framework\TestCase;
 use function ServiceBus\Common\canonicalizeFilesPath;
-use ServiceBus\Common\Exceptions\File\NonexistentFile;
+use ServiceBus\Common\Exceptions\FileSystemException;
 use function ServiceBus\Common\extractNamespaceFromFile;
 use function ServiceBus\Common\searchFiles;
 
@@ -59,7 +59,7 @@ final class FileFunctionsTest extends TestCase
      */
     public function extractFromNonexistentFile(): void
     {
-        $this->expectException(NonexistentFile::class);
+        $this->expectException(FileSystemException::class);
 
         extractNamespaceFromFile('qwerty.exe');
     }
