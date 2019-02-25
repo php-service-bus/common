@@ -13,16 +13,17 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\MessageHandler;
 
 use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
-use ServiceBus\Common\Messages\Message;
 
 /**
- * @property-read string                                                                                                   $methodName
- * @property-read bool                                                                                                     $hasArguments
- * @property-read \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>                      $arguments
- * @property-read MessageHandlerReturnDeclaration                                                                          $returnDeclaration
- * @property-read MessageHandlerOptions                                                                                    $options
- * @property-read string|null                                                                                              $messageClass
- * @property-read \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+ * @property-read string                                                                              $methodName
+ * @property-read bool                                                                                $hasArguments
+ * @property-read \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string> $arguments
+ * @property-read MessageHandlerReturnDeclaration
+ *                $returnDeclaration
+ * @property-read MessageHandlerOptions                                                               $options
+ * @property-read string|null                                                                         $messageClass
+ * @property-read \Closure(\ServiceBus\Common\Messages\Message,
+ *                \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
  */
 final class MessageHandler
 {
@@ -147,13 +148,14 @@ final class MessageHandler
      */
     private function extractMessageClass(): ?string
     {
-        /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument $argument */
-        foreach($this->arguments as $argument)
+        $this->arguments->rewind();
+
+        /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument|null $firstArgument */
+        $firstArgument = $this->arguments->current();
+
+        if(null !== $firstArgument && true === $firstArgument->isObject)
         {
-            if(true === $argument->isA(Message::class))
-            {
-                return (string) $argument->typeClass;
-            }
+            return (string) $firstArgument->typeClass;
         }
 
         return null;

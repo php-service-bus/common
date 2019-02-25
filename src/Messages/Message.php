@@ -14,6 +14,8 @@ namespace ServiceBus\Common\Messages;
 
 /**
  * Message marker (command/event)
+ *
+ * @deprecated Now interface is not required. Will be removed in 3.1 version
  */
 interface Message
 {

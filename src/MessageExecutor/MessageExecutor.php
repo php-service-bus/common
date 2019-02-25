@@ -14,7 +14,6 @@ namespace ServiceBus\Common\MessageExecutor;
 
 use Amp\Promise;
 use ServiceBus\Common\Context\ServiceBusContext;
-use ServiceBus\Common\Messages\Message;
 
 /**
  *
@@ -24,12 +23,12 @@ interface MessageExecutor
     /**
      * Handle message
      *
-     * @param Message           $message
+     * @param object            $message
      * @param ServiceBusContext $context
      *
      * @return Promise It does not return any result
      *
      * @throws \Throwable
      */
-    public function __invoke(Message $message, ServiceBusContext $context): Promise;
+    public function __invoke(object $message, ServiceBusContext $context): Promise;
 }

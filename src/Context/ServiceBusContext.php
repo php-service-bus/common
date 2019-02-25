@@ -15,7 +15,6 @@ namespace ServiceBus\Common\Context;
 use Amp\Promise;
 use Psr\Log\LogLevel;
 use ServiceBus\Common\Endpoint\DeliveryOptions;
-use ServiceBus\Common\Messages\Message;
 
 /**
  * Base context interface
@@ -47,12 +46,12 @@ interface ServiceBusContext
     /**
      * Enqueue message
      *
-     * @param Message              $message
+     * @param object               $message
      * @param DeliveryOptions|null $deliveryOptions
      *
      * @return Promise It does not return any result
      */
-    public function delivery(Message $message, ?DeliveryOptions $deliveryOptions = null): Promise;
+    public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 
     /**
      * Log message with context details
