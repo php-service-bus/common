@@ -18,6 +18,8 @@ namespace ServiceBus\Common\Exceptions;
 final class FileSystemException extends \RuntimeException
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @param string $filePath
      *
      * @return self
