@@ -18,6 +18,7 @@ namespace ServiceBus\Common\MessageHandler;
  * @property-read bool        $hasType
  * @property-read string|null $argumentTypeClass
  * @property-read bool        $isObject
+ * @property-read int         $position
  */
 final class MessageHandlerArgument
 {
@@ -50,18 +51,26 @@ final class MessageHandlerArgument
     public $isObject;
 
     /**
+     * Argument position
+     *
+     * @var int
+     */
+    public $position;
+
+    /**
      * @var \ReflectionParameter
      */
     private $reflectionParameter;
 
     /**
+     * @param int                  $position
      * @param \ReflectionParameter $reflectionParameter
      *
      * @return self
      */
-    public static function create(\ReflectionParameter $reflectionParameter): self
+    public static function create(int $position, \ReflectionParameter $reflectionParameter): self
     {
-        return new self($reflectionParameter);
+        return new self($position, $reflectionParameter);
     }
 
     /**
@@ -85,14 +94,16 @@ final class MessageHandlerArgument
     }
 
     /**
+     * @param int                  $position
      * @param \ReflectionParameter $reflectionParameter
      */
-    private function __construct(\ReflectionParameter $reflectionParameter)
+    private function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
         $this->argumentName        = $this->reflectionParameter->getName();
         $this->hasType             = true === \is_object($this->reflectionParameter->getType());
         $this->isObject            = $this->assertType('object');
+        $this->position            = $position;
         $this->typeClass           = $this->getTypeClassName();
     }
 

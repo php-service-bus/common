@@ -122,9 +122,13 @@ final class MessageHandler
     {
         $argumentCollection = new \SplObjectStorage();
 
+        $position = 1;
+
         foreach($reflectionMethod->getParameters() as $parameter)
         {
-            $argumentCollection->attach(MessageHandlerArgument::create($parameter));
+            $argumentCollection->attach(MessageHandlerArgument::create($position, $parameter));
+
+            $position++;
         }
 
         /** @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection */

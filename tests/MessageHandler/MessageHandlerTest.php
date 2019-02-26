@@ -240,6 +240,7 @@ final class MessageHandlerTest extends TestCase
         static::assertNull($argument->typeClass);
         static::assertFalse($argument->isObject);
         static::assertFalse($argument->isA(\stdClass::class));
+        static::assertSame(1, $argument->position);
     }
 
     /**
