@@ -97,4 +97,13 @@ interface ServiceBusContext
      * @return string
      */
     public function traceId(): string;
+
+    /**
+     * Receive incoming message headers
+     *
+     * @psalm-return array<string, string|float|int>
+     *
+     * @return array
+     */
+    public function headers(): array;
 }
