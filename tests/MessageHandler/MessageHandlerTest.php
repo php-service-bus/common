@@ -41,6 +41,7 @@ final class MessageHandlerTest extends TestCase
         };
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
@@ -72,6 +73,7 @@ final class MessageHandlerTest extends TestCase
         };
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
@@ -99,6 +101,7 @@ final class MessageHandlerTest extends TestCase
         };
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
@@ -128,6 +131,7 @@ final class MessageHandlerTest extends TestCase
 
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
@@ -156,6 +160,7 @@ final class MessageHandlerTest extends TestCase
         };
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
@@ -184,6 +189,7 @@ final class MessageHandlerTest extends TestCase
         };
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
@@ -222,6 +228,7 @@ final class MessageHandlerTest extends TestCase
         };
 
         $handler = MessageHandler::create(
+            \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
             self::emptyOptions()
