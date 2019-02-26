@@ -39,7 +39,8 @@ interface ServiceBusContext
      *    ]
      * ]
      *
-     * @return array<string, array<int, string>>
+     * @psalm-return array<string, array<int, string>>
+     * @return array
      */
     public function violations(): array;
 

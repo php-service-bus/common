@@ -15,15 +15,13 @@ namespace ServiceBus\Common\MessageHandler;
 use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 
 /**
- * @property-read string                                                                              $methodName
- * @property-read bool                                                                                $hasArguments
- * @property-read \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string> $arguments
- * @property-read MessageHandlerReturnDeclaration
- *                $returnDeclaration
- * @property-read MessageHandlerOptions                                                               $options
- * @property-read string|null                                                                         $messageClass
- * @property-read \Closure(\ServiceBus\Common\Messages\Message,
- *                \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+ * @property-read string                          $methodName
+ * @property-read bool                            $hasArguments
+ * @property-read \SplObjectStorage               $arguments
+ * @property-read MessageHandlerReturnDeclaration $returnDeclaration
+ * @property-read MessageHandlerOptions           $options
+ * @property-read string|null                     $messageClass
+ * @property-read \Closure                        $closure
  */
 final class MessageHandler
 {
@@ -44,7 +42,8 @@ final class MessageHandler
     /**
      * Collection of arguments to the message handler
      *
-     * @var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>
+     * @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>
+     * @var \SplObjectStorage
      */
     public $arguments;
 
@@ -70,12 +69,17 @@ final class MessageHandler
     public $options;
 
     /**
-     * @var \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
+     * Execution closure
+     *
+     * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
+     * @var \Closure
      */
     public $closure;
 
     /**
-     * @param \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+     *
+     * @param \Closure              $closure
      * @param \ReflectionMethod     $reflectionMethod
      * @param MessageHandlerOptions $options
      *
@@ -91,7 +95,9 @@ final class MessageHandler
     }
 
     /**
-     * @param \Closure(\ServiceBus\Common\Messages\Message, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+     *
+     * @param \Closure              $closure
      * @param MessageHandlerOptions $options
      * @param \ReflectionMethod     $reflectionMethod
      */
@@ -109,7 +115,8 @@ final class MessageHandler
     /**
      * @param \ReflectionMethod $reflectionMethod
      *
-     * @return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
+     * @psalm-return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
+     * @return \SplObjectStorage
      */
     private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
@@ -120,7 +127,7 @@ final class MessageHandler
             $argumentCollection->attach(MessageHandlerArgument::create($parameter));
         }
 
-        /** @var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection */
+        /** @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection */
 
         return $argumentCollection;
     }
