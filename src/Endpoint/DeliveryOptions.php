@@ -54,6 +54,7 @@ interface DeliveryOptions
      * Receive headers
      *
      * @psalm-return array<string, string|int|float>
+     *
      * @return array
      */
     public function headers(): array;

@@ -113,9 +113,10 @@ final class MessageHandler
     }
 
     /**
+     * @psalm-return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
+     *
      * @param \ReflectionMethod $reflectionMethod
      *
-     * @psalm-return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
      * @return \SplObjectStorage
      */
     private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage

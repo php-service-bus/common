@@ -32,14 +32,14 @@ interface ServiceBusContext
     /**
      * If received message is incorrect, returns a list of violations
      *
+     * @psalm-return array<string, array<int, string>>
+     *
      * [
      *    'propertyPath' => [
      *        0 => 'some message',
      *        ....
      *    ]
      * ]
-     *
-     * @psalm-return array<string, array<int, string>>
      * @return array
      */
     public function violations(): array;
