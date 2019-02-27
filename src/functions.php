@@ -46,7 +46,8 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
     {
         try
         {
-            if (true === \is_string($timezone) && '' !== $timezone) {
+            if (true === \is_string($timezone) && '' !== $timezone)
+            {
                 $timezone = new \DateTimeZone($timezone);
             }
 
