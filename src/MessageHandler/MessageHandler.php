@@ -142,7 +142,7 @@ final class MessageHandler
             ++$position;
         }
 
-        // @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection
+        /** @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection */
 
         return $argumentCollection;
     }

@@ -46,12 +46,11 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
     {
         try
         {
-            if (true === \is_string($timezone) && '' !== $timezone)
-            {
+            if (true === \is_string($timezone) && '' !== $timezone) {
                 $timezone = new \DateTimeZone($timezone);
             }
 
-            // @var \DateTimeZone|null $timezone
+            /** @var \DateTimeZone|null $timezone */
             return new \DateTimeImmutable($datetimeString, $timezone);
         }
         catch (\Throwable $throwable)

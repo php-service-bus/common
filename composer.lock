@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0fc676a026715ef414c2f8133861c3cf",
-    "content-hash": "70985874aa0106eb282375d4dc043676",
+    "hash": "e05ba1f8425953a360c6e55ec768d394",
+    "content-hash": "cca3a76141b4b0abe52ee045d10bb535",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1188,16 +1188,16 @@
         },
         {
             "name": "php-service-bus/code-style-config",
-            "version": "dev-master",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mmasiukevich/code-style-config.git",
-                "reference": "70ca7feb808d62d5306fed26a308dcf90cd7524d"
+                "url": "https://github.com/php-service-bus/code-style-config.git",
+                "reference": "cbacc6f24b21874d620d12977985a35a41ed640c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mmasiukevich/code-style-config/zipball/70ca7feb808d62d5306fed26a308dcf90cd7524d",
-                "reference": "70ca7feb808d62d5306fed26a308dcf90cd7524d",
+                "url": "https://api.github.com/repos/php-service-bus/code-style-config/zipball/cbacc6f24b21874d620d12977985a35a41ed640c",
+                "reference": "cbacc6f24b21874d620d12977985a35a41ed640c",
                 "shasum": ""
             },
             "require": {
@@ -1223,7 +1223,7 @@
                 }
             ],
             "description": "PHP Service Bus code style config",
-            "time": "2019-02-26 15:32:00"
+            "time": "2019-02-27 07:30:22"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -3406,9 +3406,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "php-service-bus/code-style-config": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

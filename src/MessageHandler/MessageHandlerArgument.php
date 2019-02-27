@@ -81,7 +81,8 @@ final class MessageHandlerArgument
      */
     public function isA(string $expectedClass): bool
     {
-        if (true === $this->isObject) {
+        if (true === $this->isObject)
+        {
             /** @var \ReflectionClass $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
 
