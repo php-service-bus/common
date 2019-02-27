@@ -4,7 +4,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/common/badges/coverage.png?b=v3.0)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v3.0)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/common/badges/quality-score.png?b=v3.0)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v3.0)
 
-This component is part of the [PHP Service Bus](https://github.com/php-service-bus/service-bus). Contains common interfaces for implementing in the service bus
+This component is part of the [PHP Service Bus](https://github.com/php-service-bus/service-bus): contains common interfaces for implementing in the service bus
 
 ## Contributing
 Contributions are welcome! Please read [CONTRIBUTING](CONTRIBUTING.md) for details.
