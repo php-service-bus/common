@@ -1,14 +1,14 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests\MessageHandler;
 
@@ -18,15 +18,10 @@ use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 use ServiceBus\Common\MessageHandler\MessageHandler;
 
-/**
- *
- */
 final class MessageHandlerTest extends TestCase
 {
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -36,7 +31,6 @@ final class MessageHandlerTest extends TestCase
         {
             public function method(): void
             {
-
             }
         };
 
@@ -57,8 +51,6 @@ final class MessageHandlerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function noneReturnDeclaration(): void
@@ -66,9 +58,8 @@ final class MessageHandlerTest extends TestCase
         $object = new class()
         {
             /** @noinspection ReturnTypeCanBeDeclaredInspection */
-            public function method()
+            public function method(): void
             {
-
             }
         };
 
@@ -82,11 +73,8 @@ final class MessageHandlerTest extends TestCase
         static::assertNotNull($handler->returnDeclaration);
     }
 
-
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -115,8 +103,6 @@ final class MessageHandlerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function generatorReturnDeclaration(): void
@@ -128,7 +114,6 @@ final class MessageHandlerTest extends TestCase
                 yield from [];
             }
         };
-
 
         $handler = MessageHandler::create(
             \get_class($object),
@@ -144,8 +129,6 @@ final class MessageHandlerTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -174,8 +157,6 @@ final class MessageHandlerTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function objectArgument(): void
@@ -203,17 +184,15 @@ final class MessageHandlerTest extends TestCase
         /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument $argument */
         $argument = \end($args);
 
-        static::assertEquals('argument', $argument->argumentName);
+        static::assertSame('argument', $argument->argumentName);
         static::assertTrue($argument->hasType);
-        static::assertEquals(\stdClass::class, $argument->typeClass);
+        static::assertSame(\stdClass::class, $argument->typeClass);
         static::assertTrue($argument->isObject);
         static::assertTrue($argument->isA(\stdClass::class));
     }
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -242,7 +221,7 @@ final class MessageHandlerTest extends TestCase
         /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument $argument */
         $argument = \end($args);
 
-        static::assertEquals('argument', $argument->argumentName);
+        static::assertSame('argument', $argument->argumentName);
         static::assertFalse($argument->hasType);
         static::assertNull($argument->typeClass);
         static::assertFalse($argument->isObject);
@@ -255,9 +234,8 @@ final class MessageHandlerTest extends TestCase
      */
     private static function emptyOptions(): MessageHandlerOptions
     {
-        return new class implements MessageHandlerOptions
+        return new class() implements MessageHandlerOptions
         {
-
         };
     }
 
@@ -269,7 +247,6 @@ final class MessageHandlerTest extends TestCase
         return \Closure::fromCallable(
             static function(): void
             {
-
             }
         );
     }

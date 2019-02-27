@@ -1,14 +1,14 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common;
 
@@ -26,35 +26,35 @@ use ServiceBus\Common\Exceptions\ReflectionApiException;
  */
 function uuid(): string
 {
-    /** @noinspection PhpUnhandledExceptionInspection */
+    // @noinspection PhpUnhandledExceptionInspection
     return Uuid::uuid4()->toString();
 }
 
 /**
- * Create datetime object from valid string
+ * Create datetime object from valid string.
  *
  * @param string|null               $datetimeString
  * @param \DateTimeZone|string|null $timezone
  *
- * @return \DateTimeImmutable|null
- *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
+ *
+ * @return \DateTimeImmutable|null
  */
 function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
 {
-    if(null !== $datetimeString && '' !== $datetimeString)
+    if (null !== $datetimeString && '' !== $datetimeString)
     {
         try
         {
-            if(true === \is_string($timezone) && '' !== $timezone)
+            if (true === \is_string($timezone) && '' !== $timezone)
             {
                 $timezone = new \DateTimeZone($timezone);
             }
 
-            /** @var \DateTimeZone|null $timezone */
+            // @var \DateTimeZone|null $timezone
             return new \DateTimeImmutable($datetimeString, $timezone);
         }
-        catch(\Throwable $throwable)
+        catch (\Throwable $throwable)
         {
             throw DateTimeException::fromThrowable($throwable);
         }
@@ -64,23 +64,23 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
 }
 
 /**
- * Receive datetime as string representation (or null if not specified)
+ * Receive datetime as string representation (or null if not specified).
  *
  * @param \DateTimeInterface|null $dateTime
  * @param string                  $format
  *
- * @return string|null
- *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
+ *
+ * @return string|null
  */
 function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d H:i:s'): ?string
 {
-    if(null !== $dateTime)
+    if (null !== $dateTime)
     {
-        /** @var string|false $result */
+        /** @var false|string $result */
         $result = $dateTime->format($format);
 
-        if(false !== $result && false !== \strtotime($result))
+        if (false !== $result && false !== \strtotime($result))
         {
             return $result;
         }
@@ -96,9 +96,9 @@ function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d
  * @param string $methodName
  * @param mixed  ...$parameters
  *
- * @return mixed
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
+ *
+ * @return mixed
  */
 function invokeReflectionMethod(object $object, string $methodName, ...$parameters)
 {
@@ -109,20 +109,18 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
 
         return $reflectionMethod->invoke($object, ...$parameters);
     }
-    catch(\ReflectionException $exception)
+    catch (\ReflectionException $exception)
     {
         throw ReflectionApiException::fromThrowable($exception);
     }
 }
 
 /**
- * Write value to property
+ * Write value to property.
  *
  * @param object $object
  * @param string $propertyName
  * @param mixed  $value
- *
- * @return void
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
@@ -135,16 +133,16 @@ function writeReflectionPropertyValue(object $object, string $propertyName, $val
 }
 
 /**
- * Read property value
+ * Read property value.
  *
  * @psalm-suppress MixedAssignment Mixed return data type
  *
  * @param object $object
  * @param string $propertyName
  *
- * @return mixed
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
+ *
+ * @return mixed
  */
 function readReflectionPropertyValue(object $object, string $propertyName)
 {
@@ -156,16 +154,16 @@ function readReflectionPropertyValue(object $object, string $propertyName)
 }
 
 /**
- * Extract property
+ * Extract property.
  *
  * @internal
  *
  * @param object $object
  * @param string $propertyName
  *
- * @return \ReflectionProperty
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
+ *
+ * @return \ReflectionProperty
  */
 function extractReflectionProperty(object $object, string $propertyName): \ReflectionProperty
 {
@@ -173,20 +171,20 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
     {
         return new \ReflectionProperty($object, $propertyName);
     }
-    catch(\ReflectionException $e)
+    catch (\ReflectionException $e)
     {
         $reflector = new \ReflectionObject($object);
 
-        /** @noinspection LoopWhichDoesNotLoopInspection */
-        while($reflector = $reflector->getParentClass())
+        // @noinspection LoopWhichDoesNotLoopInspection
+        while ($reflector = $reflector->getParentClass())
         {
             try
             {
                 return $reflector->getProperty($propertyName);
             }
-            catch(\Throwable $throwable)
+            catch (\Throwable $throwable)
             {
-                /** Not interested */
+                // Not interested
             }
         }
 
@@ -199,9 +197,9 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
  *
  * @param string $class
  *
- * @return object
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
+ *
+ * @return object
  */
 function createWithoutConstructor(string $class): object
 {
@@ -209,24 +207,24 @@ function createWithoutConstructor(string $class): object
     {
         return (new \ReflectionClass($class))->newInstanceWithoutConstructor();
     }
-    catch(\Throwable $throwable)
+    catch (\Throwable $throwable)
     {
         throw ReflectionApiException::classNotExists($class);
     }
 }
 
 /**
- * Reads entire file into a string
+ * Reads entire file into a string.
  *
  * @param string $filePath
  *
- * @return string
- *
  * @throws FileSystemException
+ *
+ * @return string
  */
 function fileGetContents(string $filePath): string
 {
-    if(false === \file_exists($filePath) || false === \is_readable($filePath))
+    if (false === \file_exists($filePath) || false === \is_readable($filePath))
     {
         throw FileSystemException::nonExistentFile($filePath);
     }
@@ -234,7 +232,7 @@ function fileGetContents(string $filePath): string
     $fileContents = \file_get_contents($filePath);
 
     // @codeCoverageIgnoreStart
-    if(false === $fileContents)
+    if (false === $fileContents)
     {
         throw FileSystemException::getContentFailed($filePath);
     }
@@ -245,13 +243,13 @@ function fileGetContents(string $filePath): string
 }
 
 /**
- * Extract namespace from file content
+ * Extract namespace from file content.
  *
  * @param string $filePath
  *
- * @return string|null
- *
  * @throws \ServiceBus\Common\Exceptions\FileSystemException
+ *
+ * @return string|null
  */
 function extractNamespaceFromFile(string $filePath): ?string
 {
@@ -259,12 +257,12 @@ function extractNamespaceFromFile(string $filePath): ?string
 
     $matches = [];
 
-    if(
+    if (
         false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
         true === isset($matches[1])
-    )
-    {
-        return \sprintf('%s\\%s',
+    ) {
+        return \sprintf(
+            '%s\\%s',
             $matches[1],
             \pathinfo($filePath)['filename']
         );
@@ -275,7 +273,7 @@ function extractNamespaceFromFile(string $filePath): ?string
 
 /**
  * Recursive search of all files in the directory
- * Search for files matching the specified regular expression
+ * Search for files matching the specified regular expression.
  *
  * @psalm-suppress MixedTypeCoercion
  *
@@ -286,7 +284,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {
-    foreach($directories as $directory)
+    foreach ($directories as $directory)
     {
         $regexIterator = new \RegexIterator(
             new \RecursiveIteratorIterator(
@@ -300,7 +298,7 @@ function searchFiles(array $directories, string $regExp): \Generator
 }
 
 /**
- * Casting paths to canonical form
+ * Casting paths to canonical form.
  *
  * @param array<mixed, string> $paths
  *
@@ -310,7 +308,7 @@ function canonicalizeFilesPath(array $paths): array
 {
     $result = [];
 
-    foreach($paths as $path)
+    foreach ($paths as $path)
     {
         $result[] = (new \SplFileInfo($path))->getRealPath();
     }
@@ -319,7 +317,7 @@ function canonicalizeFilesPath(array $paths): array
 }
 
 /**
- * Formats bytes into a human readable string
+ * Formats bytes into a human readable string.
  *
  * @param int $bytes
  *
@@ -327,12 +325,12 @@ function canonicalizeFilesPath(array $paths): array
  */
 function formatBytes(int $bytes): string
 {
-    if(1024 * 1024 < $bytes)
+    if (1024 * 1024 < $bytes)
     {
         return \round($bytes / 1024 / 1024, 2) . ' mb';
     }
 
-    if(1024 < $bytes)
+    if (1024 < $bytes)
     {
         return \round($bytes / 1024, 2) . ' kb';
     }

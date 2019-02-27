@@ -1,20 +1,17 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests;
 
-/**
- *
- */
 final class SecondClass extends FirstClass
 {
     /**
@@ -45,7 +42,7 @@ final class SecondClass extends FirstClass
 
     /**
      *  @noinspection PhpUnusedPrivateMethodInspection
-     * 
+     *
      * @param string $text
      *
      * @return string

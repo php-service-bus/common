@@ -1,32 +1,27 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests;
 
-use PHPUnit\Framework\TestCase;
 use function ServiceBus\Common\canonicalizeFilesPath;
-use ServiceBus\Common\Exceptions\FileSystemException;
 use function ServiceBus\Common\extractNamespaceFromFile;
 use function ServiceBus\Common\searchFiles;
+use PHPUnit\Framework\TestCase;
+use ServiceBus\Common\Exceptions\FileSystemException;
 
-/**
- *
- */
 final class FileFunctionsTest extends TestCase
 {
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -40,8 +35,6 @@ final class FileFunctionsTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function extractNamespaceFromFile(): void
@@ -52,8 +45,6 @@ final class FileFunctionsTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */

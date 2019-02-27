@@ -1,32 +1,32 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\MessageHandler;
 
 use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 
 /**
- * @property-read string                          $methodName
- * @property-read bool                            $hasArguments
- * @property-read \SplObjectStorage               $arguments
- * @property-read MessageHandlerReturnDeclaration $returnDeclaration
- * @property-read MessageHandlerOptions           $options
- * @property-read string|null                     $messageClass
- * @property-read \Closure                        $closure
+ * @property string                          $methodName
+ * @property bool                            $hasArguments
+ * @property \SplObjectStorage               $arguments
+ * @property MessageHandlerReturnDeclaration $returnDeclaration
+ * @property MessageHandlerOptions           $options
+ * @property string|null                     $messageClass
+ * @property \Closure                        $closure
  */
 final class MessageHandler
 {
     /**
-     * Method name
+     * Method name.
      *
      * @var string
      */
@@ -40,38 +40,40 @@ final class MessageHandler
     public $hasArguments;
 
     /**
-     * Collection of arguments to the message handler
+     * Collection of arguments to the message handler.
      *
      * @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>
+     *
      * @var \SplObjectStorage
      */
     public $arguments;
 
     /**
-     * Message class for which the handler was created
+     * Message class for which the handler was created.
      *
      * @var string|null
      */
     public $messageClass;
 
     /**
-     * Handler return declaration
+     * Handler return declaration.
      *
      * @var MessageHandlerReturnDeclaration
      */
     public $returnDeclaration;
 
     /**
-     * Handler options
+     * Handler options.
      *
      * @var MessageHandlerOptions
      */
     public $options;
 
     /**
-     * Execution closure
+     * Execution closure.
      *
      * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
+     *
      * @var \Closure
      */
     public $closure;
@@ -92,8 +94,7 @@ final class MessageHandler
         \Closure $closure,
         \ReflectionMethod $reflectionMethod,
         MessageHandlerOptions $options
-    ): self
-    {
+    ): self {
         return new self($messageClass, $closure, $options, $reflectionMethod);
     }
 
@@ -111,14 +112,13 @@ final class MessageHandler
         \Closure $closure,
         MessageHandlerOptions $options,
         \ReflectionMethod $reflectionMethod
-    )
-    {
-        $this->closure           = $closure;
-        $this->options           = $options;
-        $this->methodName        = $reflectionMethod->getName();
-        $this->messageClass      = $messageClass;
-        $this->arguments         = $this->extractArguments($reflectionMethod);
-        $this->hasArguments      = 0 !== \count($this->arguments);
+    ) {
+        $this->closure = $closure;
+        $this->options = $options;
+        $this->methodName = $reflectionMethod->getName();
+        $this->messageClass = $messageClass;
+        $this->arguments = $this->extractArguments($reflectionMethod);
+        $this->hasArguments = 0 !== \count($this->arguments);
         $this->returnDeclaration = $this->extractReturnDeclaration($reflectionMethod);
     }
 
@@ -135,14 +135,14 @@ final class MessageHandler
 
         $position = 1;
 
-        foreach($reflectionMethod->getParameters() as $parameter)
+        foreach ($reflectionMethod->getParameters() as $parameter)
         {
             $argumentCollection->attach(MessageHandlerArgument::create($position, $parameter));
 
-            $position++;
+            ++$position;
         }
 
-        /** @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection */
+        // @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection
 
         return $argumentCollection;
     }
@@ -154,7 +154,7 @@ final class MessageHandler
      */
     private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
-        if(null !== $reflectionMethod->getReturnType())
+        if (null !== $reflectionMethod->getReturnType())
         {
             /** @var \ReflectionType $returnDeclaration */
             $returnDeclaration = $reflectionMethod->getReturnType();

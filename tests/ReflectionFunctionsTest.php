@@ -1,39 +1,34 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests;
 
 use function ServiceBus\Common\createWithoutConstructor;
-use ServiceBus\Common\Exceptions\ReflectionApiException;
 use function ServiceBus\Common\invokeReflectionMethod;
 use function ServiceBus\Common\readReflectionPropertyValue;
 use function ServiceBus\Common\writeReflectionPropertyValue;
 use PHPUnit\Framework\TestCase;
+use ServiceBus\Common\Exceptions\ReflectionApiException;
 
-/**
- *
- */
 final class ReflectionFunctionsTest extends TestCase
 {
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function readPublicProperty(): void
     {
-        static::assertEquals(
+        static::assertSame(
             'abube',
             readReflectionPropertyValue(
                 new SecondClass(),
@@ -44,8 +39,6 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -59,25 +52,23 @@ final class ReflectionFunctionsTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function readAllProperties(): void
     {
         $object = new SecondClass();
 
-        static::assertEquals(
+        static::assertSame(
             'abube',
             readReflectionPropertyValue($object, 'secondClassPublicValue')
         );
 
-        static::assertEquals(
+        static::assertSame(
             'root',
             readReflectionPropertyValue($object, 'secondClassValue')
         );
 
-        static::assertEquals(
+        static::assertSame(
             'qwerty',
             readReflectionPropertyValue($object, 'firstClassValue')
         );
@@ -85,8 +76,6 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -101,8 +90,6 @@ final class ReflectionFunctionsTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function invokeUnknownReflectionMethod(): void
@@ -114,8 +101,6 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */
@@ -129,8 +114,6 @@ final class ReflectionFunctionsTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
      */
     public function createWithUnknownClass(): void
@@ -142,8 +125,6 @@ final class ReflectionFunctionsTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      *
      * @throws \Throwable
      */

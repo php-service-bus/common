@@ -1,25 +1,25 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\MessageHandler;
 
 use Amp\Promise;
 
 /**
- * Handler return declaration
+ * Handler return declaration.
  *
- * @property-read bool $isVoid
- * @property-read bool $isPromise
- * @property-read bool $isGenerator
+ * @property bool $isVoid
+ * @property bool $isPromise
+ * @property bool $isGenerator
  */
 final class MessageHandlerReturnDeclaration
 {
@@ -61,10 +61,10 @@ final class MessageHandlerReturnDeclaration
      */
     private function __construct(?\ReflectionType $reflectionType)
     {
-        if(null !== $reflectionType)
+        if (null !== $reflectionType)
         {
-            $this->isVoid      = 'void' === $reflectionType->getName();
-            $this->isPromise   = Promise::class === $reflectionType->getName();
+            $this->isVoid = 'void' === $reflectionType->getName();
+            $this->isPromise = Promise::class === $reflectionType->getName();
             $this->isGenerator = \Generator::class === $reflectionType->getName();
         }
         else

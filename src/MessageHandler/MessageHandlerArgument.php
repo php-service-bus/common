@@ -1,29 +1,28 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\MessageHandler;
 
 /**
- *
- * @property-read string      $argumentName
- * @property-read bool        $hasType
- * @property-read string|null $argumentTypeClass
- * @property-read bool        $isObject
- * @property-read int         $position
+ * @property string      $argumentName
+ * @property bool        $hasType
+ * @property string|null $argumentTypeClass
+ * @property bool        $isObject
+ * @property int         $position
  */
 final class MessageHandlerArgument
 {
     /**
-     * Argument name
+     * Argument name.
      *
      * @var string
      */
@@ -37,7 +36,7 @@ final class MessageHandlerArgument
     public $hasType;
 
     /**
-     * If the argument type is an object, then the name of the class. Otherwise null
+     * If the argument type is an object, then the name of the class. Otherwise null.
      *
      * @var string|null
      */
@@ -51,7 +50,7 @@ final class MessageHandlerArgument
     public $isObject;
 
     /**
-     * Argument position
+     * Argument position.
      *
      * @var int
      */
@@ -74,7 +73,7 @@ final class MessageHandlerArgument
     }
 
     /**
-     * Checks if the class is of this class or has this class as one of its parents
+     * Checks if the class is of this class or has this class as one of its parents.
      *
      * @param string $expectedClass
      *
@@ -82,8 +81,7 @@ final class MessageHandlerArgument
      */
     public function isA(string $expectedClass): bool
     {
-        if(true === $this->isObject)
-        {
+        if (true === $this->isObject) {
             /** @var \ReflectionClass $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
 
@@ -100,11 +98,11 @@ final class MessageHandlerArgument
     private function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
-        $this->argumentName        = $this->reflectionParameter->getName();
-        $this->hasType             = true === \is_object($this->reflectionParameter->getType());
-        $this->isObject            = $this->assertType('object');
-        $this->position            = $position;
-        $this->typeClass           = $this->getTypeClassName();
+        $this->argumentName = $this->reflectionParameter->getName();
+        $this->hasType = true === \is_object($this->reflectionParameter->getType());
+        $this->isObject = $this->assertType('object');
+        $this->position = $position;
+        $this->typeClass = $this->getTypeClassName();
     }
 
     /**
@@ -112,7 +110,7 @@ final class MessageHandlerArgument
      */
     private function getTypeClassName(): ?string
     {
-        if(true === $this->isObject)
+        if (true === $this->isObject)
         {
             /** @var \ReflectionClass $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
@@ -124,7 +122,7 @@ final class MessageHandlerArgument
     }
 
     /**
-     * Compare argument types
+     * Compare argument types.
      *
      * @param string $expectedType
      *
@@ -132,12 +130,12 @@ final class MessageHandlerArgument
      */
     private function assertType(string $expectedType): bool
     {
-        if(true === $this->hasType)
+        if (true === $this->hasType)
         {
             /** @var \ReflectionType $type */
             $type = $this->reflectionParameter->getType();
 
-            if(true === \class_exists($type->getName()) || true === \interface_exists($type->getName()))
+            if (true === \class_exists($type->getName()) || true === \interface_exists($type->getName()))
             {
                 return 'object' === $expectedType;
             }

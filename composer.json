@@ -40,7 +40,8 @@
   "require-dev": {
     "symfony/dependency-injection": "^v4.2",
     "phpunit/phpunit": "^8",
-    "vimeo/psalm": "^3"
+    "vimeo/psalm": "^3",
+    "php-service-bus/code-style-config": "dev-master"
   },
   "prefer-stable": true,
   "minimum-stability": "dev",
@@ -50,7 +51,9 @@
     "coverage": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-html ./coverage --verbose",
     "test": [
       "@phpunit"
-    ]
+    ],
+    "code-style": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
+    "pre-commit": "./vendor/bin/psalm --config=psalm.xml && ./vendor/bin/phpunit --configuration phpunit.xml --verbose"
   },
   "config": {
     "optimize-autoloader": true

@@ -1,28 +1,26 @@
 <?php
 
 /**
- * PHP Service Bus common component
+ * PHP Service Bus common component.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Module;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Configure & enable module
+ * Configure & enable module.
  */
 interface ServiceBusModule
 {
     /**
      * @param ContainerBuilder $containerBuilder
-     *
-     * @return void
      *
      * @throws \Throwable Boot module failed
      */
