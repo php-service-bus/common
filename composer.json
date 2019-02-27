@@ -38,10 +38,10 @@
     "ramsey/uuid": "^3.7"
   },
   "require-dev": {
+    "php-service-bus/code-style-config": "^v0.1",
     "symfony/dependency-injection": "^v4.2",
     "phpunit/phpunit": "^8",
-    "vimeo/psalm": "^3",
-    "php-service-bus/code-style-config": "^v0.1"
+    "vimeo/psalm": "^3"
   },
   "prefer-stable": true,
   "minimum-stability": "dev",
