@@ -26,7 +26,7 @@ use ServiceBus\Common\Exceptions\ReflectionApiException;
  */
 function uuid(): string
 {
-    // @noinspection PhpUnhandledExceptionInspection
+    /** @noinspection PhpUnhandledExceptionInspection */
     return Uuid::uuid4()->toString();
 }
 
@@ -67,14 +67,16 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
  * Receive datetime as string representation (or null if not specified).
  *
  * @param \DateTimeInterface|null $dateTime
- * @param string                  $format
+ * @param string|null                  $format
  *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
  *
  * @return string|null
  */
-function datetimeToString(?\DateTimeInterface $dateTime, string $format = 'Y-m-d H:i:s'): ?string
+function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null): ?string
 {
+    $format = $format ?? 'Y-m-d H:i:s';
+
     if (null !== $dateTime)
     {
         /** @var false|string $result */
