@@ -257,16 +257,17 @@ function extractNamespaceFromFile(string $filePath): ?string
 {
     $fileContents = fileGetContents($filePath);
 
-    $matches = [];
-
     if (
         false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
         true === isset($matches[1])
     ) {
+        /** @var string $fileName */
+        $fileName = \pathinfo($filePath)['filename'];
+
         return \sprintf(
             '%s\\%s',
-            $matches[1],
-            \pathinfo($filePath)['filename']
+            (string) $matches[1],
+            $fileName
         );
     }
 
@@ -312,7 +313,7 @@ function canonicalizeFilesPath(array $paths): array
 
     foreach ($paths as $path)
     {
-        $result[] = (new \SplFileInfo($path))->getRealPath();
+        $result[] = (string) (new \SplFileInfo($path))->getRealPath();
     }
 
     return $result;

@@ -1,0 +1,5 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#timezone of class DateTimeImmutable constructor expects#'
+			path: %currentWorkingDirectory%/src/functions.php

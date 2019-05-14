@@ -154,11 +154,10 @@ final class MessageHandler
      */
     private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
-        if (null !== $reflectionMethod->getReturnType())
-        {
-            /** @var \ReflectionType $returnDeclaration */
-            $returnDeclaration = $reflectionMethod->getReturnType();
+        $returnDeclaration = $reflectionMethod->getReturnType();
 
+        if (null !== $returnDeclaration)
+        {
             return MessageHandlerReturnDeclaration::create($returnDeclaration);
         }
 
