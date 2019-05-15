@@ -61,6 +61,8 @@ interface ServiceBusContext
      * @param string $logMessage
      * @param array  $extra
      * @param string $level
+     *
+     * @return void
      */
     public function logContextMessage(
         string $logMessage,
@@ -74,6 +76,8 @@ interface ServiceBusContext
      * @param \Throwable $throwable
      * @param array      $extra
      * @param string     $level
+     *
+     * @return void
      */
     public function logContextThrowable(
         \Throwable $throwable,
