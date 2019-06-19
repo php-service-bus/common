@@ -94,6 +94,8 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
 }
 
 /**
+ * Invoke.
+ *
  * @param object $object
  * @param string $methodName
  * @param mixed  ...$parameters

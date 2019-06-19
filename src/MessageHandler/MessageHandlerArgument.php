@@ -8,11 +8,13 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\MessageHandler;
 
 /**
+ * Handler argument information.
+ *
  * @property string      $argumentName
  * @property bool        $hasType
  * @property string|null $argumentTypeClass
@@ -99,14 +101,16 @@ final class MessageHandlerArgument
     private function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
-        $this->argumentName = $this->reflectionParameter->getName();
-        $this->hasType = true === \is_object($this->reflectionParameter->getType());
-        $this->isObject = $this->assertType('object');
-        $this->position = $position;
-        $this->typeClass = $this->getTypeClassName();
+        $this->argumentName        = $this->reflectionParameter->getName();
+        $this->hasType             = true === \is_object($this->reflectionParameter->getType());
+        $this->isObject            = $this->assertType('object');
+        $this->position            = $position;
+        $this->typeClass           = $this->getTypeClassName();
     }
 
     /**
+     * If the argument is an object, returns its type.
+     *
      * @return string|null
      */
     private function getTypeClassName(): ?string

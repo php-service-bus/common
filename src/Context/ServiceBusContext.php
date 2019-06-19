@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\Context;
 
@@ -51,7 +51,10 @@ interface ServiceBusContext
      * @param object               $message
      * @param DeliveryOptions|null $deliveryOptions
      *
+     * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
+     *
      * @return Promise It does not return any result
+     *
      */
     public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 

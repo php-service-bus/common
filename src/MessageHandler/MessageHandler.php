@@ -8,13 +8,15 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\MessageHandler;
 
 use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 
 /**
+ * Message handler details.
+ *
  * @property string                          $methodName
  * @property bool                            $hasArguments
  * @property \SplObjectStorage               $arguments
@@ -113,16 +115,18 @@ final class MessageHandler
         MessageHandlerOptions $options,
         \ReflectionMethod $reflectionMethod
     ) {
-        $this->closure = $closure;
-        $this->options = $options;
-        $this->methodName = $reflectionMethod->getName();
-        $this->messageClass = $messageClass;
-        $this->arguments = $this->extractArguments($reflectionMethod);
-        $this->hasArguments = 0 !== \count($this->arguments);
+        $this->closure           = $closure;
+        $this->options           = $options;
+        $this->methodName        = $reflectionMethod->getName();
+        $this->messageClass      = $messageClass;
+        $this->arguments         = $this->extractArguments($reflectionMethod);
+        $this->hasArguments      = 0 !== \count($this->arguments);
         $this->returnDeclaration = $this->extractReturnDeclaration($reflectionMethod);
     }
 
     /**
+     * Retrieves a collection of method arguments.
+     *
      * @psalm-return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
      *
      * @param \ReflectionMethod $reflectionMethod
@@ -148,6 +152,8 @@ final class MessageHandler
     }
 
     /**
+     * Retrieves a method return declaration.
+     *
      * @param \ReflectionMethod $reflectionMethod
      *
      * @return MessageHandlerReturnDeclaration

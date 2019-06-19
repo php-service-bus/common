@@ -14,6 +14,9 @@ namespace ServiceBus\Common\MessageExecutor;
 
 use ServiceBus\Common\MessageHandler\MessageHandler;
 
+/**
+ * Message handler creation factory.
+ */
 interface MessageExecutorFactory
 {
     /**
