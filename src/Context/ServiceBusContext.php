@@ -54,7 +54,6 @@ interface ServiceBusContext
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      *
      * @return Promise It does not return any result
-     *
      */
     public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 
