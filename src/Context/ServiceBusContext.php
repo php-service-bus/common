@@ -58,6 +58,18 @@ interface ServiceBusContext
     public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 
     /**
+     * Return the message back to the queue.
+     *
+     * @param object $message
+     * @param int    $secondsDelay
+     *
+     * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
+     *
+     * @return Promise It does not return any result
+     */
+    public function return(object $message, int $secondsDelay = 3): Promise;
+
+    /**
      * Log message with context details.
      *
      * @param string $logMessage
@@ -76,15 +88,15 @@ interface ServiceBusContext
      * Log Throwable in execution context.
      *
      * @param \Throwable $throwable
-     * @param array      $extra
      * @param string     $level
+     * @param array      $extra
      *
      * @return void
      */
     public function logContextThrowable(
         \Throwable $throwable,
-        string $level = LogLevel::ERROR,
-        array $extra = []
+        array $extra = [],
+        string $level = LogLevel::ERROR
     ): void;
 
     /**
