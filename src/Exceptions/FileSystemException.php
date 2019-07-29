@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace ServiceBus\Common\Exceptions;
 
+/**
+ *
+ */
 final class FileSystemException extends \RuntimeException
 {
     /**
