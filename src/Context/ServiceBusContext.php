@@ -58,16 +58,15 @@ interface ServiceBusContext
     public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 
     /**
-     * Return the message back to the queue.
+     * Return current message back to the queue.
      *
-     * @param object $message
-     * @param int    $secondsDelay
+     * @param int $secondsDelay
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      *
      * @return Promise It does not return any result
      */
-    public function return(object $message, int $secondsDelay = 3): Promise;
+    public function return(int $secondsDelay = 3): Promise;
 
     /**
      * Log message with context details.
