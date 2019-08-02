@@ -17,7 +17,7 @@ use Psr\Log\LogLevel;
 use ServiceBus\Common\Endpoint\DeliveryOptions;
 
 /**
- * Message execution context
+ * Message execution context.
  */
 interface ServiceBusContext
 {

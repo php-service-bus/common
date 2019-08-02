@@ -76,7 +76,6 @@ final class OtherFunctionsTest extends TestCase
         static::assertSame('message', $data['throwableMessage']);
     }
 
-
     /**
      * @test
      *
