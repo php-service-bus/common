@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common;
 
@@ -42,11 +42,11 @@ function uuid(): string
  */
 function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
 {
-    if (null !== $datetimeString && '' !== $datetimeString)
+    if(null !== $datetimeString && '' !== $datetimeString)
     {
         try
         {
-            if (true === \is_string($timezone) && '' !== $timezone)
+            if(true === \is_string($timezone) && '' !== $timezone)
             {
                 $timezone = new \DateTimeZone($timezone);
             }
@@ -54,7 +54,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
             /** @var \DateTimeZone|null $timezone */
             return new \DateTimeImmutable($datetimeString, $timezone);
         }
-        catch (\Throwable $throwable)
+        catch(\Throwable $throwable)
         {
             throw DateTimeException::fromThrowable($throwable);
         }
@@ -67,7 +67,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
  * Receive datetime as string representation (or null if not specified).
  *
  * @param \DateTimeInterface|null $dateTime
- * @param string|null                  $format
+ * @param string|null             $format
  *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
  *
@@ -77,12 +77,12 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
 {
     $format = $format ?? 'Y-m-d H:i:s';
 
-    if (null !== $dateTime)
+    if(null !== $dateTime)
     {
         /** @var false|string $result */
         $result = $dateTime->format($format);
 
-        if (false !== $result && false !== \strtotime($result))
+        if(false !== $result && false !== \strtotime($result))
         {
             return $result;
         }
@@ -113,7 +113,7 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
 
         return $reflectionMethod->invoke($object, ...$parameters);
     }
-    catch (\ReflectionException $exception)
+    catch(\ReflectionException $exception)
     {
         throw ReflectionApiException::fromThrowable($exception);
     }
@@ -175,18 +175,18 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
     {
         return new \ReflectionProperty($object, $propertyName);
     }
-    catch (\ReflectionException $e)
+    catch(\ReflectionException $e)
     {
         $reflector = new \ReflectionObject($object);
 
         // @noinspection LoopWhichDoesNotLoopInspection
-        while ($reflector = $reflector->getParentClass())
+        while($reflector = $reflector->getParentClass())
         {
             try
             {
                 return $reflector->getProperty($propertyName);
             }
-            catch (\Throwable $throwable)
+            catch(\Throwable $throwable)
             {
                 // Not interested
             }
@@ -211,7 +211,7 @@ function createWithoutConstructor(string $class): object
     {
         return (new \ReflectionClass($class))->newInstanceWithoutConstructor();
     }
-    catch (\Throwable $throwable)
+    catch(\Throwable $throwable)
     {
         throw ReflectionApiException::classNotExists($class);
     }
@@ -228,7 +228,7 @@ function createWithoutConstructor(string $class): object
  */
 function fileGetContents(string $filePath): string
 {
-    if (false === \file_exists($filePath) || false === \is_readable($filePath))
+    if(false === \file_exists($filePath) || false === \is_readable($filePath))
     {
         throw FileSystemException::nonExistentFile($filePath);
     }
@@ -236,7 +236,7 @@ function fileGetContents(string $filePath): string
     $fileContents = \file_get_contents($filePath);
 
     // @codeCoverageIgnoreStart
-    if (false === $fileContents)
+    if(false === $fileContents)
     {
         throw FileSystemException::getContentFailed($filePath);
     }
@@ -259,10 +259,11 @@ function extractNamespaceFromFile(string $filePath): ?string
 {
     $fileContents = fileGetContents($filePath);
 
-    if (
+    if(
         false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
         true === isset($matches[1])
-    ) {
+    )
+    {
         /** @var string $fileName */
         $fileName = \pathinfo($filePath)['filename'];
 
@@ -289,7 +290,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {
-    foreach ($directories as $directory)
+    foreach($directories as $directory)
     {
         $regexIterator = new \RegexIterator(
             new \RecursiveIteratorIterator(
@@ -313,7 +314,7 @@ function canonicalizeFilesPath(array $paths): array
 {
     $result = [];
 
-    foreach ($paths as $path)
+    foreach($paths as $path)
     {
         $result[] = (string) (new \SplFileInfo($path))->getRealPath();
     }
@@ -330,15 +331,48 @@ function canonicalizeFilesPath(array $paths): array
  */
 function formatBytes(int $bytes): string
 {
-    if (1024 * 1024 < $bytes)
+    if(1024 * 1024 < $bytes)
     {
         return \round($bytes / 1024 / 1024, 2) . ' mb';
     }
 
-    if (1024 < $bytes)
+    if(1024 < $bytes)
     {
         return \round($bytes / 1024, 2) . ' kb';
     }
 
     return $bytes . ' b';
+}
+
+/**
+ * Collect all throwable information (include previous)
+ *
+ * @param \Throwable $throwable
+ *
+ * @return array
+ */
+function collectThrowableDetails(\Throwable $throwable): array
+{
+    $throwableFormatter = static function(\Throwable $throwable): array
+    {
+        return [
+            'throwableMessage' => $throwable->getMessage(),
+            'throwablePoint'   => \sprintf('%s:%d', $throwable->getFile(), $throwable->getLine())
+        ];
+    };
+
+    $result = $throwableFormatter($throwable);
+
+    $result['throwablePrevious'] = [];
+
+    if($previous = $throwable->getPrevious())
+    {
+        do
+        {
+            $result['throwablePrevious'][] = $throwableFormatter($previous);
+        }
+        while($previous = $previous->getPrevious());
+    }
+
+    return $result;
 }
