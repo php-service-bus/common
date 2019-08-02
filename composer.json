@@ -34,15 +34,15 @@
   },
   "require": {
     "php": ">=7.3",
-    "amphp/amp": "^2",
-    "ramsey/uuid": "^3.7"
+    "amphp/amp": "2.1.*",
+    "ramsey/uuid": "3.8.*"
   },
   "require-dev": {
-    "php-service-bus/code-style-config": "^v0.1",
-    "symfony/dependency-injection": "^v4.3",
-    "phpunit/phpunit": "^8",
-    "vimeo/psalm": "^3",
-    "phpstan/phpstan": "^0.11"
+    "php-service-bus/code-style-config": "v0.1.*",
+    "symfony/dependency-injection": "v4.3.*",
+    "phpunit/phpunit": "8.3.*",
+    "vimeo/psalm": "3.4.*",
+    "phpstan/phpstan": "0.11.*"
   },
   "prefer-stable": true,
   "minimum-stability": "dev",
