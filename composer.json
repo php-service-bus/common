@@ -34,7 +34,7 @@
   },
   "require": {
     "php": ">=7.3",
-    "amphp/amp": "2.1.*",
+    "amphp/amp": "2.2.*",
     "ramsey/uuid": "3.8.*"
   },
   "require-dev": {
