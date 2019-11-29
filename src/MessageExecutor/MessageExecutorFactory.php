@@ -19,10 +19,5 @@ use ServiceBus\Common\MessageHandler\MessageHandler;
  */
 interface MessageExecutorFactory
 {
-    /**
-     * @param MessageHandler $messageHandler
-     *
-     * @return MessageExecutor
-     */
     public function create(MessageHandler $messageHandler): MessageExecutor;
 }

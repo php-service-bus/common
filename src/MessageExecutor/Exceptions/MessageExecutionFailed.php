@@ -13,24 +13,19 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\MessageExecutor\Exceptions;
 
 /**
- * @property-read object $messageObject
- * @property-read string $traceId
+ * @psalm-readonly
  */
 final class MessageExecutionFailed extends \RuntimeException
 {
     /**
      * Message type.
-     *
-     * @var object
      */
-    public $messageObject;
+    public object $messageObject;
 
     /**
      * Trace identifier.
-     *
-     * @var string
      */
-    public $traceId;
+    public string $traceId;
 
     /**
      * @param string          $throwableMessage

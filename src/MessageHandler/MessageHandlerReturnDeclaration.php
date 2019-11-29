@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\MessageHandler;
 
@@ -17,59 +17,39 @@ use Amp\Promise;
 /**
  * Handler return declaration.
  *
- * @property bool $isVoid
- * @property bool $isPromise
- * @property bool $isGenerator
+ * @psalm-readonly
  */
 final class MessageHandlerReturnDeclaration
 {
-    /**
-     * @var bool
-     */
-    public $isVoid;
+    public bool $isVoid;
 
-    /**
-     * @var bool
-     */
-    public $isPromise;
+    public bool $isPromise;
 
-    /**
-     * @var bool
-     */
-    public $isGenerator;
+    public bool $isGenerator;
 
-    /**
-     * @param \ReflectionType $reflectionType
-     *
-     * @return self
-     */
-    public static function create(\ReflectionType $reflectionType): self
+    public static function create(\ReflectionNamedType $reflectionType): self
     {
-        return new self($reflectionType);
+        $typeName = $reflectionType->getName();
+
+        $self = new self();
+
+        $self->isVoid      = 'void' === $typeName;
+        $self->isPromise   = Promise::class === $typeName;
+        $self->isGenerator = \Generator::class === $typeName;
+
+        return $self;
     }
 
-    /**
-     * @return self
-     */
     public static function createVoid(): self
     {
-        return new self(null);
+        $self = new self();
+
+        $self->isVoid = true;
+
+        return $self;
     }
 
-    /**
-     * @param \ReflectionType|null $reflectionType
-     */
-    private function __construct(?\ReflectionType $reflectionType)
+    private function __construct()
     {
-        if (null !== $reflectionType)
-        {
-            $this->isVoid = 'void' === $reflectionType->getName();
-            $this->isPromise = Promise::class === $reflectionType->getName();
-            $this->isGenerator = \Generator::class === $reflectionType->getName();
-        }
-        else
-        {
-            $this->isVoid = true;
-        }
     }
 }

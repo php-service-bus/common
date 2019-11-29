@@ -21,8 +21,6 @@ use ServiceBus\Common\Exceptions\ReflectionApiException;
  * @noinspection PhpDocMissingThrowsInspection
  *
  * Generate a version 4 (random) UUID.
- *
- * @return string
  */
 function uuid(): string
 {
@@ -33,12 +31,9 @@ function uuid(): string
 /**
  * Create datetime object from valid string.
  *
- * @param string|null               $datetimeString
  * @param \DateTimeZone|string|null $timezone
  *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
- *
- * @return \DateTimeImmutable|null
  */
 function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
 {
@@ -66,12 +61,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
 /**
  * Receive datetime as string representation (or null if not specified).
  *
- * @param \DateTimeInterface|null $dateTime
- * @param string|null             $format
- *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
- *
- * @return string|null
  */
 function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null): ?string
 {
@@ -94,10 +84,6 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
 }
 
 /**
- * Invoke.
- *
- * @param object $object
- * @param string $methodName
  * @param mixed  ...$parameters
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
@@ -122,8 +108,6 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
 /**
  * Write value to property.
  *
- * @param object $object
- * @param string $propertyName
  * @param mixed  $value
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
@@ -140,9 +124,6 @@ function writeReflectionPropertyValue(object $object, string $propertyName, $val
  * Read property value.
  *
  * @psalm-suppress MixedAssignment Mixed return data type
- *
- * @param object $object
- * @param string $propertyName
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  *
@@ -162,12 +143,7 @@ function readReflectionPropertyValue(object $object, string $propertyName)
  *
  * @internal
  *
- * @param object $object
- * @param string $propertyName
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
- *
- * @return \ReflectionProperty
  */
 function extractReflectionProperty(object $object, string $propertyName): \ReflectionProperty
 {
@@ -199,11 +175,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
 /**
  * @psalm-param class-string $class
  *
- * @param string $class
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
- *
- * @return object
  */
 function createWithoutConstructor(string $class): object
 {
@@ -220,11 +192,7 @@ function createWithoutConstructor(string $class): object
 /**
  * Reads entire file into a string.
  *
- * @param string $filePath
- *
- * @throws FileSystemException
- *
- * @return string
+ * @throws \ServiceBus\Common\Exceptions\FileSystemException
  */
 function fileGetContents(string $filePath): string
 {
@@ -249,11 +217,7 @@ function fileGetContents(string $filePath): string
 /**
  * Extract namespace from file content.
  *
- * @param string $filePath
- *
  * @throws \ServiceBus\Common\Exceptions\FileSystemException
- *
- * @return string|null
  */
 function extractNamespaceFromFile(string $filePath): ?string
 {
@@ -280,10 +244,9 @@ function extractNamespaceFromFile(string $filePath): ?string
  * Recursive search of all files in the directory
  * Search for files matching the specified regular expression.
  *
- * @psalm-suppress MixedTypeCoercion
+ * @psalm-param array<array-key, string> $directories
  *
- * @param array<mixed, string> $directories
- * @param string               $regExp
+ * @psalm-suppress MixedTypeCoercion
  *
  * @return \Generator<\SplFileInfo>
  */
@@ -291,23 +254,21 @@ function searchFiles(array $directories, string $regExp): \Generator
 {
     foreach ($directories as $directory)
     {
-        $regexIterator = new \RegexIterator(
+        yield from new \RegexIterator(
             new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($directory)
             ),
             $regExp
         );
-
-        yield from $regexIterator;
     }
 }
 
 /**
  * Casting paths to canonical form.
  *
- * @param array<mixed, string> $paths
+ * @psalm-param array<array-key, string> $paths
  *
- * @return array<int, string>
+ * @psalm-return array<int, string>
  */
 function canonicalizeFilesPath(array $paths): array
 {
@@ -323,10 +284,6 @@ function canonicalizeFilesPath(array $paths): array
 
 /**
  * Formats bytes into a human readable string.
- *
- * @param int $bytes
- *
- * @return string
  */
 function formatBytes(int $bytes): string
 {
@@ -345,10 +302,6 @@ function formatBytes(int $bytes): string
 
 /**
  * Collect all throwable information (include previous).
- *
- * @param \Throwable $throwable
- *
- * @return array
  */
 function collectThrowableDetails(\Throwable $throwable): array
 {

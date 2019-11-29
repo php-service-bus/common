@@ -25,50 +25,31 @@ final class MessageHandlerArgument
 {
     /**
      * Argument name.
-     *
-     * @var string
      */
-    public $argumentName;
+    public string $argumentName;
 
     /**
      * Does the argument have a type?
-     *
-     * @var bool
      */
-    public $hasType;
+    public bool $hasType;
 
     /**
      * If the argument type is an object, then the name of the class. Otherwise null.
-     *
-     * @var string|null
      */
-    public $typeClass;
+    public ?string $typeClass;
 
     /**
      * Is the argument an object?
-     *
-     * @var bool
      */
-    public $isObject;
+    public bool $isObject;
 
     /**
      * Argument position.
-     *
-     * @var int
      */
-    public $position;
+    public int $position;
 
-    /**
-     * @var \ReflectionParameter
-     */
-    private $reflectionParameter;
+    private \ReflectionParameter $reflectionParameter;
 
-    /**
-     * @param int                  $position
-     * @param \ReflectionParameter $reflectionParameter
-     *
-     * @return self
-     */
     public static function create(int $position, \ReflectionParameter $reflectionParameter): self
     {
         return new self($position, $reflectionParameter);
@@ -76,10 +57,6 @@ final class MessageHandlerArgument
 
     /**
      * Checks if the class is of this class or has this class as one of its parents.
-     *
-     * @param string $expectedClass
-     *
-     * @return bool
      */
     public function isA(string $expectedClass): bool
     {
@@ -94,10 +71,6 @@ final class MessageHandlerArgument
         return false;
     }
 
-    /**
-     * @param int                  $position
-     * @param \ReflectionParameter $reflectionParameter
-     */
     private function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
@@ -110,8 +83,6 @@ final class MessageHandlerArgument
 
     /**
      * If the argument is an object, returns its type.
-     *
-     * @return string|null
      */
     private function getTypeClassName(): ?string
     {
@@ -128,10 +99,6 @@ final class MessageHandlerArgument
 
     /**
      * Compare argument types.
-     *
-     * @param string $expectedType
-     *
-     * @return bool
      */
     private function assertType(string $expectedType): bool
     {

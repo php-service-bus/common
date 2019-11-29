@@ -74,8 +74,6 @@ interface ServiceBusContext
      * @param string $logMessage
      * @param array  $extra
      * @param string $level
-     *
-     * @return void
      */
     public function logContextMessage(
         string $logMessage,
@@ -89,8 +87,6 @@ interface ServiceBusContext
      * @param \Throwable $throwable
      * @param string     $level
      * @param array      $extra
-     *
-     * @return void
      */
     public function logContextThrowable(
         \Throwable $throwable,
@@ -100,15 +96,11 @@ interface ServiceBusContext
 
     /**
      * Receive incoming operation id.
-     *
-     * @return string
      */
     public function operationId(): string;
 
     /**
      * Receive trace message id.
-     *
-     * @return string
      */
     public function traceId(): string;
 
@@ -116,8 +108,6 @@ interface ServiceBusContext
      * Receive incoming message headers.
      *
      * @psalm-return array<string, string|float|int>
-     *
-     * @return array
      */
     public function headers(): array;
 }

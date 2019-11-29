@@ -17,68 +17,48 @@ use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 /**
  * Message handler details.
  *
- * @property string                          $methodName
- * @property bool                            $hasArguments
- * @property \SplObjectStorage               $arguments
- * @property MessageHandlerReturnDeclaration $returnDeclaration
- * @property MessageHandlerOptions           $options
- * @property string|null                     $messageClass
- * @property \Closure                        $closure
+ * @psalm-readonly
  */
 final class MessageHandler
 {
     /**
      * Method name.
-     *
-     * @var string
      */
-    public $methodName;
+    public string $methodName;
 
     /**
      * Does the method have arguments?
-     *
-     * @var bool
      */
-    public $hasArguments;
+    public bool $hasArguments;
 
     /**
      * Collection of arguments to the message handler.
      *
      * @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>
-     *
-     * @var \SplObjectStorage
      */
-    public $arguments;
+    public \SplObjectStorage $arguments;
 
     /**
      * Message class for which the handler was created.
-     *
-     * @var string|null
      */
-    public $messageClass;
+    public ?string $messageClass;
 
     /**
      * Handler return declaration.
-     *
-     * @var MessageHandlerReturnDeclaration
      */
-    public $returnDeclaration;
+    public MessageHandlerReturnDeclaration $returnDeclaration;
 
     /**
      * Handler options.
-     *
-     * @var MessageHandlerOptions
      */
-    public $options;
+    public MessageHandlerOptions $options;
 
     /**
      * Execution closure.
      *
      * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
-     *
-     * @var \Closure
      */
-    public $closure;
+    public \Closure $closure;
 
     /**
      * @psalm-param class-string $messageClass
@@ -128,10 +108,6 @@ final class MessageHandler
      * Retrieves a collection of method arguments.
      *
      * @psalm-return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
-     *
-     * @param \ReflectionMethod $reflectionMethod
-     *
-     * @return \SplObjectStorage
      */
     private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
@@ -153,16 +129,12 @@ final class MessageHandler
 
     /**
      * Retrieves a method return declaration.
-     *
-     * @param \ReflectionMethod $reflectionMethod
-     *
-     * @return MessageHandlerReturnDeclaration
      */
     private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
         $returnDeclaration = $reflectionMethod->getReturnType();
 
-        if (null !== $returnDeclaration)
+        if ($returnDeclaration instanceof \ReflectionNamedType)
         {
             return MessageHandlerReturnDeclaration::create($returnDeclaration);
         }
