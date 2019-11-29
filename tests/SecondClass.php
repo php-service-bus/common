@@ -23,7 +23,7 @@ final class SecondClass extends FirstClass
         return $this->secondClassValue;
     }
 
-     public function secondClassPublicValue(): string
+    public function secondClassPublicValue(): string
     {
         return $this->secondClassPublicValue;
     }
