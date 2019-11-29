@@ -50,6 +50,9 @@ final class MessageHandlerArgument
 
     private \ReflectionParameter $reflectionParameter;
 
+    /**
+     * @throws \LogicException Incorrect parameter type
+     */
     public static function create(int $position, \ReflectionParameter $reflectionParameter): self
     {
         return new self($position, $reflectionParameter);
@@ -99,13 +102,22 @@ final class MessageHandlerArgument
 
     /**
      * Compare argument types.
+     *
+     * @throws \LogicException Incorrect parameter type
      */
     private function assertType(string $expectedType): bool
     {
         if (true === $this->hasType)
         {
-            /** @var \ReflectionType $type */
+            /** @var \ReflectionNamedType|\ReflectionType $type */
             $type = $this->reflectionParameter->getType();
+
+            if (false === ($type instanceof \ReflectionNamedType))
+            {
+                throw new \LogicException(
+                    \sprintf('Incorrect parameter "%s" type', $this->reflectionParameter->name)
+                );
+            }
 
             if (true === \class_exists($type->getName()) || true === \interface_exists($type->getName()))
             {

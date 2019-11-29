@@ -57,7 +57,6 @@ final class MessageHandlerTest extends TestCase
     {
         $object = new class()
         {
-            /** @noinspection ReturnTypeCanBeDeclaredInspection */
             public function method(): void
             {
             }

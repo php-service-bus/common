@@ -14,38 +14,22 @@ namespace ServiceBus\Common\Tests;
 
 final class SecondClass extends FirstClass
 {
-    /**
-     * @var string
-     */
-    private $secondClassValue = 'root';
+    private string $secondClassValue = 'root';
 
-    /**
-     * @var string
-     */
-    private $secondClassPublicValue = 'abube';
+    private string $secondClassPublicValue = 'abube';
 
-    /**
-     * @return string
-     */
     public function secondClassValue(): string
     {
         return $this->secondClassValue;
     }
 
-    /**
-     * @return string
-     */
-    public function secondClassPublicValue(): string
+     public function secondClassPublicValue(): string
     {
         return $this->secondClassPublicValue;
     }
 
     /**
-     *  @noinspection PhpUnusedPrivateMethodInspection
-     *
-     * @param string $text
-     *
-     * @return string
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function privateMethod(string $text): string
     {

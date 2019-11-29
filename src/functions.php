@@ -18,8 +18,6 @@ use ServiceBus\Common\Exceptions\FileSystemException;
 use ServiceBus\Common\Exceptions\ReflectionApiException;
 
 /**
- * @noinspection PhpDocMissingThrowsInspection
- *
  * Generate a version 4 (random) UUID.
  */
 function uuid(): string
