@@ -303,7 +303,7 @@ function formatBytes(int $bytes): string
  */
 function collectThrowableDetails(\Throwable $throwable): array
 {
-    $throwableFormatter = static function(\Throwable $throwable): array
+    $throwableFormatter = static function (\Throwable $throwable): array
     {
         return [
             'throwableMessage' => $throwable->getMessage(),

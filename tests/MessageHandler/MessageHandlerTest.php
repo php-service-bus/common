@@ -244,7 +244,7 @@ final class MessageHandlerTest extends TestCase
     private static function emptyClosure(): \Closure
     {
         return \Closure::fromCallable(
-            static function(): void
+            static function (): void
             {
             }
         );

@@ -41,7 +41,7 @@ final class MessageHandler
     /**
      * Message class for which the handler was created.
      */
-    public ?string $messageClass;
+    public ?string $messageClass = null;
 
     /**
      * Handler return declaration.

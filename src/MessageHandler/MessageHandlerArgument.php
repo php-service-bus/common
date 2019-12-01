@@ -15,11 +15,7 @@ namespace ServiceBus\Common\MessageHandler;
 /**
  * Handler argument information.
  *
- * @property string      $argumentName
- * @property bool        $hasType
- * @property string|null $argumentTypeClass
- * @property bool        $isObject
- * @property int         $position
+ * @psalm-readonly
  */
 final class MessageHandlerArgument
 {
@@ -36,7 +32,7 @@ final class MessageHandlerArgument
     /**
      * If the argument type is an object, then the name of the class. Otherwise null.
      */
-    public ?string $typeClass;
+    public ?string $typeClass = null;
 
     /**
      * Is the argument an object?
