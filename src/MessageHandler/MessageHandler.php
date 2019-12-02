@@ -33,8 +33,6 @@ final class MessageHandler
 
     /**
      * Collection of arguments to the message handler.
-     *
-     * @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument, string>
      */
     public \SplObjectStorage $arguments;
 
@@ -80,10 +78,7 @@ final class MessageHandler
     }
 
     /**
-     * Retrieves a collection of method arguments.
-     *
-     * @psalm-return \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument>
-     */
+     * Retrieves a collection of method arguments.     */
     private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
         $argumentCollection = new \SplObjectStorage();
@@ -96,8 +91,6 @@ final class MessageHandler
 
             ++$position;
         }
-
-        /** @psalm-var \SplObjectStorage<\ServiceBus\Common\MessageHandler\MessageHandlerArgument> $argumentCollection */
 
         return $argumentCollection;
     }
