@@ -15,6 +15,7 @@ namespace ServiceBus\Common;
 use Ramsey\Uuid\Uuid;
 use ServiceBus\Common\Exceptions\DateTimeException;
 use ServiceBus\Common\Exceptions\FileSystemException;
+use ServiceBus\Common\Exceptions\JsonSerializationFailed;
 use ServiceBus\Common\Exceptions\ReflectionApiException;
 
 /**
@@ -57,6 +58,30 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
 }
 
 /**
+ * Create current datetime
+ *
+ * @noinspection PhpDocMissingThrowsInspection
+ *
+ * @param \DateTimeZone|string|null $timezone
+ *
+ * @return \DateTimeImmutable
+ */
+function now($timezone = null): \DateTimeImmutable
+{
+    if (true === \is_string($timezone) && '' !== $timezone)
+    {
+        $timezone = new \DateTimeZone($timezone);
+    }
+
+    /**
+     * @noinspection PhpUnhandledExceptionInspection
+     *
+     * @var \DateTimeZone|null $timezone
+     */
+    return new \DateTimeImmutable('NOW', $timezone);
+}
+
+/**
  * Receive datetime as string representation (or null if not specified).
  *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
@@ -82,7 +107,7 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
 }
 
 /**
- * @param mixed  ...$parameters
+ * @param mixed ...$parameters
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  *
@@ -106,7 +131,7 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
 /**
  * Write value to property.
  *
- * @param mixed  $value
+ * @param mixed $value
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
@@ -242,7 +267,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  * Recursive search of all files in the directory
  * Search for files matching the specified regular expression.
  *
- * @psalm-param array<array-key, string> $directories
+ * @psalm-param    array<array-key, string> $directories
  *
  * @psalm-suppress MixedTypeCoercion
  *
@@ -264,7 +289,7 @@ function searchFiles(array $directories, string $regExp): \Generator
 /**
  * Casting paths to canonical form.
  *
- * @psalm-param array<array-key, string> $paths
+ * @psalm-param  array<array-key, string> $paths
  *
  * @psalm-return array<int, string>
  */
@@ -287,15 +312,16 @@ function formatBytes(int $bytes): string
 {
     if (1024 * 1024 < $bytes)
     {
-        return \round($bytes / 1024 / 1024, 2) . ' mb';
+        /** @psalm-suppress InvalidOperand */
+        return \sprintf('%.2f mb', $bytes / 1024 / 1024);
     }
 
     if (1024 < $bytes)
     {
-        return \round($bytes / 1024, 2) . ' kb';
+        return \sprintf('%.2f kb', $bytes / 1024);
     }
 
-    return $bytes . ' b';
+    return \sprintf('%d b', $bytes);
 }
 
 /**
@@ -324,4 +350,40 @@ function collectThrowableDetails(\Throwable $throwable): array
     }
 
     return $result;
+}
+
+/**
+ * @throws \ServiceBus\Common\Exceptions\JsonSerializationFailed
+ */
+function jsonEncode(array $data): string
+{
+    try
+    {
+        /** @var string $result */
+        $result = \json_encode($data, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
+
+        return $result;
+    }
+    catch (\Throwable $throwable)
+    {
+        throw new JsonSerializationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
+    }
+}
+
+/**
+ * @throws \ServiceBus\Common\Exceptions\JsonSerializationFailed
+ */
+function jsonDecode(string $json): array
+{
+    try
+    {
+        /** @var array $data */
+        $data = \json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
+
+        return $data;
+    }
+    catch (\Throwable $throwable)
+    {
+        throw new JsonSerializationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
+    }
 }

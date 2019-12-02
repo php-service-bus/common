@@ -63,37 +63,12 @@ final class MessageHandler
     /**
      * @psalm-param class-string $messageClass
      * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
-     *
-     * @param string                $messageClass
-     * @param \Closure              $closure
-     * @param \ReflectionMethod     $reflectionMethod
-     * @param MessageHandlerOptions $options
-     *
-     * @return self
      */
-    public static function create(
+    public function __construct(
         string $messageClass,
         \Closure $closure,
         \ReflectionMethod $reflectionMethod,
         MessageHandlerOptions $options
-    ): self {
-        return new self($messageClass, $closure, $options, $reflectionMethod);
-    }
-
-    /**
-     * @psalm-param class-string $messageClass
-     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
-     *
-     * @param string                $messageClass
-     * @param \Closure              $closure
-     * @param MessageHandlerOptions $options
-     * @param \ReflectionMethod     $reflectionMethod
-     */
-    private function __construct(
-        string $messageClass,
-        \Closure $closure,
-        MessageHandlerOptions $options,
-        \ReflectionMethod $reflectionMethod
     ) {
         $this->closure           = $closure;
         $this->options           = $options;
@@ -117,7 +92,7 @@ final class MessageHandler
 
         foreach ($reflectionMethod->getParameters() as $parameter)
         {
-            $argumentCollection->attach(MessageHandlerArgument::create($position, $parameter));
+            $argumentCollection->attach(new MessageHandlerArgument($position, $parameter));
 
             ++$position;
         }

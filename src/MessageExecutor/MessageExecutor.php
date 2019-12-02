@@ -23,9 +23,6 @@ interface MessageExecutor
     /**
      * Handle message.
      *
-     * @param object            $message
-     * @param ServiceBusContext $context
-     *
      * @throws \Throwable
      * @throws \ServiceBus\Common\MessageExecutor\Exceptions\MessageExecutionFailed
      *

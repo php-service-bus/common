@@ -24,17 +24,9 @@ final class MessageDeliveryFailed extends \RuntimeException
 
     /**
      * Trace identifier.
-     *
-     * @var string
      */
     public string $traceId;
 
-    /**
-     * @param string          $throwableMessage
-     * @param object          $messageObject
-     * @param string          $traceId
-     * @param \Throwable|null $previous
-     */
     public function __construct(
         string $throwableMessage,
         object $messageObject,

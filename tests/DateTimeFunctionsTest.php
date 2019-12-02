@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\Tests;
 
@@ -16,17 +16,13 @@ use function ServiceBus\Common\datetimeInstantiator;
 use function ServiceBus\Common\datetimeToString;
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\Exceptions\DateTimeException;
+use function ServiceBus\Common\now;
 
 final class DateTimeFunctionsTest extends TestCase
 {
     /**
      * @test
      * @dataProvider datetimeInstantiatorDataProvider
-     *
-     * @param string      $date
-     * @param string|null $timezone
-     * @param string|null $expectedResult
-     * @param bool        $expectException
      *
      * @throws \Throwable
      */
@@ -72,11 +68,6 @@ final class DateTimeFunctionsTest extends TestCase
      * @test
      * @dataProvider datetimeToStringDataProvider
      *
-     * @param \DateTimeImmutable|null $dateTime
-     * @param string                  $format
-     * @param string|null             $expectedResult
-     * @param bool                    $expectException
-     *
      * @throws \Throwable
      */
     public function datetimeToString(
@@ -117,5 +108,16 @@ final class DateTimeFunctionsTest extends TestCase
             [null, 'Y-m-d H:i:s', null],
             [new \DateTimeImmutable('2019-01-01 12:00:00'), '&', null, true],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function now(): void
+    {
+        static::assertEquals(
+            \date('Y-m-d H:i'),
+            now('UTC')->format('Y-m-d H:i')
+        );
     }
 }

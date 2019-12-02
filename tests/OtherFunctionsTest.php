@@ -37,9 +37,6 @@ final class OtherFunctionsTest extends TestCase
      * @test
      * @dataProvider formatBytesDataProvider
      *
-     * @param int    $bytes
-     * @param string $expected
-     *
      * @throws \Throwable
      */
     public function formatBytes(int $bytes, string $expected): void
@@ -47,9 +44,6 @@ final class OtherFunctionsTest extends TestCase
         static::assertSame($expected, formatBytes($bytes));
     }
 
-    /**
-     * @return array
-     */
     public function formatBytesDataProvider(): array
     {
         return [
@@ -62,7 +56,6 @@ final class OtherFunctionsTest extends TestCase
     /**
      * @test
      *
-     * @return void
      */
     public function collectThrowableDetails(): void
     {
@@ -78,8 +71,6 @@ final class OtherFunctionsTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
     public function collectThrowableDetailsWithPrevious(): void
     {

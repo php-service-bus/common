@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\Tests\MessageHandler;
 
@@ -34,7 +34,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
@@ -62,7 +62,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
@@ -87,7 +87,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
@@ -114,7 +114,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
@@ -141,7 +141,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
@@ -168,7 +168,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),
@@ -205,7 +205,7 @@ final class MessageHandlerTest extends TestCase
             }
         };
 
-        $handler = MessageHandler::create(
+        $handler = new MessageHandler(
             \get_class($object),
             self::emptyClosure(),
             new \ReflectionMethod($object, 'method'),

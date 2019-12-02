@@ -46,12 +46,14 @@ final class MessageHandlerArgument
 
     private \ReflectionParameter $reflectionParameter;
 
-    /**
-     * @throws \LogicException Incorrect parameter type
-     */
-    public static function create(int $position, \ReflectionParameter $reflectionParameter): self
+    public function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
-        return new self($position, $reflectionParameter);
+        $this->reflectionParameter = $reflectionParameter;
+        $this->argumentName        = $this->reflectionParameter->getName();
+        $this->hasType             = true === \is_object($this->reflectionParameter->getType());
+        $this->isObject            = $this->assertType('object');
+        $this->position            = $position;
+        $this->typeClass           = $this->getTypeClassName();
     }
 
     /**
@@ -69,17 +71,6 @@ final class MessageHandlerArgument
 
         return false;
     }
-
-    private function __construct(int $position, \ReflectionParameter $reflectionParameter)
-    {
-        $this->reflectionParameter = $reflectionParameter;
-        $this->argumentName        = $this->reflectionParameter->getName();
-        $this->hasType             = true === \is_object($this->reflectionParameter->getType());
-        $this->isObject            = $this->assertType('object');
-        $this->position            = $position;
-        $this->typeClass           = $this->getTypeClassName();
-    }
-
     /**
      * If the argument is an object, returns its type.
      */

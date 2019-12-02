@@ -14,14 +14,8 @@ namespace ServiceBus\Common\Tests;
 
 abstract class FirstClass
 {
-    /**
-     * @var string
-     */
-    private $firstClassValue = 'qwerty';
+    private string $firstClassValue = 'qwerty';
 
-    /**
-     * @return string
-     */
     public function firstClassValue(): string
     {
         return $this->firstClassValue;
