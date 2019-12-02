@@ -33,6 +33,8 @@ final class MessageHandler
 
     /**
      * Collection of arguments to the message handler.
+     *
+     * @see MessageHandlerArgument
      */
     public \SplObjectStorage $arguments;
 
