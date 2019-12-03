@@ -14,9 +14,9 @@ namespace ServiceBus\Common\Tests;
 
 final class SecondClass extends FirstClass
 {
-    private string $secondClassValue = 'root';
+    private $secondClassValue = 'root';
 
-    private string $secondClassPublicValue = 'abube';
+    private $secondClassPublicValue = 'abube';
 
     public function secondClassValue(): string
     {

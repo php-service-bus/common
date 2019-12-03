@@ -14,7 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 abstract class FirstClass
 {
-    private string $firstClassValue = 'qwerty';
+    private $firstClassValue = 'qwerty';
 
     public function firstClassValue(): string
     {
