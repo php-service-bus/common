@@ -19,16 +19,24 @@ final class MessageExecutionFailed extends \RuntimeException
 {
     /**
      * Message type.
+     *
+     * @var object
      */
-    public object $messageObject;
+    public $messageObject;
 
     /**
      * Trace identifier.
+     *
+     * @var string
      */
-    public string $traceId;
+    public $traceId;
 
-    public function __construct(string $throwableMessage, object $messageObject, string $traceId, ?\Throwable $previous = null)
-    {
+    public function __construct(
+        string $throwableMessage,
+        object $messageObject,
+        string $traceId,
+        ?\Throwable $previous = null
+    ) {
         parent::__construct($throwableMessage, 0, $previous);
 
         $this->messageObject = $messageObject;

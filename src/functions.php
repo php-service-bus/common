@@ -40,7 +40,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
     {
         try
         {
-            if (true === \is_string($timezone) && '' !== $timezone)
+            if (\is_string($timezone) === true && $timezone !== '')
             {
                 $timezone = new \DateTimeZone($timezone);
             }
@@ -68,7 +68,7 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
  */
 function now($timezone = null): \DateTimeImmutable
 {
-    if (true === \is_string($timezone) && '' !== $timezone)
+    if (\is_string($timezone) === true && $timezone !== '')
     {
         $timezone = new \DateTimeZone($timezone);
     }
@@ -219,7 +219,7 @@ function createWithoutConstructor(string $class): object
  */
 function fileGetContents(string $filePath): string
 {
-    if (false === \file_exists($filePath) || false === \is_readable($filePath))
+    if (\file_exists($filePath) === false || \is_readable($filePath) === false)
     {
         throw FileSystemException::nonExistentFile($filePath);
     }
@@ -227,7 +227,7 @@ function fileGetContents(string $filePath): string
     $fileContents = \file_get_contents($filePath);
 
     // @codeCoverageIgnoreStart
-    if (false === $fileContents)
+    if ($fileContents === false)
     {
         throw FileSystemException::getContentFailed($filePath);
     }
@@ -248,7 +248,7 @@ function extractNamespaceFromFile(string $filePath): ?string
 
     if (
         false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
-        true === isset($matches[1])
+        isset($matches[1]) === true
     ) {
         /** @var string $fileName */
         $fileName = \pathinfo($filePath)['filename'];

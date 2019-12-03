@@ -21,44 +21,42 @@ use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
  */
 final class MessageHandler
 {
-    /**
-     * Method name.
-     */
-    public string $methodName;
+    /** @var string */
+    public $methodName;
 
-    /**
-     * Does the method have arguments?
-     */
-    public bool $hasArguments;
+    /** @var bool */
+    public $hasArguments;
 
     /**
      * Collection of arguments to the message handler.
      *
      * @see MessageHandlerArgument
+     *
+     * @var \SplObjectStorage
      */
-    public \SplObjectStorage $arguments;
+    public $arguments;
 
     /**
      * Message class for which the handler was created.
+     *
+     * @var string|null
      */
-    public ?string $messageClass = null;
+    public $messageClass = null;
 
-    /**
-     * Handler return declaration.
-     */
-    public MessageHandlerReturnDeclaration $returnDeclaration;
+    /** @var MessageHandlerReturnDeclaration */
+    public $returnDeclaration;
 
-    /**
-     * Handler options.
-     */
-    public MessageHandlerOptions $options;
+    /** @var MessageHandlerOptions */
+    public $options;
 
     /**
      * Execution closure.
      *
      * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
+     *
+     * @var \Closure
      */
-    public \Closure $closure;
+    public $closure;
 
     /**
      * @psalm-param class-string $messageClass

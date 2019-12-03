@@ -25,8 +25,6 @@ interface MessageExecutor
      *
      * @throws \Throwable
      * @throws \ServiceBus\Common\MessageExecutor\Exceptions\MessageExecutionFailed
-     *
-     * @return Promise It does not return any result
      */
     public function __invoke(object $message, ServiceBusContext $context): Promise;
 }

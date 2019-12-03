@@ -24,8 +24,6 @@ interface ServiceBusContext
     /**
      * Is the received message correct?
      * If validation is not enabled in the handler parameters, it always returns true.
-     *
-     * @return bool
      */
     public function isValid(): bool;
 
@@ -40,40 +38,25 @@ interface ServiceBusContext
      *        ....
      *    ]
      * ]
-     *
-     * @return array
      */
     public function violations(): array;
 
     /**
      * Enqueue message.
      *
-     * @param object               $message
-     * @param DeliveryOptions|null $deliveryOptions
-     *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
-     *
-     * @return Promise It does not return any result
      */
     public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 
     /**
      * Return current message back to the queue.
      *
-     * @param int $secondsDelay
-     *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
-     *
-     * @return Promise It does not return any result
      */
     public function return(int $secondsDelay = 3): Promise;
 
     /**
      * Log message with context details.
-     *
-     * @param string $logMessage
-     * @param array  $extra
-     * @param string $level
      */
     public function logContextMessage(
         string $logMessage,
@@ -83,10 +66,6 @@ interface ServiceBusContext
 
     /**
      * Log Throwable in execution context.
-     *
-     * @param \Throwable $throwable
-     * @param string     $level
-     * @param array      $extra
      */
     public function logContextThrowable(
         \Throwable $throwable,

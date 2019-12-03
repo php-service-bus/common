@@ -34,8 +34,7 @@ interface DeliveryOptions
     /**
      * Apply headers.
      *
-     * @param string           $key
-     * @param float|int|string $value
+     * @psalm-param float|int|string $value
      */
     public function withHeader(string $key, $value): void;
 

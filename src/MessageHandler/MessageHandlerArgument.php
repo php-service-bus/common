@@ -19,38 +19,37 @@ namespace ServiceBus\Common\MessageHandler;
  */
 final class MessageHandlerArgument
 {
-    /**
-     * Argument name.
-     */
-    public string $argumentName;
+    /** @var string */
+    public $argumentName;
 
-    /**
-     * Does the argument have a type?
-     */
-    public bool $hasType;
+    /** @var bool */
+    public $hasType;
 
     /**
      * If the argument type is an object, then the name of the class. Otherwise null.
+     *
+     * @var string|null
      */
-    public ?string $typeClass = null;
+    public $typeClass = null;
 
-    /**
-     * Is the argument an object?
-     */
-    public bool $isObject;
+    /** @var bool */
+    public $isObject;
 
     /**
      * Argument position.
+     *
+     * @var int
      */
-    public int $position;
+    public $position;
 
-    private \ReflectionParameter $reflectionParameter;
+    /** @var \ReflectionParameter */
+    private $reflectionParameter;
 
     public function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
         $this->argumentName        = $this->reflectionParameter->getName();
-        $this->hasType             = true === \is_object($this->reflectionParameter->getType());
+        $this->hasType             = \is_object($this->reflectionParameter->getType());
         $this->isObject            = $this->assertType('object');
         $this->position            = $position;
         $this->typeClass           = $this->getTypeClassName();
@@ -71,12 +70,13 @@ final class MessageHandlerArgument
 
         return false;
     }
+
     /**
      * If the argument is an object, returns its type.
      */
     private function getTypeClassName(): ?string
     {
-        if (true === $this->isObject)
+        if ($this->isObject === true)
         {
             /** @var \ReflectionClass $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
@@ -94,19 +94,19 @@ final class MessageHandlerArgument
      */
     private function assertType(string $expectedType): bool
     {
-        if (true === $this->hasType)
+        if ($this->hasType === true)
         {
             /** @var \ReflectionNamedType|\ReflectionType $type */
             $type = $this->reflectionParameter->getType();
 
-            if (false === ($type instanceof \ReflectionNamedType))
+            if (($type instanceof \ReflectionNamedType) === false)
             {
                 throw new \LogicException(
                     \sprintf('Incorrect parameter "%s" type', $this->reflectionParameter->name)
                 );
             }
 
-            if (true === \class_exists($type->getName()) || true === \interface_exists($type->getName()))
+            if (\class_exists($type->getName()) === true || \interface_exists($type->getName()) === true)
             {
                 return 'object' === $expectedType;
             }

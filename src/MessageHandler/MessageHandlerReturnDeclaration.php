@@ -21,11 +21,14 @@ use Amp\Promise;
  */
 final class MessageHandlerReturnDeclaration
 {
-    public bool $isVoid;
+    /** @var bool */
+    public $isVoid;
 
-    public bool $isPromise;
+    /** @var bool */
+    public $isPromise;
 
-    public bool $isGenerator;
+    /** @var bool */
+    public $isGenerator;
 
     public static function create(\ReflectionNamedType $reflectionType): self
     {
@@ -33,9 +36,9 @@ final class MessageHandlerReturnDeclaration
 
         $self = new self();
 
-        $self->isVoid      = 'void' === $typeName;
-        $self->isPromise   = Promise::class === $typeName;
-        $self->isGenerator = \Generator::class === $typeName;
+        $self->isVoid      = $typeName === 'void';
+        $self->isPromise   = $typeName === Promise::class;
+        $self->isGenerator = $typeName === \Generator::class;
 
         return $self;
     }
