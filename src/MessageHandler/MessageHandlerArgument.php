@@ -15,7 +15,7 @@ namespace ServiceBus\Common\MessageHandler;
 /**
  * Handler argument information.
  *
- * @psalm-readonly
+ * @psalm-immutable
  */
 final class MessageHandlerArgument
 {

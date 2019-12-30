@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\Context\Exceptions;
 
 /**
- * @psalm-readonly
+ * @psalm-immutable
  */
 final class MessageDeliveryFailed extends \RuntimeException
 {

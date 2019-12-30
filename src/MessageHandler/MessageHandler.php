@@ -17,7 +17,7 @@ use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 /**
  * Message handler details.
  *
- * @psalm-readonly
+ * @psalm-immutable
  */
 final class MessageHandler
 {
@@ -59,6 +59,13 @@ final class MessageHandler
     public $closure;
 
     /**
+     * Message handler description
+     *
+     * @var string|null
+     */
+    public $description;
+
+    /**
      * @psalm-param class-string $messageClass
      * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
      */
@@ -66,7 +73,8 @@ final class MessageHandler
         string $messageClass,
         \Closure $closure,
         \ReflectionMethod $reflectionMethod,
-        MessageHandlerOptions $options
+        MessageHandlerOptions $options,
+        ?string $description = null
     ) {
         $this->closure           = $closure;
         $this->options           = $options;
@@ -75,10 +83,14 @@ final class MessageHandler
         $this->arguments         = $this->extractArguments($reflectionMethod);
         $this->hasArguments      = 0 !== \count($this->arguments);
         $this->returnDeclaration = $this->extractReturnDeclaration($reflectionMethod);
+        $this->description       = $description;
     }
 
     /**
-     * Retrieves a collection of method arguments.     */
+     * Retrieves a collection of method arguments.
+     *
+     * @psalm-suppress ImpureMethodCall
+     */
     private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
         $argumentCollection = new \SplObjectStorage();
@@ -97,6 +109,8 @@ final class MessageHandler
 
     /**
      * Retrieves a method return declaration.
+     *
+     * @psalm-suppress ImpureMethodCall
      */
     private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
