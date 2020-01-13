@@ -20,11 +20,7 @@ use Ramsey\Uuid\Uuid;
 
 final class OtherFunctionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function uuid(): void
     {
         $uuid = uuid();
@@ -36,8 +32,6 @@ final class OtherFunctionsTest extends TestCase
     /**
      * @test
      * @dataProvider formatBytesDataProvider
-     *
-     * @throws \Throwable
      */
     public function formatBytes(int $bytes, string $expected): void
     {
@@ -53,10 +47,7 @@ final class OtherFunctionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     */
+    /** @test */
     public function collectThrowableDetails(): void
     {
         $data = collectThrowableDetails(new \LogicException('message'));
@@ -69,9 +60,7 @@ final class OtherFunctionsTest extends TestCase
         static::assertSame('message', $data['throwableMessage']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function collectThrowableDetailsWithPrevious(): void
     {
         $data = collectThrowableDetails(

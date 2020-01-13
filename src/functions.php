@@ -36,16 +36,12 @@ function uuid(): string
  */
 function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
 {
-    if (null !== $datetimeString && '' !== $datetimeString)
+    if ($datetimeString !== null && $datetimeString !== '')
     {
         try
         {
-            if (\is_string($timezone) === true && $timezone !== '')
-            {
-                $timezone = new \DateTimeZone($timezone);
-            }
+            $timezone = timezoneFactory($timezone);
 
-            /** @var \DateTimeZone|null $timezone */
             return new \DateTimeImmutable($datetimeString, $timezone);
         }
         catch (\Throwable $throwable)
@@ -60,25 +56,41 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
 /**
  * Create current datetime
  *
- * @noinspection PhpDocMissingThrowsInspection
- *
  * @param \DateTimeZone|string|null $timezone
  *
  * @return \DateTimeImmutable
  */
 function now($timezone = null): \DateTimeImmutable
 {
+    $timezone = timezoneFactory($timezone);
+
+    /** @var \DateTimeImmutable $datetime */
+    $datetime = \DateTimeImmutable::createFromFormat('0.u00 U', \microtime());
+
+    if ($timezone !== null)
+    {
+        /** @var \DateTimeImmutable $datetime */
+        $datetime = $datetime->setTimezone($timezone);
+    }
+
+    return $datetime;
+}
+
+/**
+ * @internal
+ *
+ * @param \DateTimeZone|string|null $timezone
+ */
+function timezoneFactory($timezone = null): ?\DateTimeZone
+{
     if (\is_string($timezone) === true && $timezone !== '')
     {
         $timezone = new \DateTimeZone($timezone);
     }
 
-    /**
-     * @noinspection PhpUnhandledExceptionInspection
-     *
-     * @var \DateTimeZone|null $timezone
-     */
-    return new \DateTimeImmutable('NOW', $timezone);
+    /** @var \DateTimeZone|null $timezone */
+
+    return $timezone;
 }
 
 /**
@@ -90,12 +102,12 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
 {
     $format = $format ?? 'Y-m-d H:i:s';
 
-    if (null !== $dateTime)
+    if ($dateTime !== null)
     {
         /** @var false|string $result */
         $result = $dateTime->format($format);
 
-        if (false !== $result && false !== \strtotime($result))
+        if ($result !== false && \strtotime($result) !== false)
         {
             return $result;
         }
@@ -247,7 +259,7 @@ function extractNamespaceFromFile(string $filePath): ?string
     $fileContents = fileGetContents($filePath);
 
     if (
-        false !== \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) &&
+        \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false &&
         isset($matches[1]) === true
     ) {
         /** @var string $fileName */

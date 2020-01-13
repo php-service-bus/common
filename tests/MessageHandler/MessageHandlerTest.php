@@ -20,11 +20,7 @@ use ServiceBus\Common\MessageHandler\MessageHandler;
 
 final class MessageHandlerTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function voidReturnDeclaration(): void
     {
         $object = new class()
@@ -48,11 +44,7 @@ final class MessageHandlerTest extends TestCase
         static::assertFalse($handler->returnDeclaration->isPromise);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function noneReturnDeclaration(): void
     {
         $object = new class()
@@ -72,11 +64,7 @@ final class MessageHandlerTest extends TestCase
         static::assertNotNull($handler->returnDeclaration);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function promiseReturnDeclaration(): void
     {
         $object = new class()
@@ -99,11 +87,7 @@ final class MessageHandlerTest extends TestCase
         static::assertFalse($handler->returnDeclaration->isVoid);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function generatorReturnDeclaration(): void
     {
         $object = new class()
@@ -126,11 +110,7 @@ final class MessageHandlerTest extends TestCase
         static::assertFalse($handler->returnDeclaration->isVoid);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function scalarReturnDeclaration(): void
     {
         $object = new class()
@@ -153,11 +133,7 @@ final class MessageHandlerTest extends TestCase
         static::assertFalse($handler->returnDeclaration->isVoid);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function objectArgument(): void
     {
         $object = new class()
@@ -190,11 +166,7 @@ final class MessageHandlerTest extends TestCase
         static::assertTrue($argument->isA(\stdClass::class));
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function argumentWithoutTypeDeclaration(): void
     {
         $object = new class()

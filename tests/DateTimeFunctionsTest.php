@@ -23,11 +23,13 @@ final class DateTimeFunctionsTest extends TestCase
     /**
      * @test
      * @dataProvider datetimeInstantiatorDataProvider
-     *
-     * @throws \Throwable
      */
-    public function datetimeInstantiator(string $date, ?string $timezone, ?string $expectedResult, bool $expectException = false): void
-    {
+    public function datetimeInstantiator(
+        string $date,
+        ?string $timezone,
+        ?string $expectedResult,
+        bool $expectException = false
+    ): void {
         if (true === $expectException)
         {
             $this->expectException(DateTimeException::class);
@@ -51,9 +53,6 @@ final class DateTimeFunctionsTest extends TestCase
         static::assertNull($result);
     }
 
-    /**
-     * @return array
-     */
     public function datetimeInstantiatorDataProvider(): array
     {
         return [
@@ -67,8 +66,6 @@ final class DateTimeFunctionsTest extends TestCase
     /**
      * @test
      * @dataProvider datetimeToStringDataProvider
-     *
-     * @throws \Throwable
      */
     public function datetimeToString(
         ?\DateTimeImmutable $dateTime,
@@ -96,11 +93,6 @@ final class DateTimeFunctionsTest extends TestCase
         static::assertNull($result);
     }
 
-    /**
-     * @throws \Throwable
-     *
-     * @return array
-     */
     public function datetimeToStringDataProvider(): array
     {
         return [
@@ -110,14 +102,22 @@ final class DateTimeFunctionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function now(): void
     {
         static::assertEquals(
             \date('Y-m-d H:i'),
             now('UTC')->format('Y-m-d H:i')
         );
+    }
+
+    /** @test */
+    public function withMicroseconds(): void
+    {
+        $now = now('UTC')->format('Y-m-d H:i:s.u');
+
+        $fromInstantiator = datetimeInstantiator($now);
+
+        static::assertEquals($now, $fromInstantiator->format('Y-m-d H:i:s.u'));
     }
 }

@@ -22,17 +22,13 @@ use function ServiceBus\Common\jsonEncode;
  */
 final class JsonWrapperTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function decodeEmptyString(): void
     {
         static::assertEmpty(jsonDecode('{}'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function decodeWrongString(): void
     {
         $this->expectException(JsonSerializationFailed::class);
@@ -40,25 +36,19 @@ final class JsonWrapperTest extends TestCase
         jsonDecode('...');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function encodeEmptyArray(): void
     {
         static::assertSame('[]', jsonEncode([]));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function preserveZeroFractionWhenEncodeFloat(): void
     {
         static::assertSame('{"foo":10.0}', jsonEncode(['foo' => 10.0]));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function encodeWithWrongCharset(): void
     {
         $this->expectException(JsonSerializationFailed::class);

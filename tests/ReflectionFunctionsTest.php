@@ -21,11 +21,7 @@ use ServiceBus\Common\Exceptions\ReflectionApiException;
 
 final class ReflectionFunctionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function readPublicProperty(): void
     {
         static::assertSame(
@@ -37,11 +33,7 @@ final class ReflectionFunctionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function readUnknownProperty(): void
     {
         $this->expectException(ReflectionApiException::class);
@@ -49,11 +41,7 @@ final class ReflectionFunctionsTest extends TestCase
         readReflectionPropertyValue(new SecondClass(), 'qwerty');
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function readAllProperties(): void
     {
         $object = new SecondClass();
@@ -74,11 +62,7 @@ final class ReflectionFunctionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function invokeReflectionMethod(): void
     {
         /** @var string $result */
@@ -87,11 +71,7 @@ final class ReflectionFunctionsTest extends TestCase
         static::assertSame(__METHOD__, $result);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function invokeUnknownReflectionMethod(): void
     {
         $this->expectException(ReflectionApiException::class);
@@ -99,11 +79,7 @@ final class ReflectionFunctionsTest extends TestCase
         invokeReflectionMethod(new SecondClass(), 'abube');
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function createWithoutConstructor(): void
     {
         $object = createWithoutConstructor(WithClosedConstructor::class);
@@ -111,11 +87,7 @@ final class ReflectionFunctionsTest extends TestCase
         static::assertInstanceOf(WithClosedConstructor::class, $object);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function createWithUnknownClass(): void
     {
         $this->expectException(ReflectionApiException::class);
@@ -123,11 +95,7 @@ final class ReflectionFunctionsTest extends TestCase
         createWithoutConstructor(__METHOD__);
     }
 
-    /**
-     * @test
-     *
-     * @throws \Throwable
-     */
+    /** @test */
     public function writeReflectionPropertyValue(): void
     {
         $object = new SecondClass();
