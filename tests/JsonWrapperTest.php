@@ -51,6 +51,14 @@ final class JsonWrapperTest extends TestCase
     /**
      * @test
      */
+    public function preserveZeroFractionWhenEncodeFloat(): void
+    {
+        static::assertSame('{"foo":10.0}', jsonEncode(['foo' => 10.0]));
+    }
+
+    /**
+     * @test
+     */
     public function encodeWithWrongCharset(): void
     {
         $this->expectException(JsonSerializationFailed::class);
