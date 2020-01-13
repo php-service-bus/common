@@ -360,7 +360,10 @@ function jsonEncode(array $data): string
     try
     {
         /** @var string $result */
-        $result = \json_encode($data, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
+        $result = \json_encode(
+            $data,
+            \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR | \JSON_PRESERVE_ZERO_FRACTION
+        );
 
         return $result;
     }
