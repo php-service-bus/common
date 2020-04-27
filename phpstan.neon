@@ -1,5 +1,5 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#should return DateTimeZone#'
-			path: %currentWorkingDirectory%/src/functions.php
+			message: '#no value type specified in iterable type array#'
+			path: %currentWorkingDirectory%/src

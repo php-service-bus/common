@@ -44,12 +44,16 @@ interface ServiceBusContext
     /**
      * Enqueue message.
      *
+     * @return Promise<null>
+     *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */
     public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
 
     /**
      * Return current message back to the queue.
+     *
+     * @return Promise<null>
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */

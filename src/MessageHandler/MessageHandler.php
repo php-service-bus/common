@@ -17,7 +17,7 @@ use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
 /**
  * Message handler details.
  *
- * @psalm-immutable
+ * @psalm-readonly
  */
 final class MessageHandler
 {
@@ -52,7 +52,7 @@ final class MessageHandler
     /**
      * Execution closure.
      *
-     * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise
+     * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<null>
      *
      * @var \Closure
      */
@@ -66,8 +66,10 @@ final class MessageHandler
     public $description;
 
     /**
+     * @psalm-suppress ImpurePropertyAssignment
+     *
      * @psalm-param class-string $messageClass
-     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise $closure
+     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<null> $closure
      */
     public function __construct(
         string $messageClass,
@@ -88,8 +90,6 @@ final class MessageHandler
 
     /**
      * Retrieves a collection of method arguments.
-     *
-     * @psalm-suppress ImpureMethodCall
      */
     private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
@@ -109,8 +109,6 @@ final class MessageHandler
 
     /**
      * Retrieves a method return declaration.
-     *
-     * @psalm-suppress ImpureMethodCall
      */
     private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {

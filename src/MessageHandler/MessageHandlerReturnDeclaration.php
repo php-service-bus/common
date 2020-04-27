@@ -17,7 +17,7 @@ use Amp\Promise;
 /**
  * Handler return declaration.
  *
- * @psalm-immutable
+ * @psalm-readonly
  */
 final class MessageHandlerReturnDeclaration
 {

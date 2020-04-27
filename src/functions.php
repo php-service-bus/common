@@ -23,7 +23,6 @@ use ServiceBus\Common\Exceptions\ReflectionApiException;
  */
 function uuid(): string
 {
-    /** @noinspection PhpUnhandledExceptionInspection */
     return Uuid::uuid4()->toString();
 }
 

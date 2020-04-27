@@ -15,7 +15,7 @@ namespace ServiceBus\Common\MessageHandler;
 /**
  * Handler argument information.
  *
- * @psalm-immutable
+ * @psalm-readonly
  */
 final class MessageHandlerArgument
 {
@@ -62,7 +62,7 @@ final class MessageHandlerArgument
     {
         if (true === $this->isObject)
         {
-            /** @var \ReflectionClass $reflectionClass */
+            /** @var \ReflectionObject $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
 
             return \is_a($reflectionClass->getName(), $expectedClass, true);
@@ -78,7 +78,7 @@ final class MessageHandlerArgument
     {
         if ($this->isObject === true)
         {
-            /** @var \ReflectionClass $reflectionClass */
+            /** @var \ReflectionObject $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
 
             return $reflectionClass->getName();
