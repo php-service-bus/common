@@ -1,8 +1,8 @@
 ## What is it?
 
-[![Build Status](https://travis-ci.org/php-service-bus/common.svg?branch=v4.0)](https://travis-ci.org/php-service-bus/common)
-[![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/common/badges/coverage.png?b=v4.0)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v4.0)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/common/badges/quality-score.png?b=v4.0)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v4.0)
+[![Build Status](https://travis-ci.org/php-service-bus/common.svg?branch=v4.1)](https://travis-ci.org/php-service-bus/common)
+[![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/common/badges/coverage.png?b=v4.1)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v4.1)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/common/badges/quality-score.png?b=v4.1)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v4.1)
 
 This component is part of the [PHP Service Bus](https://github.com/php-service-bus/service-bus): contains common interfaces for implementing in the service bus.
 
