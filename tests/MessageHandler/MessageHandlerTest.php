@@ -15,7 +15,7 @@ namespace ServiceBus\Common\Tests\MessageHandler;
 use Amp\Promise;
 use Amp\Success;
 use PHPUnit\Framework\TestCase;
-use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
+use ServiceBus\Common\MessageHandler\MessageHandlerOptions;
 use ServiceBus\Common\MessageHandler\MessageHandler;
 
 final class MessageHandlerTest extends TestCase

@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Common;
 
-use Ramsey\Uuid\Uuid;
 use ServiceBus\Common\Exceptions\DateTimeException;
 use ServiceBus\Common\Exceptions\FileSystemException;
 use ServiceBus\Common\Exceptions\JsonSerializationFailed;
@@ -20,14 +19,28 @@ use ServiceBus\Common\Exceptions\ReflectionApiException;
 
 /**
  * Generate a version 4 (random) UUID.
+ *
+ * @noinspection PhpUnhandledExceptionInspection
  */
 function uuid(): string
 {
-    return Uuid::uuid4()->toString();
+    $uuid    = \random_bytes(16);
+    $uuid[6] = $uuid[6] & "\x0F" | "\x4F";
+    $uuid[8] = $uuid[8] & "\x3F" | "\x80";
+    $uuid    = \bin2hex($uuid);
+
+    return \substr($uuid, 0, 8) .
+        '-' .
+        \substr($uuid, 8, 4) . '-' .
+        \substr($uuid, 12, 4) . '-' .
+        \substr($uuid, 16, 4) . '-' .
+        \substr($uuid, 20, 12);
 }
 
 /**
  * Create datetime object from valid string.
+ *
+ * @psalm-suppress MissingParamType
  *
  * @param \DateTimeZone|string|null $timezone
  *

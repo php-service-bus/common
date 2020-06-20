@@ -12,8 +12,6 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Common\MessageHandler;
 
-use ServiceBus\Common\MessageExecutor\MessageHandlerOptions;
-
 /**
  * Message handler details.
  *

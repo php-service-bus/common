@@ -12,11 +12,11 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Common\Tests;
 
+use Symfony\Component\Uid\Uuid;
 use function ServiceBus\Common\collectThrowableDetails;
 use function ServiceBus\Common\formatBytes;
 use function ServiceBus\Common\uuid;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 final class OtherFunctionsTest extends TestCase
 {
