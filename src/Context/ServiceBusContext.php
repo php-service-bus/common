@@ -44,7 +44,7 @@ interface ServiceBusContext
     /**
      * Enqueue message.
      *
-     * @return Promise<null>
+     * @return Promise<void>
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */
@@ -53,7 +53,7 @@ interface ServiceBusContext
     /**
      * Return current message back to the queue.
      *
-     * @return Promise<null>
+     * @return Promise<void>
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */

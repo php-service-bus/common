@@ -50,7 +50,7 @@ final class MessageHandler
     /**
      * Execution closure.
      *
-     * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<null>
+     * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<void>
      *
      * @var \Closure
      */
@@ -67,7 +67,7 @@ final class MessageHandler
      * @psalm-suppress ImpurePropertyAssignment
      *
      * @psalm-param class-string $messageClass
-     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<null> $closure
+     * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<void> $closure
      */
     public function __construct(
         string $messageClass,

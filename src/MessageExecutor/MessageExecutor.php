@@ -23,7 +23,7 @@ interface MessageExecutor
     /**
      * Handle message.
      *
-     * @return Promise<null>
+     * @return Promise<void>
      *
      * @throws \Throwable
      * @throws \ServiceBus\Common\MessageExecutor\Exceptions\MessageExecutionFailed
