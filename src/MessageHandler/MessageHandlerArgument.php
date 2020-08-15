@@ -60,7 +60,7 @@ final class MessageHandlerArgument
      */
     public function isA(string $expectedClass): bool
     {
-        if (true === $this->isObject)
+        if ($this->isObject === true)
         {
             /** @var \ReflectionObject $reflectionClass */
             $reflectionClass = $this->reflectionParameter->getClass();
@@ -106,7 +106,7 @@ final class MessageHandlerArgument
                 );
             }
 
-            if (\class_exists($type->getName()) === true || \interface_exists($type->getName()) === true)
+            if (\class_exists($type->getName()) || \interface_exists($type->getName()))
             {
                 return 'object' === $expectedType;
             }

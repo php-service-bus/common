@@ -81,7 +81,7 @@ final class MessageHandler
         $this->methodName        = $reflectionMethod->getName();
         $this->messageClass      = $messageClass;
         $this->arguments         = $this->extractArguments($reflectionMethod);
-        $this->hasArguments      = 0 !== \count($this->arguments);
+        $this->hasArguments      = \count($this->arguments) !== 0;
         $this->returnDeclaration = $this->extractReturnDeclaration($reflectionMethod);
         $this->description       = $description;
     }

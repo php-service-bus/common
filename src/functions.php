@@ -16,6 +16,7 @@ use ServiceBus\Common\Exceptions\DateTimeException;
 use ServiceBus\Common\Exceptions\FileSystemException;
 use ServiceBus\Common\Exceptions\JsonSerializationFailed;
 use ServiceBus\Common\Exceptions\ReflectionApiException;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Generate a version 4 (random) UUID.
@@ -35,6 +36,14 @@ function uuid(): string
         \substr($uuid, 12, 4) . '-' .
         \substr($uuid, 16, 4) . '-' .
         \substr($uuid, 20, 12);
+}
+
+/**
+ * Is the string a valid UUID
+ */
+function isUuid(string $string): bool
+{
+    return Uuid::isValid($string);
 }
 
 /**
@@ -95,7 +104,7 @@ function now($timezone = null): \DateTimeImmutable
  */
 function timezoneFactory($timezone = null): ?\DateTimeZone
 {
-    if (\is_string($timezone) === true && $timezone !== '')
+    if (\is_string($timezone) && $timezone !== '')
     {
         $timezone = new \DateTimeZone($timezone);
     }
@@ -270,10 +279,8 @@ function extractNamespaceFromFile(string $filePath): ?string
 {
     $fileContents = fileGetContents($filePath);
 
-    if (
-        \preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false &&
-        isset($matches[1]) === true
-    ) {
+    if (\preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false && isset($matches[1]))
+    {
         /** @var string $fileName */
         $fileName = \pathinfo($filePath)['filename'];
 
@@ -374,6 +381,28 @@ function collectThrowableDetails(\Throwable $throwable): array
     }
 
     return $result;
+}
+
+/**
+ * Receives the exception message (including nested exceptions)
+ */
+function throwableMessage(\Throwable $throwable): string
+{
+    $message = $throwable->getMessage();
+
+    if ($previous = $throwable->getPrevious())
+    {
+        $messages = [];
+
+        do
+        {
+            $messages[] = $previous->getMessage();
+        } while ($previous = $previous->getPrevious());
+
+        $message .= \sprintf(' (Previous: %s)', \implode('; ', $messages));
+    }
+
+    return $message;
 }
 
 /**

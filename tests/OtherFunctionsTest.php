@@ -15,6 +15,8 @@ namespace ServiceBus\Common\Tests;
 use Symfony\Component\Uid\Uuid;
 use function ServiceBus\Common\collectThrowableDetails;
 use function ServiceBus\Common\formatBytes;
+use function ServiceBus\Common\isUuid;
+use function ServiceBus\Common\throwableMessage;
 use function ServiceBus\Common\uuid;
 use PHPUnit\Framework\TestCase;
 
@@ -27,6 +29,13 @@ final class OtherFunctionsTest extends TestCase
 
         static::assertNotEmpty($uuid);
         static::assertTrue(Uuid::isValid($uuid));
+    }
+
+    /** @test */
+    public function isUUID(): void
+    {
+        static::assertTrue(isUuid(uuid()));
+        static::assertFalse(isUuid('qwerty'));
     }
 
     /**
@@ -78,5 +87,17 @@ final class OtherFunctionsTest extends TestCase
         static::assertArrayHasKey('throwablePoint', $data['throwablePrevious'][0]);
 
         static::assertSame('runtime', $data['throwablePrevious'][0]['throwableMessage']);
+    }
+
+    /** @test */
+    public function throwableMessage(): void
+    {
+        $throwable = new \LogicException(
+            'message',
+            0,
+            new \RuntimeException('runtime', 0, new \InvalidArgumentException('invalid'))
+        );
+
+        static::assertSame('message (Previous: runtime; invalid)', throwableMessage($throwable));
     }
 }
