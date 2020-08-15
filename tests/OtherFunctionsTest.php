@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\Tests;
 
 use Symfony\Component\Uid\Uuid;
-use function ServiceBus\Common\collectThrowableDetails;
+use function ServiceBus\Common\throwableDetails;
 use function ServiceBus\Common\formatBytes;
 use function ServiceBus\Common\isUuid;
 use function ServiceBus\Common\throwableMessage;
@@ -59,7 +59,7 @@ final class OtherFunctionsTest extends TestCase
     /** @test */
     public function collectThrowableDetails(): void
     {
-        $data = collectThrowableDetails(new \LogicException('message'));
+        $data = throwableDetails(new \LogicException('message'));
 
         static::assertArrayHasKey('throwableMessage', $data);
         static::assertArrayHasKey('throwablePoint', $data);
@@ -72,7 +72,7 @@ final class OtherFunctionsTest extends TestCase
     /** @test */
     public function collectThrowableDetailsWithPrevious(): void
     {
-        $data = collectThrowableDetails(
+        $data = throwableDetails(
             new \LogicException(
                 'message',
                 0,

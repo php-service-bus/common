@@ -358,7 +358,7 @@ function formatBytes(int $bytes): string
 /**
  * Collect all throwable information (include previous).
  */
-function collectThrowableDetails(\Throwable $throwable): array
+function throwableDetails(\Throwable $throwable): array
 {
     $throwableFormatter = static function (\Throwable $throwable): array
     {
