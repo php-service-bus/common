@@ -21,7 +21,7 @@ jobs:
         run: composer install -ov
 
       - name: Run php-cs-fixer
-        run: ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --using-cache=no --verbose
+        run: PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --using-cache=no --verbose
 
   psalm:
     name: Psalm
@@ -120,29 +120,15 @@ jobs:
           coverage: pcov
           extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: ${{ env.PHP_INI_VALUES }}
+          tools: composer:v2
 
-      - name: Determine composer cache directory on Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: echo "COMPOSER_CACHE_DIR=$(./tools/composer config cache-dir)" >> $GITHUB_ENV
-
-      - name: Determine composer cache directory on Windows
-        if: matrix.os == 'windows-latest'
-        run: ECHO "COMPOSER_CACHE_DIR=~\AppData\Local\Composer" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-      - name: Cache dependencies installed with composer
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.COMPOSER_CACHE_DIR }}
-          key: php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
       - name: Install lowest dependencies with composer
         if: matrix.dependencies == 'lowest'
-        run: php ./tools/composer update --no-ansi --no-interaction --no-progress --prefer-lowest
+        run: composer install -ov
 
       - name: Install highest dependencies with composer
         if: matrix.dependencies == 'highest'
-        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
+        run: composer install -ov
 
       - name: Run tests with phpunit
         run: php ./vendor/bin/phpunit --configuration ./phpunit.xml --coverage-clover=coverage.clover
