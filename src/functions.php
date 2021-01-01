@@ -49,8 +49,6 @@ function isUuid(string $string): bool
 /**
  * Create datetime object from valid string.
  *
- * @psalm-suppress MissingParamType
- *
  * @param \DateTimeZone|string|null $timezone
  *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException

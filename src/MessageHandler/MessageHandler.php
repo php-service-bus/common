@@ -64,8 +64,6 @@ final class MessageHandler
     public $description;
 
     /**
-     * @psalm-suppress ImpurePropertyAssignment
-     *
      * @psalm-param class-string $messageClass
      * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<void> $closure
      */
