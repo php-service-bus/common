@@ -119,5 +119,7 @@ jobs:
         with:
           path: reports
 
-      - name: Echo download path
-        run: echo ${{steps.download.outputs.download-path}}
+      - name: Send code coverage report to Scrutinizer
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover reports/coverage.clover
