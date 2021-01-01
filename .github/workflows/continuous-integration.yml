@@ -1,6 +1,6 @@
 name: "Continuous Integration"
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   code-style:
@@ -124,11 +124,11 @@ jobs:
 
       - name: Install lowest dependencies with composer
         if: matrix.dependencies == 'lowest'
-        run: composer update -ov
+        run: composer update --no-ansi --no-interaction --no-progress --prefer-lowest
 
       - name: Install highest dependencies with composer
         if: matrix.dependencies == 'highest'
-        run: composer update -ov
+        run: composer update --no-ansi --no-interaction --no-progress
 
       - name: Run tests with phpunit
         run: php ./vendor/bin/phpunit --configuration ./phpunit.xml --coverage-clover=coverage.clover
