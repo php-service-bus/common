@@ -119,6 +119,9 @@ jobs:
         with:
           path: reports
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: Send code coverage report to Scrutinizer
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
