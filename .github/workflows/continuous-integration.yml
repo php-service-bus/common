@@ -119,10 +119,7 @@ jobs:
         with:
           path: reports
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       - name: Send code coverage report to Scrutinizer
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover reports/coverage.clover
+          php ocular.phar code-coverage:upload --format=php-clover ./reports/phpunit.coverage/coverage.clover
