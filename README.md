@@ -1,6 +1,7 @@
 ## What is it?
 
-[![Build Status](https://travis-ci.org/php-service-bus/common.svg?branch=v4.2)](https://travis-ci.org/php-service-bus/common)
+![Continuous Integration](https://github.com/php-service-bus/common/workflows/Continuous%20Integration/badge.svg)
+[![Shepherd](https://shepherd.dev/github/php-service-bus/common/coverage.svg)](https://shepherd.dev/github/php-service-bus/common)
 [![Code Coverage](https://scrutinizer-ci.com/g/php-service-bus/common/badges/coverage.png?b=v4.2)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v4.2)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-service-bus/common/badges/quality-score.png?b=v4.2)](https://scrutinizer-ci.com/g/php-service-bus/common/?branch=v4.2)
 
