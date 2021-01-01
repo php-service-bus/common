@@ -39,7 +39,7 @@ final class MessageHandler
      *
      * @var string|null
      */
-    public $messageClass = null;
+    public $messageClass;
 
     /** @var MessageHandlerReturnDeclaration */
     public $returnDeclaration;
@@ -80,17 +80,18 @@ final class MessageHandler
         $this->options           = $options;
         $this->methodName        = $reflectionMethod->getName();
         $this->messageClass      = $messageClass;
-        $this->arguments         = $this->extractArguments($reflectionMethod);
+        $this->arguments         = self::extractArguments($reflectionMethod);
         $this->hasArguments      = \count($this->arguments) !== 0;
-        $this->returnDeclaration = $this->extractReturnDeclaration($reflectionMethod);
+        $this->returnDeclaration = self::extractReturnDeclaration($reflectionMethod);
         $this->description       = $description;
     }
 
     /**
      * Retrieves a collection of method arguments.
      */
-    private function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
+    private static function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
+        /** @psalm-var \SplObjectStorage<MessageHandlerArgument, mixed> $argumentCollection */
         $argumentCollection = new \SplObjectStorage();
 
         $position = 1;
@@ -108,7 +109,7 @@ final class MessageHandler
     /**
      * Retrieves a method return declaration.
      */
-    private function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
+    private static function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
         $returnDeclaration = $reflectionMethod->getReturnType();
 

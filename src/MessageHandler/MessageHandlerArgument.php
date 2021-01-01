@@ -30,7 +30,7 @@ final class MessageHandlerArgument
      *
      * @var string|null
      */
-    public $typeClass = null;
+    public $typeClass;
 
     /** @var bool */
     public $isObject;
@@ -62,10 +62,11 @@ final class MessageHandlerArgument
     {
         if ($this->isObject === true)
         {
-            /** @var \ReflectionObject $reflectionClass */
-            $reflectionClass = $this->reflectionParameter->getClass();
+            /** @var \ReflectionType $reflectionType */
+            $reflectionType = $this->reflectionParameter->getType();
 
-            return \is_a($reflectionClass->getName(), $expectedClass, true);
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+            return \is_a($reflectionType->getName(), $expectedClass, true);
         }
 
         return false;
@@ -78,10 +79,11 @@ final class MessageHandlerArgument
     {
         if ($this->isObject === true)
         {
-            /** @var \ReflectionObject $reflectionClass */
-            $reflectionClass = $this->reflectionParameter->getClass();
+            /** @var \ReflectionType $reflectionType */
+            $reflectionType = $this->reflectionParameter->getType();
 
-            return $reflectionClass->getName();
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+            return $reflectionType->getName();
         }
 
         return null;

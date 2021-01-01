@@ -1,5 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#no value type specified in iterable type array#'
-			path: %currentWorkingDirectory%/src
+			message: '#ReflectionType::getName#'
+			path: %currentWorkingDirectory%/src/MessageHandler/MessageHandlerArgument.php
+	checkMissingIterableValueType: false

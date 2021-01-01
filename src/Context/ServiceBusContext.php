@@ -22,13 +22,7 @@ use ServiceBus\Common\Endpoint\DeliveryOptions;
 interface ServiceBusContext
 {
     /**
-     * Is the received message correct?
-     * If validation is not enabled in the handler parameters, it always returns true.
-     */
-    public function isValid(): bool;
-
-    /**
-     * If received message is incorrect, returns a list of violations.
+     * If received message is incorrect, returns a list of violations (In case validation check is enabled).
      *
      * @psalm-return array<string, array<int, string>>
      *
@@ -78,9 +72,9 @@ interface ServiceBusContext
     ): void;
 
     /**
-     * Receive incoming operation id.
+     * Receive incoming message id.
      */
-    public function operationId(): string;
+    public function messageId(): string;
 
     /**
      * Receive trace message id.

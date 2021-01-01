@@ -143,10 +143,8 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
  * @param mixed ...$parameters
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
- *
- * @return mixed
  */
-function invokeReflectionMethod(object $object, string $methodName, ...$parameters)
+function invokeReflectionMethod(object $object, string $methodName, ...$parameters): mixed
 {
     try
     {
@@ -164,11 +162,9 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
 /**
  * Write value to property.
  *
- * @param mixed $value
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
-function writeReflectionPropertyValue(object $object, string $propertyName, $value): void
+function writeReflectionPropertyValue(object $object, string $propertyName, mixed $value): void
 {
     $attribute = extractReflectionProperty($object, $propertyName);
 
@@ -179,13 +175,9 @@ function writeReflectionPropertyValue(object $object, string $propertyName, $val
 /**
  * Read property value.
  *
- * @psalm-suppress MixedAssignment Mixed return data type
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
- *
- * @return mixed
  */
-function readReflectionPropertyValue(object $object, string $propertyName)
+function readReflectionPropertyValue(object $object, string $propertyName): mixed
 {
     $attribute = extractReflectionProperty($object, $propertyName);
 
@@ -207,7 +199,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
     {
         return new \ReflectionProperty($object, $propertyName);
     }
-    catch (\ReflectionException $e)
+    catch (\ReflectionException)
     {
         $reflector = new \ReflectionObject($object);
 
@@ -218,7 +210,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
             {
                 return $reflector->getProperty($propertyName);
             }
-            catch (\Throwable $throwable)
+            catch (\Throwable)
             {
                 // Not interested
             }
@@ -239,7 +231,7 @@ function createWithoutConstructor(string $class): object
     {
         return (new \ReflectionClass($class))->newInstanceWithoutConstructor();
     }
-    catch (\Throwable $throwable)
+    catch (\Throwable)
     {
         throw ReflectionApiException::classNotExists($class);
     }
@@ -284,11 +276,7 @@ function extractNamespaceFromFile(string $filePath): ?string
         /** @var string $fileName */
         $fileName = \pathinfo($filePath)['filename'];
 
-        return \sprintf(
-            '%s\\%s',
-            (string) $matches[1],
-            $fileName
-        );
+        return \sprintf('%s\\%s', $matches[1], $fileName);
     }
 
     return null;
@@ -298,11 +286,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  * Recursive search of all files in the directory
  * Search for files matching the specified regular expression.
  *
- * @psalm-param    array<array-key, string> $directories
- *
- * @psalm-suppress MixedTypeCoercion
- *
- * @return \Generator<\SplFileInfo>
+ * @psalm-param array<array-key, string> $directories
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {

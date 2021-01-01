@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace ServiceBus\Common\Endpoint;
 
@@ -19,17 +19,15 @@ interface DeliveryOptions
 {
     /**
      * Create options instance.
-     *
-     * @return static
      */
-    public static function create(): self;
+    public static function create(): static;
 
     /**
      * Apply trace ID.
      *
      * @param int|string|null $traceId
      */
-    public function withTraceId($traceId): void;
+    public function withTraceId(mixed $traceId): void;
 
     /**
      * Apply headers.
@@ -43,7 +41,7 @@ interface DeliveryOptions
      *
      * @return int|string|null
      */
-    public function traceId();
+    public function traceId(): mixed;
 
     /**
      * Receive headers.
