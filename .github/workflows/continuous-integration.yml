@@ -44,7 +44,7 @@ jobs:
           COMPOSER_ROOT_VERSION: dev-master
 
       - name: "Run PHPUnit"
-        run: "vendor/bin/phpunit --coverage-clover=coverage.xml"
+        run: "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover=coverage.xml"
 
       - name: "Upload coverage file"
         uses: "actions/upload-artifact@v2"
@@ -53,7 +53,7 @@ jobs:
           path: "coverage.xml"
 
   upload_coverage:
-    name: "Upload coverage to Codecov"
+    name: "Upload coverage"
     runs-on: "ubuntu-20.04"
     needs:
       - "phpunit"
@@ -69,7 +69,12 @@ jobs:
         with:
           path: "reports"
 
-      - name: "Upload to Codecov"
+      - name: "Send code coverage report to Codecov"
         uses: "codecov/codecov-action@v1"
         with:
           directory: reports
+
+      - name: "Send code coverage report to Scrutinizer"
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover coverage.xml
