@@ -41,7 +41,7 @@ jobs:
         run: composer install -ov
 
       - name: Run vimeo/psalm
-        run: ./vendor/bin/psalm --config=psalm.xml
+        run: ./vendor/bin/psalm --config=psalm.xml --shepherd
 
   phpstan:
     name: PHPStan
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PHP_EXTENSIONS: dom, json, mbstring, curl
+      PHP_EXTENSIONS: dom, json, mbstring, curl, tokenizer
       PHP_INI_VALUES: assert.exception=1, zend.assertions=1
 
     steps:
