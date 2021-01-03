@@ -3,7 +3,7 @@
 [![Packagist](https://img.shields.io/packagist/v/php-service-bus/common.svg)](https://packagist.org/packages/php-service-bus/common)
 [![Packagist](https://img.shields.io/packagist/dt/php-service-bus/common.svg)](https://packagist.org/packages/php-service-bus/common)
 ![Continuous Integration](https://github.com/php-service-bus/common/workflows/Continuous%20Integration/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/php-service-bus/common/badge.svg)](https://coveralls.io/github/php-service-bus/common)
+[![codecov](https://codecov.io/gh/php-service-bus/common/branch/v4.2/graph/badge.svg?token=0bKwdiuo0S)](https://codecov.io/gh/php-service-bus/common)
 [![Shepherd](https://shepherd.dev/github/php-service-bus/common/coverage.svg)](https://shepherd.dev/github/php-service-bus/common)
 
 This component is part of the [PHP Service Bus](https://github.com/php-service-bus/service-bus): contains common interfaces for implementing in the service bus.
