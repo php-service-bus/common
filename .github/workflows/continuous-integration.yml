@@ -93,12 +93,6 @@ jobs:
       - name: Run tests with phpunit
         run: XDEBUG_MODE=coverage php ./vendor/bin/phpunit --configuration ./phpunit.xml --coverage-clover=coverage.xml
 
-      - name: Upload coverage file
-        uses: actions/upload-artifact@v2
-        with:
-          name: phpunit.coverage
-          path: coverage.clover
-
       - name: Send code coverage report to Codecov.io
         uses: codecov/codecov-action@v1
         with:
