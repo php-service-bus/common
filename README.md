@@ -1,11 +1,10 @@
 ## What is it?
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
+[![Packagist](https://img.shields.io/packagist/v/php-service-bus/common.svg)](https://packagist.org/packages/php-service-bus/common)
+[![Packagist](https://img.shields.io/packagist/dt/php-service-bus/common.svg)](https://packagist.org/packages/php-service-bus/common)
 ![Continuous Integration](https://github.com/php-service-bus/common/workflows/Continuous%20Integration/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/php-service-bus/common/badge.svg)](https://coveralls.io/github/php-service-bus/common)
 [![Shepherd](https://shepherd.dev/github/php-service-bus/common/coverage.svg)](https://shepherd.dev/github/php-service-bus/common)
-[![Total Downloads][ico-downloads]][link-downloads]
 
 This component is part of the [PHP Service Bus](https://github.com/php-service-bus/service-bus): contains common interfaces for implementing in the service bus.
 
