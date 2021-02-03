@@ -37,11 +37,11 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertNotNull($handler->returnDeclaration);
-        static::assertTrue($handler->returnDeclaration->isVoid);
+        self::assertNotNull($handler->returnDeclaration);
+        self::assertTrue($handler->returnDeclaration->isVoid);
 
-        static::assertFalse($handler->returnDeclaration->isGenerator);
-        static::assertFalse($handler->returnDeclaration->isPromise);
+        self::assertFalse($handler->returnDeclaration->isGenerator);
+        self::assertFalse($handler->returnDeclaration->isPromise);
     }
 
     /** @test */
@@ -61,7 +61,7 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertNotNull($handler->returnDeclaration);
+        self::assertNotNull($handler->returnDeclaration);
     }
 
     /** @test */
@@ -82,9 +82,9 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertTrue($handler->returnDeclaration->isPromise);
-        static::assertFalse($handler->returnDeclaration->isGenerator);
-        static::assertFalse($handler->returnDeclaration->isVoid);
+        self::assertTrue($handler->returnDeclaration->isPromise);
+        self::assertFalse($handler->returnDeclaration->isGenerator);
+        self::assertFalse($handler->returnDeclaration->isVoid);
     }
 
     /** @test */
@@ -105,9 +105,9 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertTrue($handler->returnDeclaration->isGenerator);
-        static::assertFalse($handler->returnDeclaration->isPromise);
-        static::assertFalse($handler->returnDeclaration->isVoid);
+        self::assertTrue($handler->returnDeclaration->isGenerator);
+        self::assertFalse($handler->returnDeclaration->isPromise);
+        self::assertFalse($handler->returnDeclaration->isVoid);
     }
 
     /** @test */
@@ -128,9 +128,9 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertFalse($handler->returnDeclaration->isGenerator);
-        static::assertFalse($handler->returnDeclaration->isPromise);
-        static::assertFalse($handler->returnDeclaration->isVoid);
+        self::assertFalse($handler->returnDeclaration->isGenerator);
+        self::assertFalse($handler->returnDeclaration->isPromise);
+        self::assertFalse($handler->returnDeclaration->isVoid);
     }
 
     /** @test */
@@ -151,19 +151,19 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertTrue($handler->hasArguments);
-        static::assertCount(1, $handler->arguments);
+        self::assertTrue($handler->hasArguments);
+        self::assertCount(1, $handler->arguments);
 
         $args = \iterator_to_array($handler->arguments);
 
         /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument $argument */
         $argument = \end($args);
 
-        static::assertSame('argument', $argument->argumentName);
-        static::assertTrue($argument->hasType);
-        static::assertSame(\stdClass::class, $argument->typeClass);
-        static::assertTrue($argument->isObject);
-        static::assertTrue($argument->isA(\stdClass::class));
+        self::assertSame('argument', $argument->argumentName);
+        self::assertTrue($argument->hasType);
+        self::assertSame(\stdClass::class, $argument->typeClass);
+        self::assertTrue($argument->isObject);
+        self::assertTrue($argument->isA(\stdClass::class));
     }
 
     /** @test */
@@ -184,20 +184,20 @@ final class MessageHandlerTest extends TestCase
             self::emptyOptions()
         );
 
-        static::assertTrue($handler->hasArguments);
-        static::assertCount(1, $handler->arguments);
+        self::assertTrue($handler->hasArguments);
+        self::assertCount(1, $handler->arguments);
 
         $args = \iterator_to_array($handler->arguments);
 
         /** @var \ServiceBus\Common\MessageHandler\MessageHandlerArgument $argument */
         $argument = \end($args);
 
-        static::assertSame('argument', $argument->argumentName);
-        static::assertFalse($argument->hasType);
-        static::assertNull($argument->typeClass);
-        static::assertFalse($argument->isObject);
-        static::assertFalse($argument->isA(\stdClass::class));
-        static::assertSame(1, $argument->position);
+        self::assertSame('argument', $argument->argumentName);
+        self::assertFalse($argument->hasType);
+        self::assertNull($argument->typeClass);
+        self::assertFalse($argument->isObject);
+        self::assertFalse($argument->isA(\stdClass::class));
+        self::assertSame(1, $argument->position);
     }
 
     /**

@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -16,43 +16,54 @@ use Amp\Promise;
 
 /**
  * Handler return declaration.
- *
- * @psalm-readonly
  */
 final class MessageHandlerReturnDeclaration
 {
-    /** @var bool */
+    /**
+     * @psalm-readonly
+     *
+     * @var bool
+     */
     public $isVoid;
 
-    /** @var bool */
+    /**
+     * @psalm-readonly
+     *
+     * @var bool
+     */
     public $isPromise;
 
-    /** @var bool */
+    /**
+     * @psalm-readonly
+     *
+     * @var bool
+     */
     public $isGenerator;
 
     public static function create(\ReflectionNamedType $reflectionType): self
     {
         $typeName = $reflectionType->getName();
 
-        $self = new self();
-
-        $self->isVoid      = $typeName === 'void';
-        $self->isPromise   = $typeName === Promise::class;
-        $self->isGenerator = $typeName === \Generator::class;
-
-        return $self;
+        return new self(
+            isVoid: $typeName === 'void',
+            isPromise: $typeName === Promise::class,
+            isGenerator: $typeName === \Generator::class
+        );
     }
 
     public static function createVoid(): self
     {
-        $self = new self();
-
-        $self->isVoid = true;
-
-        return $self;
+        return new self(
+            isVoid: true,
+            isPromise: false,
+            isGenerator: false
+        );
     }
 
-    private function __construct()
+    private function __construct(bool $isVoid, bool $isPromise, bool $isGenerator)
     {
+        $this->isVoid      = $isVoid;
+        $this->isPromise   = $isPromise;
+        $this->isGenerator = $isGenerator;
     }
 }

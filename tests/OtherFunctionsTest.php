@@ -27,15 +27,15 @@ final class OtherFunctionsTest extends TestCase
     {
         $uuid = uuid();
 
-        static::assertNotEmpty($uuid);
-        static::assertTrue(Uuid::isValid($uuid));
+        self::assertNotEmpty($uuid);
+        self::assertTrue(Uuid::isValid($uuid));
     }
 
     /** @test */
     public function isUUID(): void
     {
-        static::assertTrue(isUuid(uuid()));
-        static::assertFalse(isUuid('qwerty'));
+        self::assertTrue(isUuid(uuid()));
+        self::assertFalse(isUuid('qwerty'));
     }
 
     /**
@@ -44,7 +44,7 @@ final class OtherFunctionsTest extends TestCase
      */
     public function formatBytes(int $bytes, string $expected): void
     {
-        static::assertSame($expected, formatBytes($bytes));
+        self::assertSame($expected, formatBytes($bytes));
     }
 
     public function formatBytesDataProvider(): array
@@ -61,12 +61,12 @@ final class OtherFunctionsTest extends TestCase
     {
         $data = throwableDetails(new \LogicException('message'));
 
-        static::assertArrayHasKey('throwableMessage', $data);
-        static::assertArrayHasKey('throwablePoint', $data);
-        static::assertArrayHasKey('throwablePrevious', $data);
+        self::assertArrayHasKey('throwableMessage', $data);
+        self::assertArrayHasKey('throwablePoint', $data);
+        self::assertArrayHasKey('throwablePrevious', $data);
 
-        static::assertEmpty($data['throwablePrevious']);
-        static::assertSame('message', $data['throwableMessage']);
+        self::assertEmpty($data['throwablePrevious']);
+        self::assertSame('message', $data['throwableMessage']);
     }
 
     /** @test */
@@ -80,13 +80,13 @@ final class OtherFunctionsTest extends TestCase
             )
         );
 
-        static::assertNotEmpty($data['throwablePrevious']);
-        static::assertCount(2, $data['throwablePrevious']);
+        self::assertNotEmpty($data['throwablePrevious']);
+        self::assertCount(2, $data['throwablePrevious']);
 
-        static::assertArrayHasKey('throwableMessage', $data['throwablePrevious'][0]);
-        static::assertArrayHasKey('throwablePoint', $data['throwablePrevious'][0]);
+        self::assertArrayHasKey('throwableMessage', $data['throwablePrevious'][0]);
+        self::assertArrayHasKey('throwablePoint', $data['throwablePrevious'][0]);
 
-        static::assertSame('runtime', $data['throwablePrevious'][0]['throwableMessage']);
+        self::assertSame('runtime', $data['throwablePrevious'][0]['throwableMessage']);
     }
 
     /** @test */
@@ -98,6 +98,6 @@ final class OtherFunctionsTest extends TestCase
             new \RuntimeException('runtime', 0, new \InvalidArgumentException('invalid'))
         );
 
-        static::assertSame('message (Previous: runtime; invalid)', throwableMessage($throwable));
+        self::assertSame('message (Previous: runtime; invalid)', throwableMessage($throwable));
     }
 }

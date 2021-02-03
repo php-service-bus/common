@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 interface ServiceBusModule
 {
     /**
-     * @throws \Throwable Boot module failed
+     * @throws \Throwable Boot module failed.
      */
     public function boot(ContainerBuilder $containerBuilder): void;
 }

@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -14,35 +14,53 @@ namespace ServiceBus\Common\MessageHandler;
 
 /**
  * Handler argument information.
- *
- * @psalm-readonly
  */
 final class MessageHandlerArgument
 {
-    /** @var string */
+    /**
+     * @psalm-readonly
+     *
+     * @var string
+     */
     public $argumentName;
 
-    /** @var bool */
+    /**
+     * @psalm-readonly
+     *
+     * @var bool
+     */
     public $hasType;
 
     /**
      * If the argument type is an object, then the name of the class. Otherwise null.
      *
+     * @psalm-readonly
+     *
      * @var string|null
      */
     public $typeClass;
 
-    /** @var bool */
+    /**
+     * @psalm-readonly
+     *
+     * @var bool
+     */
     public $isObject;
 
     /**
      * Argument position.
      *
+     * @psalm-readonly
+     *
      * @var int
      */
     public $position;
 
-    /** @var \ReflectionParameter */
+    /**
+     * @psalm-readonly
+     *
+     * @var \ReflectionParameter
+     */
     private $reflectionParameter;
 
     public function __construct(int $position, \ReflectionParameter $reflectionParameter)
@@ -60,7 +78,7 @@ final class MessageHandlerArgument
      */
     public function isA(string $expectedClass): bool
     {
-        if ($this->isObject === true)
+        if ($this->isObject)
         {
             /** @var \ReflectionType $reflectionType */
             $reflectionType = $this->reflectionParameter->getType();
@@ -77,7 +95,7 @@ final class MessageHandlerArgument
      */
     private function getTypeClassName(): ?string
     {
-        if ($this->isObject === true)
+        if ($this->isObject)
         {
             /** @var \ReflectionType $reflectionType */
             $reflectionType = $this->reflectionParameter->getType();
@@ -96,7 +114,7 @@ final class MessageHandlerArgument
      */
     private function assertType(string $expectedType): bool
     {
-        if ($this->hasType === true)
+        if ($this->hasType)
         {
             /** @var \ReflectionNamedType|\ReflectionType $type */
             $type = $this->reflectionParameter->getType();
@@ -104,13 +122,13 @@ final class MessageHandlerArgument
             if (($type instanceof \ReflectionNamedType) === false)
             {
                 throw new \LogicException(
-                    \sprintf('Incorrect parameter "%s" type', $this->reflectionParameter->name)
+                    \sprintf('Incorrect parameter `%s` type', $this->reflectionParameter->name)
                 );
             }
 
             if (\class_exists($type->getName()) || \interface_exists($type->getName()))
             {
-                return 'object' === $expectedType;
+                return  $expectedType === 'object';
             }
 
             return $expectedType === $type->getName();

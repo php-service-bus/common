@@ -25,14 +25,14 @@ final class FileFunctionsTest extends TestCase
     {
         $files = \iterator_to_array(searchFiles(canonicalizeFilesPath([__DIR__]), '/\.php/i'));
 
-        static::assertCount(10, $files);
+        self::assertCount(10, $files);
     }
 
     /** @test */
     public function extractNamespaceFromFile(): void
     {
-        static::assertSame(__CLASS__, extractNamespaceFromFile(__FILE__));
-        static::assertNull(extractNamespaceFromFile(__DIR__ . '/empty_php_file.php'));
+        self::assertSame(__CLASS__, extractNamespaceFromFile(__FILE__));
+        self::assertNull(extractNamespaceFromFile(__DIR__ . '/empty_php_file.php'));
     }
 
     /** @test */

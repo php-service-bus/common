@@ -25,7 +25,7 @@ final class JsonWrapperTest extends TestCase
     /** @test */
     public function decodeEmptyString(): void
     {
-        static::assertEmpty(jsonDecode('{}'));
+        self::assertEmpty(jsonDecode('{}'));
     }
 
     /** @test */
@@ -39,13 +39,13 @@ final class JsonWrapperTest extends TestCase
     /** @test */
     public function encodeEmptyArray(): void
     {
-        static::assertSame('[]', jsonEncode([]));
+        self::assertSame('[]', jsonEncode([]));
     }
 
     /** @test */
     public function preserveZeroFractionWhenEncodeFloat(): void
     {
-        static::assertSame('{"foo":10.0}', jsonEncode(['foo' => 10.0]));
+        self::assertSame('{"foo":10.0}', jsonEncode(['foo' => 10.0]));
     }
 
     /** @test */

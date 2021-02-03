@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -13,7 +13,6 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\Context;
 
 use Amp\Promise;
-use Psr\Log\LogLevel;
 use ServiceBus\Common\Endpoint\DeliveryOptions;
 
 /**
@@ -23,17 +22,8 @@ interface ServiceBusContext
 {
     /**
      * If received message is incorrect, returns a list of violations (In case validation check is enabled).
-     *
-     * @psalm-return array<string, array<int, string>>
-     *
-     * [
-     *    'propertyPath' => [
-     *        0 => 'some message',
-     *        ....
-     *    ]
-     * ]
      */
-    public function violations(): array;
+    public function violations(): ?ValidationViolations;
 
     /**
      * Enqueue message.
@@ -42,7 +32,11 @@ interface ServiceBusContext
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */
-    public function delivery(object $message, ?DeliveryOptions $deliveryOptions = null): Promise;
+    public function delivery(
+        object $message,
+        ?DeliveryOptions $deliveryOptions = null,
+        ?Metadata $withMetadata = null
+    ): Promise;
 
     /**
      * Return current message back to the queue.
@@ -51,40 +45,22 @@ interface ServiceBusContext
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */
-    public function return(int $secondsDelay = 3): Promise;
+    public function return(int $secondsDelay = 3, ?Metadata $withMetadata = null): Promise;
 
     /**
-     * Log message with context details.
+     * Receive context logger.
      */
-    public function logContextMessage(
-        string $logMessage,
-        array $extra = [],
-        string $level = LogLevel::INFO
-    ): void;
-
-    /**
-     * Log Throwable in execution context.
-     */
-    public function logContextThrowable(
-        \Throwable $throwable,
-        array $extra = [],
-        string $level = LogLevel::ERROR
-    ): void;
-
-    /**
-     * Receive incoming message id.
-     */
-    public function messageId(): string;
-
-    /**
-     * Receive trace message id.
-     */
-    public function traceId(): string;
+    public function logger(): ContextLogger;
 
     /**
      * Receive incoming message headers.
      *
-     * @psalm-return array<string, string|float|int>
+     * @psalm-return array<string, int|float|string|null>
      */
     public function headers(): array;
+
+    /**
+     * Receive message metadata.
+     */
+    public function metadata(): Metadata;
 }

@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -23,25 +23,9 @@ interface DeliveryOptions
     public static function create(): static;
 
     /**
-     * Apply trace ID.
-     *
-     * @param int|string|null $traceId
-     */
-    public function withTraceId(mixed $traceId): void;
-
-    /**
      * Apply headers.
-     *
-     * @psalm-param float|int|string $value
      */
-    public function withHeader(string $key, $value): void;
-
-    /**
-     * Receive trace id.
-     *
-     * @return int|string|null
-     */
-    public function traceId(): mixed;
+    public function withHeader(string $key, int|float|string|null $value): void;
 
     /**
      * Receive headers.

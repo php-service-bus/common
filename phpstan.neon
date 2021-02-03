@@ -3,4 +3,8 @@ parameters:
 		-
 			message: '#ReflectionType::getName#'
 			path: %currentWorkingDirectory%/src/MessageHandler/MessageHandlerArgument.php
+		-
+			message: '#@return with type mixed#'
+			path: %currentWorkingDirectory%/src/functions.php
 	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false

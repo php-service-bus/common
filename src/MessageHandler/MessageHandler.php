@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -14,19 +14,27 @@ namespace ServiceBus\Common\MessageHandler;
 
 /**
  * Message handler details.
- *
- * @psalm-readonly
  */
 final class MessageHandler
 {
-    /** @var string */
+    /**
+     * @psalm-readonly
+     *
+     * @var string
+     */
     public $methodName;
 
-    /** @var bool */
+    /**
+     * @psalm-readonly
+     *
+     * @var bool
+     */
     public $hasArguments;
 
     /**
      * Collection of arguments to the message handler.
+     *
+     * @psalm-readonly
      *
      * @see MessageHandlerArgument
      *
@@ -37,19 +45,30 @@ final class MessageHandler
     /**
      * Message class for which the handler was created.
      *
+     * @psalm-readonly
+     *
      * @var string|null
      */
     public $messageClass;
 
-    /** @var MessageHandlerReturnDeclaration */
+    /**
+     * @psalm-readonly
+     *
+     * @var MessageHandlerReturnDeclaration
+     */
     public $returnDeclaration;
 
-    /** @var MessageHandlerOptions */
+    /**
+     * @psalm-readonly
+     *
+     * @var MessageHandlerOptions
+     */
     public $options;
 
     /**
      * Execution closure.
      *
+     * @psalm-readonly
      * @psalm-var \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<void>
      *
      * @var \Closure
@@ -58,6 +77,8 @@ final class MessageHandler
 
     /**
      * Message handler description
+     *
+     * @psalm-readonly
      *
      * @var string|null
      */
@@ -74,12 +95,14 @@ final class MessageHandler
         MessageHandlerOptions $options,
         ?string $description = null
     ) {
+        $arguments = self::extractArguments($reflectionMethod);
+
         $this->closure           = $closure;
         $this->options           = $options;
         $this->methodName        = $reflectionMethod->getName();
         $this->messageClass      = $messageClass;
-        $this->arguments         = self::extractArguments($reflectionMethod);
-        $this->hasArguments      = \count($this->arguments) !== 0;
+        $this->arguments         = $arguments;
+        $this->hasArguments      = $arguments->count() !== 0;
         $this->returnDeclaration = self::extractReturnDeclaration($reflectionMethod);
         $this->description       = $description;
     }

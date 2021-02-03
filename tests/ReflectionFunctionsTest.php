@@ -24,7 +24,7 @@ final class ReflectionFunctionsTest extends TestCase
     /** @test */
     public function readPublicProperty(): void
     {
-        static::assertSame(
+        self::assertSame(
             'abube',
             readReflectionPropertyValue(
                 new SecondClass(),
@@ -46,17 +46,17 @@ final class ReflectionFunctionsTest extends TestCase
     {
         $object = new SecondClass();
 
-        static::assertSame(
+        self::assertSame(
             'abube',
             readReflectionPropertyValue($object, 'secondClassPublicValue')
         );
 
-        static::assertSame(
+        self::assertSame(
             'root',
             readReflectionPropertyValue($object, 'secondClassValue')
         );
 
-        static::assertSame(
+        self::assertSame(
             'qwerty',
             readReflectionPropertyValue($object, 'firstClassValue')
         );
@@ -68,7 +68,7 @@ final class ReflectionFunctionsTest extends TestCase
         /** @var string $result */
         $result = invokeReflectionMethod(new SecondClass(), 'privateMethod', __METHOD__);
 
-        static::assertSame(__METHOD__, $result);
+        self::assertSame(__METHOD__, $result);
     }
 
     /** @test */
@@ -84,7 +84,7 @@ final class ReflectionFunctionsTest extends TestCase
     {
         $object = createWithoutConstructor(WithClosedConstructor::class);
 
-        static::assertInstanceOf(WithClosedConstructor::class, $object);
+        self::assertInstanceOf(WithClosedConstructor::class, $object);
     }
 
     /** @test */
@@ -102,7 +102,7 @@ final class ReflectionFunctionsTest extends TestCase
 
         writeReflectionPropertyValue($object, 'secondClassValue', __METHOD__);
 
-        static::assertSame(
+        self::assertSame(
             __METHOD__,
             readReflectionPropertyValue($object, 'secondClassValue')
         );

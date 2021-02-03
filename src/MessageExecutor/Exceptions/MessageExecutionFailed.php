@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -37,7 +37,7 @@ final class MessageExecutionFailed extends \RuntimeException
         string $traceId,
         ?\Throwable $previous = null
     ) {
-        parent::__construct($throwableMessage, 0, $previous);
+        parent::__construct(\sprintf('Message execution failed: %s', $throwableMessage), 0, $previous);
 
         $this->messageObject = $messageObject;
         $this->traceId       = $traceId;

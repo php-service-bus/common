@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -13,19 +13,32 @@ declare(strict_types = 1);
 namespace ServiceBus\Common\Context\Exceptions;
 
 /**
- * @psalm-readonly
+ *
  */
 final class MessageDeliveryFailed extends \RuntimeException
 {
     /**
      * Message type.
      *
+     * @psalm-readonly
+     *
      * @var object
      */
     public $messageObject;
 
     /**
+     * Message identifier.
+     *
+     * @psalm-readonly
+     *
+     * @var string
+     */
+    public $messageId;
+
+    /**
      * Trace identifier.
+     *
+     * @psalm-readonly
      *
      * @var string
      */

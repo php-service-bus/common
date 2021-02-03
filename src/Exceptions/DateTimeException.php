@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -24,6 +24,6 @@ final class DateTimeException extends \RuntimeException
 
     public static function wrongFormat(string $format): self
     {
-        return new self(\sprintf('Cannot display date in "%s" format', $format));
+        return new self(\sprintf('Cannot display date in `%s` format', $format));
     }
 }

@@ -3,7 +3,7 @@
 /**
  * PHP Service Bus common component.
  *
- * @author  Maksim Masiukevich <dev@async-php.com>
+ * @author  Maksim Masiukevich <contacts@desperado.dev>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
@@ -187,8 +187,6 @@ function readReflectionPropertyValue(object $object, string $propertyName): mixe
 /**
  * Extract property.
  *
- * @internal
- *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function extractReflectionProperty(object $object, string $propertyName): \ReflectionProperty
@@ -219,7 +217,9 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
 }
 
 /**
- * @psalm-param class-string $class
+ * @template T
+ * @psalm-param class-string<T> $class
+ * @psalm-return T
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */

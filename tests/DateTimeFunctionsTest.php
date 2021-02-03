@@ -30,27 +30,27 @@ final class DateTimeFunctionsTest extends TestCase
         ?string $expectedResult,
         bool $expectException = false
     ): void {
-        if (true === $expectException)
+        if ($expectException)
         {
             $this->expectException(DateTimeException::class);
         }
 
         $result = datetimeInstantiator($date, $timezone);
 
-        if (null !== $expectedResult)
+        if ($expectedResult !== null)
         {
-            static::assertNotNull($result);
+            self::assertNotNull($result);
 
             /** @var \DateTimeImmutable $result */
-            static::assertSame(
-                \date('Y-m-d H:i:s', \strtotime($expectedResult)),
+            self::assertSame(
+                \date('Y-m-d H:i:s', (int) \strtotime($expectedResult)),
                 $result->format('Y-m-d H:i:s')
             );
 
             return;
         }
 
-        static::assertNull($result);
+        self::assertNull($result);
     }
 
     public function datetimeInstantiatorDataProvider(): array
@@ -73,24 +73,24 @@ final class DateTimeFunctionsTest extends TestCase
         ?string $expectedResult,
         bool $expectException = false
     ): void {
-        if (true === $expectException)
+        if ($expectException)
         {
             $this->expectException(DateTimeException::class);
         }
 
         $result = datetimeToString($dateTime, $format);
 
-        if (null !== $expectedResult)
+        if ($expectedResult !== null)
         {
-            static::assertNotNull($result);
+            self::assertNotNull($result);
 
             /** @var \DateTimeImmutable $result */
-            static::assertSame($expectedResult, $result);
+            self::assertSame($expectedResult, $result);
 
             return;
         }
 
-        static::assertNull($result);
+        self::assertNull($result);
     }
 
     public function datetimeToStringDataProvider(): array
@@ -105,7 +105,7 @@ final class DateTimeFunctionsTest extends TestCase
     /** @test */
     public function now(): void
     {
-        static::assertEquals(
+        self::assertEquals(
             \date('Y-m-d H:i'),
             now('UTC')->format('Y-m-d H:i')
         );
@@ -116,8 +116,9 @@ final class DateTimeFunctionsTest extends TestCase
     {
         $now = now('UTC')->format('Y-m-d H:i:s.u');
 
+        /** @var \DateTimeImmutable $fromInstantiator */
         $fromInstantiator = datetimeInstantiator($now);
 
-        static::assertEquals($now, $fromInstantiator->format('Y-m-d H:i:s.u'));
+        self::assertEquals($now, $fromInstantiator->format('Y-m-d H:i:s.u'));
     }
 }
