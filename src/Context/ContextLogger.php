@@ -13,18 +13,9 @@ use Psr\Log\LogLevel;
 interface ContextLogger extends LoggerInterface
 {
     /**
-     * Log message with context details.
-     */
-    public function contextMessage(
-        string $logMessage,
-        array $extra = [],
-        string $level = LogLevel::INFO
-    ): void;
-
-    /**
      * Log Throwable in execution context.
      */
-    public function contextThrowable(
+    public function throwable(
         \Throwable $throwable,
         array $extra = [],
         string $level = LogLevel::ERROR
