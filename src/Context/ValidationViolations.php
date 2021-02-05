@@ -26,6 +26,14 @@ final class ValidationViolations implements \IteratorAggregate, \Countable
      */
     public $violations;
 
+    /**
+     * @param ValidationViolation[] $violations
+     */
+    public function __construct(array $violations)
+    {
+        $this->violations = $violations;
+    }
+
     public function getIterator(): \Traversable
     {
         yield from $this->violations;
