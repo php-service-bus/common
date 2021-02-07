@@ -20,12 +20,12 @@ interface DeliveryOptions
     /**
      * Create options instance.
      */
-    public static function create(): static;
+    public static function create(): self;
 
     /**
      * Apply headers.
      */
-    public function withHeader(string $key, int|float|string|null $value): static;
+    public function withHeader(string $key, int|float|string|null $value): self;
 
     /**
      * Receive headers.

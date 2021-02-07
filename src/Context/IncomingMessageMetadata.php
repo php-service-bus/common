@@ -20,12 +20,12 @@ interface IncomingMessageMetadata
     /**
      * @psalm-param array<string, string|int|float|bool|null> $variables
      */
-    public static function create(string $messageId, array $variables): static;
+    public static function create(string $messageId, array $variables): self;
 
     /**
      * Add a new key.
      */
-    public function with(string $key, string|int|float|bool|null $value): static;
+    public function with(string $key, string|int|float|bool|null $value): self;
 
     /**
      * Receive message id.
