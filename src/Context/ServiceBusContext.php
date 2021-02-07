@@ -35,7 +35,7 @@ interface ServiceBusContext
     public function delivery(
         object $message,
         ?DeliveryOptions $deliveryOptions = null,
-        ?Metadata $withMetadata = null
+        ?OutcomeMessageMetadata $withMetadata = null
     ): Promise;
 
     /**
@@ -52,7 +52,7 @@ interface ServiceBusContext
     public function deliveryBulk(
         array $messages,
         ?DeliveryOptions $deliveryOptions = null,
-        ?Metadata $withMetadata = null
+        ?OutcomeMessageMetadata $withMetadata = null
     ): Promise;
 
     /**
@@ -62,7 +62,7 @@ interface ServiceBusContext
      *
      * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
      */
-    public function return(int $secondsDelay = 3, ?Metadata $withMetadata = null): Promise;
+    public function return(int $secondsDelay = 3, ?OutcomeMessageMetadata $withMetadata = null): Promise;
 
     /**
      * Receive context logger.
@@ -79,5 +79,5 @@ interface ServiceBusContext
     /**
      * Receive message metadata.
      */
-    public function metadata(): Metadata;
+    public function metadata(): IncomingMessageMetadata;
 }
