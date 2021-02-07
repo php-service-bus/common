@@ -48,6 +48,11 @@ interface Metadata
     public static function create(string $messageId, array $variables): static;
 
     /**
+     * Add a new key.
+     */
+    public function with(string $key, string|int|float|bool|null $value): static;
+
+    /**
      * Receive message id.
      *
      * @return string
