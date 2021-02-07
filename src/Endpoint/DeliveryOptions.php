@@ -25,7 +25,7 @@ interface DeliveryOptions
     /**
      * Apply headers.
      */
-    public function withHeader(string $key, int|float|string|null $value): void;
+    public function withHeader(string $key, int|float|string|null $value): static;
 
     /**
      * Receive headers.
