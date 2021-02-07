@@ -39,6 +39,23 @@ interface ServiceBusContext
     ): Promise;
 
     /**
+     * Enqueue multiple messages.
+     * If the transport supports transactions, then messages will be sent to the queue transactionally.
+     * If not, then messages will simply be sent concurrently
+     *
+     * @param object[] $messages
+     *
+     * @return Promise<void>
+     *
+     * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
+     */
+    public function deliveryBulk(
+        array $messages,
+        ?DeliveryOptions $deliveryOptions = null,
+        ?Metadata $withMetadata = null
+    ): Promise;
+
+    /**
      * Return current message back to the queue.
      *
      * @return Promise<void>

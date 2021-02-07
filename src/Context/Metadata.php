@@ -45,7 +45,7 @@ interface Metadata
     /**
      * @psalm-param array<string, string|int|float|bool|null> $variables
      */
-    public static function create(array $variables): static;
+    public static function create(string $messageId, array $variables): static;
 
     /**
      * Receive message id.
