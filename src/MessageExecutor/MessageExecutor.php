@@ -14,6 +14,7 @@ namespace ServiceBus\Common\MessageExecutor;
 
 use Amp\Promise;
 use ServiceBus\Common\Context\ServiceBusContext;
+use ServiceBus\Common\EntryPoint\Retry\RetryStrategy;
 
 /**
  * Message (event/command) handler.
@@ -24,6 +25,8 @@ interface MessageExecutor
      * Receive handler identifier.
      */
     public function id(): string;
+
+    public function retryStrategy(): ?RetryStrategy;
 
     /**
      * Handle message.
