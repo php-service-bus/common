@@ -21,6 +21,11 @@ use ServiceBus\Common\Context\ServiceBusContext;
 interface MessageExecutor
 {
     /**
+     * Receive handler identifier.
+     */
+    public function id(): string;
+
+    /**
      * Handle message.
      *
      * @return Promise<void>
