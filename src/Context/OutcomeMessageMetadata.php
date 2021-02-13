@@ -20,12 +20,17 @@ interface OutcomeMessageMetadata
     /**
      * @psalm-param array<string, string|int|float|bool|null> $variables
      */
-    public static function create(array $variables): self;
+    public static function create(string $traceId, array $variables = []): self;
 
     /**
      * Add a new key.
      */
     public function with(string $key, string|int|float|bool|null $value): self;
+
+    /**
+     * Receive trace id.
+     */
+    public function traceId(): string;
 
     /**
      * Receive variables.
