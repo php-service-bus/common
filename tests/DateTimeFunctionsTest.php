@@ -102,7 +102,9 @@ final class DateTimeFunctionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function now(): void
     {
         self::assertEquals(
@@ -111,7 +113,9 @@ final class DateTimeFunctionsTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function withMicroseconds(): void
     {
         $now = now('UTC')->format('Y-m-d H:i:s.u');

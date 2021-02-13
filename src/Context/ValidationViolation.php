@@ -16,6 +16,7 @@ namespace ServiceBus\Common\Context;
  * Validation violation.
  *
  * @psalm-immutable
+ * @codeCoverageIgnore
  */
 final class ValidationViolation
 {

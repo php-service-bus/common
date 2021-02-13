@@ -13,7 +13,7 @@ declare(strict_types = 0);
 namespace ServiceBus\Common\Context;
 
 /**
- * Outcome message metadata
+ * Outcome message metadata.
  */
 interface OutcomeMessageMetadata
 {

@@ -63,6 +63,9 @@ final class MessageHandlerArgument
      */
     private $reflectionParameter;
 
+    /**
+     * @throws \LogicException Incorrect parameter type.
+     */
     public function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
@@ -75,16 +78,14 @@ final class MessageHandlerArgument
 
     /**
      * Checks if the class is of this class or has this class as one of its parents.
+     *
+     * @throws \LogicException Incorrect parameter type.
      */
     public function isA(string $expectedClass): bool
     {
         if ($this->isObject)
         {
-            /** @var \ReflectionType $reflectionType */
-            $reflectionType = $this->reflectionParameter->getType();
-
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-            return \is_a($reflectionType->getName(), $expectedClass, true);
+            return \is_a($this->reflectionType()->getName(), $expectedClass, true);
         }
 
         return false;
@@ -92,16 +93,14 @@ final class MessageHandlerArgument
 
     /**
      * If the argument is an object, returns its type.
+     *
+     * @throws \LogicException Incorrect parameter type.
      */
     private function getTypeClassName(): ?string
     {
         if ($this->isObject)
         {
-            /** @var \ReflectionType $reflectionType */
-            $reflectionType = $this->reflectionParameter->getType();
-
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-            return $reflectionType->getName();
+            return $this->reflectionType()->getName();
         }
 
         return null;
@@ -110,30 +109,42 @@ final class MessageHandlerArgument
     /**
      * Compare argument types.
      *
-     * @throws \LogicException Incorrect parameter type
+     * @throws \LogicException Incorrect parameter type.
      */
     private function assertType(string $expectedType): bool
     {
         if ($this->hasType)
         {
-            /** @var \ReflectionNamedType|\ReflectionType $type */
-            $type = $this->reflectionParameter->getType();
-
-            if (($type instanceof \ReflectionNamedType) === false)
-            {
-                throw new \LogicException(
-                    \sprintf('Incorrect parameter `%s` type', $this->reflectionParameter->name)
-                );
-            }
+            $type = $this->reflectionType();
 
             if (\class_exists($type->getName()) || \interface_exists($type->getName()))
             {
-                return  $expectedType === 'object';
+                return $expectedType === 'object';
             }
 
             return $expectedType === $type->getName();
         }
 
         return false;
+    }
+
+    /**
+     * @return \ReflectionNamedType Incorrect or unsupported argument type.
+     */
+    private function reflectionType(): \ReflectionNamedType
+    {
+        $reflectionType = $this->reflectionParameter->getType();
+
+        if ($reflectionType instanceof \ReflectionUnionType)
+        {
+            throw new \RuntimeException('Union types are not supported');
+        }
+
+        if ($reflectionType instanceof \ReflectionNamedType)
+        {
+            return $reflectionType;
+        }
+
+        throw new \RuntimeException(\sprintf('Incorrect `%s` argument type', $this->reflectionParameter->name));
     }
 }

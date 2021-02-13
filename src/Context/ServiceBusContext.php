@@ -56,15 +56,6 @@ interface ServiceBusContext
     ): Promise;
 
     /**
-     * Return current message back to the queue.
-     *
-     * @return Promise<void>
-     *
-     * @throws \ServiceBus\Common\Context\Exceptions\MessageDeliveryFailed
-     */
-    public function return(int $secondsDelay = 3, ?OutcomeMessageMetadata $withMetadata = null): Promise;
-
-    /**
      * Receive context logger.
      */
     public function logger(): ContextLogger;

@@ -26,6 +26,9 @@ interface MessageExecutor
      */
     public function id(): string;
 
+    /**
+     * Receive retry processor.
+     */
     public function retryStrategy(): ?RetryStrategy;
 
     /**
@@ -33,7 +36,6 @@ interface MessageExecutor
      *
      * @return Promise<void>
      *
-     * @throws \Throwable
      * @throws \ServiceBus\Common\MessageExecutor\Exceptions\MessageExecutionFailed
      */
     public function __invoke(object $message, ServiceBusContext $context): Promise;

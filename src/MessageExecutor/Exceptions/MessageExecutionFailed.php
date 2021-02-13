@@ -13,12 +13,14 @@ declare(strict_types = 0);
 namespace ServiceBus\Common\MessageExecutor\Exceptions;
 
 /**
- * @psalm-readonly
+ * @codeCoverageIgnore
  */
 final class MessageExecutionFailed extends \RuntimeException
 {
     /**
      * Message type.
+     *
+     * @psalm-readonly
      *
      * @var object
      */
@@ -26,6 +28,8 @@ final class MessageExecutionFailed extends \RuntimeException
 
     /**
      * Trace identifier.
+     *
+     * @psalm-readonly
      *
      * @var string
      */

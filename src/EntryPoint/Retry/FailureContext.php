@@ -14,6 +14,7 @@ namespace ServiceBus\Common\EntryPoint\Retry;
 
 /**
  * @psalm-immutable
+ * @codeCoverageIgnore
  */
 final class FailureContext
 {

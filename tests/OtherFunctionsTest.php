@@ -22,7 +22,9 @@ use PHPUnit\Framework\TestCase;
 
 final class OtherFunctionsTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function uuid(): void
     {
         $uuid = uuid();
@@ -31,7 +33,9 @@ final class OtherFunctionsTest extends TestCase
         self::assertTrue(Uuid::isValid($uuid));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function isUUID(): void
     {
         self::assertTrue(isUuid(uuid()));
@@ -56,7 +60,9 @@ final class OtherFunctionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function collectThrowableDetails(): void
     {
         $data = throwableDetails(new \LogicException('message'));
@@ -69,7 +75,9 @@ final class OtherFunctionsTest extends TestCase
         self::assertSame('message', $data['throwableMessage']);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function collectThrowableDetailsWithPrevious(): void
     {
         $data = throwableDetails(
@@ -89,7 +97,9 @@ final class OtherFunctionsTest extends TestCase
         self::assertSame('runtime', $data['throwablePrevious'][0]['throwableMessage']);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function throwableMessage(): void
     {
         $throwable = new \LogicException(

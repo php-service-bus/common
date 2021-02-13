@@ -20,7 +20,9 @@ use ServiceBus\Common\Exceptions\FileSystemException;
 
 final class FileFunctionsTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function searchFiles(): void
     {
         $files = \iterator_to_array(searchFiles(canonicalizeFilesPath([__DIR__]), '/\.php/i'));
@@ -28,14 +30,18 @@ final class FileFunctionsTest extends TestCase
         self::assertCount(10, $files);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function extractNamespaceFromFile(): void
     {
         self::assertSame(__CLASS__, extractNamespaceFromFile(__FILE__));
         self::assertNull(extractNamespaceFromFile(__DIR__ . '/empty_php_file.php'));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function extractFromNonexistentFile(): void
     {
         $this->expectException(FileSystemException::class);

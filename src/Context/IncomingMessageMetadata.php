@@ -13,26 +13,19 @@ declare(strict_types = 0);
 namespace ServiceBus\Common\Context;
 
 /**
- * Message metadata.
+ * Received message metadata.
  */
 interface IncomingMessageMetadata
 {
     /**
-     * @psalm-param array<string, string|int|float|bool|null> $variables
-     */
-    public static function create(string $messageId, array $variables): self;
-
-    /**
-     * Add a new key.
-     */
-    public function with(string $key, string|int|float|bool|null $value): self;
-
-    /**
      * Receive message id.
-     *
-     * @return string
      */
     public function messageId(): string;
+
+    /**
+     * Receive trace message id.
+     */
+    public function traceId(): string;
 
     /**
      * Receive variables.

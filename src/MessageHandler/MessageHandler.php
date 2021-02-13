@@ -77,7 +77,7 @@ final class MessageHandler
     public $closure;
 
     /**
-     * Message handler description
+     * Message handler description.
      *
      * @psalm-readonly
      *
@@ -88,6 +88,8 @@ final class MessageHandler
     /**
      * @psalm-param class-string $messageClass
      * @psalm-param \Closure(object, \ServiceBus\Common\Context\ServiceBusContext):\Amp\Promise<void> $closure
+     *
+     * @throws \RuntimeException Incorrect return type declaration.
      */
     public function __construct(
         string $messageClass,
@@ -130,10 +132,17 @@ final class MessageHandler
 
     /**
      * Retrieves a method return declaration.
+     *
+     * @throws \RuntimeException
      */
     private static function extractReturnDeclaration(\ReflectionMethod $reflectionMethod): MessageHandlerReturnDeclaration
     {
         $returnDeclaration = $reflectionMethod->getReturnType();
+
+        if ($returnDeclaration instanceof \ReflectionUnionType)
+        {
+            throw new \RuntimeException('Union return types are not supported');
+        }
 
         if ($returnDeclaration instanceof \ReflectionNamedType)
         {

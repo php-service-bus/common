@@ -20,7 +20,35 @@ use ServiceBus\Common\MessageHandler\MessageHandler;
 
 final class MessageHandlerTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
+    public function withoutReturnDeclaration(): void
+    {
+        $object = new class()
+        {
+            public function method()
+            {
+            }
+        };
+
+        $handler = new MessageHandler(
+            \get_class($object),
+            self::emptyClosure(),
+            new \ReflectionMethod($object, 'method'),
+            self::emptyOptions()
+        );
+
+        self::assertNotNull($handler->returnDeclaration);
+        self::assertTrue($handler->returnDeclaration->isVoid);
+
+        self::assertFalse($handler->returnDeclaration->isGenerator);
+        self::assertFalse($handler->returnDeclaration->isPromise);
+    }
+
+    /**
+     * @test
+     */
     public function voidReturnDeclaration(): void
     {
         $object = new class()
@@ -44,7 +72,9 @@ final class MessageHandlerTest extends TestCase
         self::assertFalse($handler->returnDeclaration->isPromise);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function noneReturnDeclaration(): void
     {
         $object = new class()
@@ -64,7 +94,9 @@ final class MessageHandlerTest extends TestCase
         self::assertNotNull($handler->returnDeclaration);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function promiseReturnDeclaration(): void
     {
         $object = new class()
@@ -87,7 +119,9 @@ final class MessageHandlerTest extends TestCase
         self::assertFalse($handler->returnDeclaration->isVoid);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function generatorReturnDeclaration(): void
     {
         $object = new class()
@@ -110,7 +144,9 @@ final class MessageHandlerTest extends TestCase
         self::assertFalse($handler->returnDeclaration->isVoid);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function scalarReturnDeclaration(): void
     {
         $object = new class()
@@ -133,7 +169,9 @@ final class MessageHandlerTest extends TestCase
         self::assertFalse($handler->returnDeclaration->isVoid);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function objectArgument(): void
     {
         $object = new class()
@@ -166,7 +204,9 @@ final class MessageHandlerTest extends TestCase
         self::assertTrue($argument->isA(\stdClass::class));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function argumentWithoutTypeDeclaration(): void
     {
         $object = new class()
@@ -201,8 +241,53 @@ final class MessageHandlerTest extends TestCase
     }
 
     /**
-     * @return MessageHandlerOptions
+     * @test
      */
+    public function unionReturnTypeDeclaration(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Union return types are not supported');
+
+        $object = new class()
+        {
+            public function method($argument): \Generator|Promise
+            {
+                yield $argument;
+            }
+        };
+
+        new MessageHandler(
+            \get_class($object),
+            self::emptyClosure(),
+            new \ReflectionMethod($object, 'method'),
+            self::emptyOptions()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function argumentWitUnionTypeDeclaration(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Union types are not supported');
+
+        $object = new class()
+        {
+            public function method(MessageHandler|MessageHandlerTest $argument): \Generator
+            {
+                yield $argument;
+            }
+        };
+
+        new MessageHandler(
+            \get_class($object),
+            self::emptyClosure(),
+            new \ReflectionMethod($object, 'method'),
+            self::emptyOptions()
+        );
+    }
+
     private static function emptyOptions(): MessageHandlerOptions
     {
         return new class() implements MessageHandlerOptions
@@ -210,9 +295,6 @@ final class MessageHandlerTest extends TestCase
         };
     }
 
-    /**
-     * @return \Closure
-     */
     private static function emptyClosure(): \Closure
     {
         return \Closure::fromCallable(

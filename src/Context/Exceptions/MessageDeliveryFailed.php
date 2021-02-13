@@ -13,7 +13,7 @@ declare(strict_types = 0);
 namespace ServiceBus\Common\Context\Exceptions;
 
 /**
- *
+ * @codeCoverageIgnore
  */
 final class MessageDeliveryFailed extends \RuntimeException
 {
