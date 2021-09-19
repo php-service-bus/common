@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 0);
+declare(strict_types=0);
 
 namespace ServiceBus\Common\MessageHandler;
 
@@ -32,7 +32,7 @@ final class MessageHandlerArgument
     public $hasType;
 
     /**
-     * If the argument type is an object, then the name of the class. Otherwise null.
+     * If the argument type is an object, then the name of the class, otherwise null.
      *
      * @psalm-readonly
      *

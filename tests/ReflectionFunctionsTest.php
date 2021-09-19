@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests;
 
+use PHPUnit\Framework\TestCase;
+use ServiceBus\Common\Exceptions\ReflectionApiException;
 use function ServiceBus\Common\createWithoutConstructor;
 use function ServiceBus\Common\invokeReflectionMethod;
 use function ServiceBus\Common\readReflectionPropertyValue;
 use function ServiceBus\Common\writeReflectionPropertyValue;
-use PHPUnit\Framework\TestCase;
-use ServiceBus\Common\Exceptions\ReflectionApiException;
 
 final class ReflectionFunctionsTest extends TestCase
 {

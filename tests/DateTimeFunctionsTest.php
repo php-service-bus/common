@@ -8,14 +8,14 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests;
 
-use function ServiceBus\Common\datetimeInstantiator;
-use function ServiceBus\Common\datetimeToString;
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\Exceptions\DateTimeException;
+use function ServiceBus\Common\datetimeInstantiator;
+use function ServiceBus\Common\datetimeToString;
 use function ServiceBus\Common\now;
 
 final class DateTimeFunctionsTest extends TestCase

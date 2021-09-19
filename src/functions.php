@@ -8,7 +8,7 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 0);
+declare(strict_types=0);
 
 namespace ServiceBus\Common;
 
@@ -39,7 +39,7 @@ function uuid(): string
 }
 
 /**
- * Is the string a valid UUID
+ * Is the string a valid UUID.
  */
 function isUuid(string $string): bool
 {
@@ -49,11 +49,9 @@ function isUuid(string $string): bool
 /**
  * Create datetime object from valid string.
  *
- * @param \DateTimeZone|string|null $timezone
- *
  * @throws \ServiceBus\Common\Exceptions\DateTimeException
  */
-function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\DateTimeImmutable
+function datetimeInstantiator(?string $datetimeString, \DateTimeZone|string $timezone = null): ?\DateTimeImmutable
 {
     if ($datetimeString !== null && $datetimeString !== '')
     {
@@ -73,13 +71,9 @@ function datetimeInstantiator(?string $datetimeString, $timezone = null): ?\Date
 }
 
 /**
- * Create current datetime
- *
- * @param \DateTimeZone|string|null $timezone
- *
- * @return \DateTimeImmutable
+ * Create current datetime.
  */
-function now($timezone = null): \DateTimeImmutable
+function now(\DateTimeZone|string $timezone = null): \DateTimeImmutable
 {
     $timezone = timezoneFactory($timezone);
 
@@ -97,10 +91,8 @@ function now($timezone = null): \DateTimeImmutable
 
 /**
  * @internal
- *
- * @param \DateTimeZone|string|null $timezone
  */
-function timezoneFactory($timezone = null): ?\DateTimeZone
+function timezoneFactory(\DateTimeZone|string $timezone = null): ?\DateTimeZone
 {
     if (\is_string($timezone) && $timezone !== '')
     {
@@ -271,7 +263,6 @@ function extractNamespaceFromFile(string $filePath): ?string
 
     if (\preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false && isset($matches[1]))
     {
-        /** @var string $fileName */
         $fileName = \pathinfo($filePath)['filename'];
 
         return \sprintf('%s\\%s', $matches[1], $fileName);
@@ -281,7 +272,7 @@ function extractNamespaceFromFile(string $filePath): ?string
 }
 
 /**
- * Recursive search of all files in the directory
+ * Recursive search of all files in the directory.
  * Search for files matching the specified regular expression.
  *
  * @psalm-param array<array-key, string> $directories
@@ -366,7 +357,7 @@ function throwableDetails(\Throwable $throwable): array
 }
 
 /**
- * Receives the exception message (including nested exceptions)
+ * Receives the exception message (including nested exceptions).
  */
 function throwableMessage(\Throwable $throwable): string
 {

@@ -8,17 +8,17 @@
  * @license https://opensource.org/licenses/MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ServiceBus\Common\Tests;
 
 use Symfony\Component\Uid\Uuid;
+use PHPUnit\Framework\TestCase;
 use function ServiceBus\Common\throwableDetails;
 use function ServiceBus\Common\formatBytes;
 use function ServiceBus\Common\isUuid;
 use function ServiceBus\Common\throwableMessage;
 use function ServiceBus\Common\uuid;
-use PHPUnit\Framework\TestCase;
 
 final class OtherFunctionsTest extends TestCase
 {
