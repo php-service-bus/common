@@ -20,5 +20,6 @@
 
     <issueHandlers>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
+        <UnnecessaryVarAnnotation errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
