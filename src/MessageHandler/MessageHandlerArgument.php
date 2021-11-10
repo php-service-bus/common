@@ -79,6 +79,8 @@ final class MessageHandlerArgument
     /**
      * Checks if the class is of this class or has this class as one of its parents.
      *
+     * @psalm-param class-string $expectedClass
+     *
      * @throws \LogicException Incorrect parameter type.
      */
     public function isA(string $expectedClass): bool

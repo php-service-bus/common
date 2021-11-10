@@ -209,7 +209,7 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
 }
 
 /**
- * @template T
+ * @template T of object
  * @psalm-param class-string<T> $class
  * @psalm-return T
  *
