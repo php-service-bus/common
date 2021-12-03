@@ -12,9 +12,6 @@ declare(strict_types=0);
 
 namespace ServiceBus\Common\Exceptions;
 
-/**
- *
- */
 final class FileSystemException extends \RuntimeException
 {
     public static function getContentFailed(string $filePath): self

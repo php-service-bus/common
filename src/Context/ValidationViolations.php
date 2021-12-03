@@ -22,13 +22,14 @@ final class ValidationViolations implements \IteratorAggregate, \Countable
 {
     /**
      * @psalm-readonly
+     * @psalm-var array<array-key, ValidationViolation>
      *
      * @var ValidationViolation[]
      */
     public $violations;
 
     /**
-     * @param ValidationViolation[] $violations
+     * @psalm-param array<array-key, ValidationViolation> $violations
      */
     public function __construct(array $violations)
     {

@@ -12,9 +12,6 @@ declare(strict_types=0);
 
 namespace ServiceBus\Common\Exceptions;
 
-/**
- *
- */
 final class DateTimeException extends \RuntimeException
 {
     public static function fromThrowable(\Throwable $throwable): self

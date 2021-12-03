@@ -15,9 +15,6 @@ namespace ServiceBus\Common\EntryPoint\Retry;
 use Amp\Promise;
 use ServiceBus\Common\Context\ServiceBusContext;
 
-/**
- *
- */
 interface RetryStrategy
 {
     /**

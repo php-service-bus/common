@@ -21,6 +21,8 @@ use Symfony\Component\Uid\Uuid;
 /**
  * Generate a version 4 (random) UUID.
  *
+ * @psalm-return non-empty-string
+ *
  * @noinspection PhpUnhandledExceptionInspection
  */
 function uuid(): string
@@ -152,6 +154,8 @@ function invokeReflectionMethod(object $object, string $methodName, ...$paramete
 /**
  * Write value to property.
  *
+ * @psalm-param non-empty-string $propertyName
+ *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
 function writeReflectionPropertyValue(object $object, string $propertyName, mixed $value): void
@@ -164,6 +168,8 @@ function writeReflectionPropertyValue(object $object, string $propertyName, mixe
 
 /**
  * Read property value.
+ *
+ * @psalm-param non-empty-string $propertyName
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
@@ -178,6 +184,8 @@ function readReflectionPropertyValue(object $object, string $propertyName): mixe
 
 /**
  * Extract property.
+ *
+ * @psalm-param non-empty-string $propertyName
  *
  * @throws \ServiceBus\Common\Exceptions\ReflectionApiException
  */
@@ -230,6 +238,8 @@ function createWithoutConstructor(string $class): object
 /**
  * Reads entire file into a string.
  *
+ * @psalm-param non-empty-string $filePath
+ *
  * @throws \ServiceBus\Common\Exceptions\FileSystemException
  */
 function fileGetContents(string $filePath): string
@@ -255,6 +265,8 @@ function fileGetContents(string $filePath): string
 /**
  * Extract namespace from file content.
  *
+ * @psalm-param non-empty-string $filePath
+ *
  * @throws \ServiceBus\Common\Exceptions\FileSystemException
  */
 function extractNamespaceFromFile(string $filePath): ?string
@@ -275,7 +287,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  * Recursive search of all files in the directory.
  * Search for files matching the specified regular expression.
  *
- * @psalm-param array<array-key, string> $directories
+ * @psalm-param array<array-key, non-empty-string> $directories
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {
@@ -293,7 +305,7 @@ function searchFiles(array $directories, string $regExp): \Generator
 /**
  * Casting paths to canonical form.
  *
- * @psalm-param  array<array-key, string> $paths
+ * @psalm-param  array<array-key, non-empty-string> $paths
  *
  * @psalm-return array<int, string>
  */
@@ -311,6 +323,8 @@ function canonicalizeFilesPath(array $paths): array
 
 /**
  * Formats bytes into a human readable string.
+ *
+ * @psalm-return non-empty-string
  */
 function formatBytes(int $bytes): string
 {
@@ -330,6 +344,12 @@ function formatBytes(int $bytes): string
 
 /**
  * Collect all throwable information (include previous).
+ *
+ * @psalm-return array{
+ *     throwableMessage:string,
+ *     throwablePoint:non-empty-string,
+ *     throwablePrevious:array<array-key, array{throwableMessage:string, throwablePoint:non-empty-string}>
+ * }
  */
 function throwableDetails(\Throwable $throwable): array
 {
@@ -350,7 +370,8 @@ function throwableDetails(\Throwable $throwable): array
         do
         {
             $result['throwablePrevious'][] = $throwableFormatter($previous);
-        } while ($previous = $previous->getPrevious());
+        }
+        while ($previous = $previous->getPrevious());
     }
 
     return $result;
@@ -370,7 +391,8 @@ function throwableMessage(\Throwable $throwable): string
         do
         {
             $messages[] = $previous->getMessage();
-        } while ($previous = $previous->getPrevious());
+        }
+        while ($previous = $previous->getPrevious());
 
         $message .= \sprintf(' (Previous: %s)', \implode('; ', $messages));
     }
@@ -380,12 +402,14 @@ function throwableMessage(\Throwable $throwable): string
 
 /**
  * @throws \ServiceBus\Common\Exceptions\JsonSerializationFailed
+ *
+ * @psalm-return non-empty-string
  */
 function jsonEncode(array $data): string
 {
     try
     {
-        /** @var string $result */
+        /** @psalm-var non-empty-string $result */
         $result = \json_encode(
             $data,
             \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR | \JSON_PRESERVE_ZERO_FRACTION
@@ -400,6 +424,8 @@ function jsonEncode(array $data): string
 }
 
 /**
+ * @psalm-param non-empty-string $json
+ *
  * @throws \ServiceBus\Common\Exceptions\JsonSerializationFailed
  */
 function jsonDecode(string $json): array

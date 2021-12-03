@@ -19,6 +19,7 @@ final class MessageHandlerArgument
 {
     /**
      * @psalm-readonly
+     * @psalm-var non-empty-string
      *
      * @var string
      */
@@ -35,6 +36,7 @@ final class MessageHandlerArgument
      * If the argument type is an object, then the name of the class, otherwise null.
      *
      * @psalm-readonly
+     * @psalm-var non-empty-string|null
      *
      * @var string|null
      */
@@ -51,6 +53,7 @@ final class MessageHandlerArgument
      * Argument position.
      *
      * @psalm-readonly
+     * @psalm-var positive-int
      *
      * @var int
      */
@@ -64,12 +67,14 @@ final class MessageHandlerArgument
     private $reflectionParameter;
 
     /**
+     * @psalm-param positive-int $position
+     *
      * @throws \LogicException Incorrect parameter type.
      */
     public function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
-        $this->argumentName        = $this->reflectionParameter->getName();
+        $this->argumentName        = $this->argumentName();
         $this->hasType             = \is_object($this->reflectionParameter->getType());
         $this->isObject            = $this->assertType('object');
         $this->position            = $position;
@@ -96,13 +101,20 @@ final class MessageHandlerArgument
     /**
      * If the argument is an object, returns its type.
      *
+     * @psalm-return non-empty-string|null
+     *
      * @throws \LogicException Incorrect parameter type.
      */
     private function getTypeClassName(): ?string
     {
         if ($this->isObject)
         {
-            return $this->reflectionType()->getName();
+            $typeName = $this->reflectionType()->getName();
+
+            if ($typeName !== '')
+            {
+                return $typeName;
+            }
         }
 
         return null;
@@ -110,6 +122,8 @@ final class MessageHandlerArgument
 
     /**
      * Compare argument types.
+     *
+     * @psalm-param non-empty-string $expectedType
      *
      * @throws \LogicException Incorrect parameter type.
      */
@@ -148,5 +162,21 @@ final class MessageHandlerArgument
         }
 
         throw new \RuntimeException(\sprintf('Incorrect `%s` argument type', $this->reflectionParameter->name));
+    }
+
+    /**
+     * @psalm-return non-empty-string
+     */
+    private function argumentName(): string
+    {
+        $argumentName = $this->reflectionParameter->getName();
+
+        if ($argumentName !== '')
+        {
+            return $argumentName;
+        }
+
+        /** This cannot happen, but stubs do not support generic types. */
+        throw new \LogicException('Incorrect argument name');
     }
 }

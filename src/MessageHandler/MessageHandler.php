@@ -19,6 +19,7 @@ final class MessageHandler
 {
     /**
      * @psalm-readonly
+     * @psalm-var non-empty-string
      *
      * @var string
      */
@@ -92,22 +93,38 @@ final class MessageHandler
      * @throws \RuntimeException Incorrect return type declaration.
      */
     public function __construct(
-        string $messageClass,
-        \Closure $closure,
-        \ReflectionMethod $reflectionMethod,
+        string                $messageClass,
+        \Closure              $closure,
+        \ReflectionMethod     $reflectionMethod,
         MessageHandlerOptions $options,
-        ?string $description = null
+        ?string               $description = null
     ) {
         $arguments = self::extractArguments($reflectionMethod);
 
         $this->closure           = $closure;
         $this->options           = $options;
-        $this->methodName        = $reflectionMethod->getName();
+        $this->methodName        = self::methodName($reflectionMethod);
         $this->messageClass      = $messageClass;
         $this->arguments         = $arguments;
         $this->hasArguments      = $arguments->count() !== 0;
         $this->returnDeclaration = self::extractReturnDeclaration($reflectionMethod);
         $this->description       = $description;
+    }
+
+    /**
+     * @psalm-return non-empty-string
+     */
+    private static function methodName(\ReflectionMethod $reflectionMethod): string
+    {
+        $methodName = $reflectionMethod->getName();
+
+        if ($methodName !== '')
+        {
+            return $methodName;
+        }
+
+        /** This cannot happen, but stubs do not support generic types. */
+        throw new \LogicException('Incorrect argument name');
     }
 
     /**
@@ -118,6 +135,7 @@ final class MessageHandler
         /** @psalm-var \SplObjectStorage<MessageHandlerArgument, mixed> $argumentCollection */
         $argumentCollection = new \SplObjectStorage();
 
+        /** @psalm-var positive-int $position */
         $position = 1;
 
         foreach ($reflectionMethod->getParameters() as $parameter)
