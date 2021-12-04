@@ -24,6 +24,8 @@ interface DeliveryOptions
 
     /**
      * Apply headers.
+     *
+     * @psalm-param non-empty-string $key
      */
     public function withHeader(string $key, int|float|string|null $value): self;
 
