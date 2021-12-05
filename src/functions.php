@@ -287,7 +287,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  * Recursive search of all files in the directory.
  * Search for files matching the specified regular expression.
  *
- * @psalm-param array<array-key, non-empty-string> $directories
+ * @psalm-param array<array-key, \SplFileInfo> $directories
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {
