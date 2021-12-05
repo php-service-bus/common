@@ -47,9 +47,9 @@ final class MessageHandler
      * Message class for which the handler was created.
      *
      * @psalm-readonly
-     * @psalm-var class-string|null
+     * @psalm-var class-string
      *
-     * @var string|null
+     * @var string
      */
     public $messageClass;
 
