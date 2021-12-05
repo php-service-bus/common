@@ -287,7 +287,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  * Recursive search of all files in the directory.
  * Search for files matching the specified regular expression.
  *
- * @psalm-param array<array-key, non-empty-string> $directories
+ * @psalm-param list<non-empty-string> $directories
  *
  * @psalm-return \Generator<\SplFileInfo>
  */
@@ -313,9 +313,9 @@ function searchFiles(array $directories, string $regExp): \Generator
 /**
  * Casting paths to canonical form.
  *
- * @psalm-param  array<array-key, non-empty-string> $paths
+ * @psalm-param list<non-empty-string> $paths
  *
- * @psalm-return array<int, string>
+ * @psalm-return list<non-empty-string>
  */
 function canonicalizeFilesPath(array $paths): array
 {
@@ -323,7 +323,12 @@ function canonicalizeFilesPath(array $paths): array
 
     foreach ($paths as $path)
     {
-        $result[] = (string) (new \SplFileInfo($path))->getRealPath();
+        $realPath = (new \SplFileInfo($path))->getRealPath();
+
+        if (\is_string($realPath) && $realPath !== '')
+        {
+            $result[] = $realPath;
+        }
     }
 
     return $result;
