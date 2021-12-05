@@ -19,7 +19,7 @@ interface OutcomeMessageMetadata
 {
     /**
      * @psalm-param non-empty-string $traceId
-     * @psalm-param array<string, string|int|float|bool|null> $variables
+     * @psalm-param array<non-empty-string, string|int|float|bool|null> $variables
      */
     public static function create(string $traceId, array $variables = []): self;
 

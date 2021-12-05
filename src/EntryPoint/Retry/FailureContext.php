@@ -25,14 +25,14 @@ final class FailureContext
      *   value: error message
      *
      * @psalm-readonly
-     * @psalm-var array<non-empty-string, non-empty-string>
+     * @psalm-var array<non-empty-string, string>
      *
      * @var array
      */
     public $executors;
 
     /**
-     * @psalm-param array<non-empty-string, non-empty-string> $executors
+     * @psalm-param array<non-empty-string, string> $executors
      */
     public function __construct(array $executors)
     {

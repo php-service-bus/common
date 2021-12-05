@@ -34,7 +34,6 @@ final class ValidationViolation
      * Violations message.
      *
      * @psalm-readonly
-     * @psalm-var non-empty-string
      *
      * @var string
      */
@@ -42,7 +41,6 @@ final class ValidationViolation
 
     /**
      * @psalm-param non-empty-string $property
-     * @psalm-param non-empty-string $message
      */
     public function __construct(string $property, string $message)
     {

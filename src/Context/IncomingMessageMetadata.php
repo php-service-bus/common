@@ -34,7 +34,7 @@ interface IncomingMessageMetadata
     /**
      * Receive variables.
      *
-     * @psalm-return array<string, string|int|float|bool|null>
+     * @psalm-return array<non-empty-string, string|int|float|bool|null>
      */
     public function variables(): array;
 

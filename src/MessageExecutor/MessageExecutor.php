@@ -23,6 +23,8 @@ interface MessageExecutor
 {
     /**
      * Receive handler identifier.
+     *
+     * @psalm-return non-empty-string
      */
     public function id(): string;
 
