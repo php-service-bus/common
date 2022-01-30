@@ -36,8 +36,7 @@ final class MessageHandler
      * Collection of arguments to the message handler.
      *
      * @psalm-readonly
-     *
-     * @see MessageHandlerArgument
+     * @psalm-var \SplObjectStorage<MessageHandlerArgument, null>
      *
      * @var \SplObjectStorage
      */
@@ -129,10 +128,12 @@ final class MessageHandler
 
     /**
      * Retrieves a collection of method arguments.
+     *
+     * @psalm-return \SplObjectStorage<MessageHandlerArgument, null>
      */
     private static function extractArguments(\ReflectionMethod $reflectionMethod): \SplObjectStorage
     {
-        /** @psalm-var \SplObjectStorage<MessageHandlerArgument, mixed> $argumentCollection */
+        /** @psalm-var \SplObjectStorage<MessageHandlerArgument, null> $argumentCollection */
         $argumentCollection = new \SplObjectStorage();
 
         /** @psalm-var positive-int $position */
