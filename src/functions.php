@@ -273,7 +273,7 @@ function extractNamespaceFromFile(string $filePath): ?string
 {
     $fileContents = fileGetContents($filePath);
 
-    if (\preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false && isset($matches[1]))
+    if (\preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false)
     {
         $fileName = \pathinfo($filePath)['filename'];
 
