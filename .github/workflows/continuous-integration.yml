@@ -94,8 +94,7 @@ jobs:
         run: XDEBUG_MODE=coverage php ./vendor/bin/phpunit --configuration ./phpunit.xml --coverage-clover=coverage.xml
 
       - name: Send code coverage report to Codecov.io
-      - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
