@@ -14,6 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 use Symfony\Component\Uid\Uuid;
 use PHPUnit\Framework\TestCase;
+
 use function ServiceBus\Common\throwableDetails;
 use function ServiceBus\Common\formatBytes;
 use function ServiceBus\Common\isUuid;
@@ -51,7 +52,7 @@ final class OtherFunctionsTest extends TestCase
         self::assertSame($expected, formatBytes($bytes));
     }
 
-    public function formatBytesDataProvider(): array
+    public static function formatBytesDataProvider(): array
     {
         return [
             [1, '1 b'],

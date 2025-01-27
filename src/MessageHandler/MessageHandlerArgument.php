@@ -36,7 +36,6 @@ final class MessageHandlerArgument
      * If the argument type is an object, then the name of the class, otherwise null.
      *
      * @psalm-readonly
-     * @psalm-var non-empty-string|null
      *
      * @var string|null
      */
@@ -74,7 +73,7 @@ final class MessageHandlerArgument
     public function __construct(int $position, \ReflectionParameter $reflectionParameter)
     {
         $this->reflectionParameter = $reflectionParameter;
-        $this->argumentName        = $this->argumentName();
+        $this->argumentName        = $this->reflectionParameter->getName();
         $this->hasType             = \is_object($this->reflectionParameter->getType());
         $this->isObject            = $this->assertType('object');
         $this->position            = $position;
@@ -90,8 +89,7 @@ final class MessageHandlerArgument
      */
     public function isA(string $expectedClass): bool
     {
-        if ($this->isObject)
-        {
+        if ($this->isObject) {
             return \is_a($this->reflectionType()->getName(), $expectedClass, true);
         }
 
@@ -100,21 +98,11 @@ final class MessageHandlerArgument
 
     /**
      * If the argument is an object, returns its type.
-     *
-     * @psalm-return non-empty-string|null
-     *
-     * @throws \LogicException Incorrect parameter type.
      */
     private function getTypeClassName(): ?string
     {
-        if ($this->isObject)
-        {
-            $typeName = $this->reflectionType()->getName();
-
-            if ($typeName !== '')
-            {
-                return $typeName;
-            }
+        if ($this->isObject) {
+            return $this->reflectionType()->getName();
         }
 
         return null;
@@ -129,12 +117,10 @@ final class MessageHandlerArgument
      */
     private function assertType(string $expectedType): bool
     {
-        if ($this->hasType)
-        {
+        if ($this->hasType) {
             $type = $this->reflectionType();
 
-            if (\class_exists($type->getName()) || \interface_exists($type->getName()))
-            {
+            if (\class_exists($type->getName()) || \interface_exists($type->getName())) {
                 return $expectedType === 'object';
             }
 
@@ -151,32 +137,14 @@ final class MessageHandlerArgument
     {
         $reflectionType = $this->reflectionParameter->getType();
 
-        if ($reflectionType instanceof \ReflectionUnionType)
-        {
+        if ($reflectionType instanceof \ReflectionUnionType) {
             throw new \RuntimeException('Union types are not supported');
         }
 
-        if ($reflectionType instanceof \ReflectionNamedType)
-        {
+        if ($reflectionType instanceof \ReflectionNamedType) {
             return $reflectionType;
         }
 
         throw new \RuntimeException(\sprintf('Incorrect `%s` argument type', $this->reflectionParameter->name));
-    }
-
-    /**
-     * @psalm-return non-empty-string
-     */
-    private function argumentName(): string
-    {
-        $argumentName = $this->reflectionParameter->getName();
-
-        if ($argumentName !== '')
-        {
-            return $argumentName;
-        }
-
-        /** This cannot happen, but stubs do not support generic types. */
-        throw new \LogicException('Incorrect argument name');
     }
 }

@@ -102,28 +102,12 @@ final class MessageHandler
 
         $this->closure           = $closure;
         $this->options           = $options;
-        $this->methodName        = self::methodName($reflectionMethod);
+        $this->methodName        = $reflectionMethod->getName();
         $this->messageClass      = $messageClass;
         $this->arguments         = $arguments;
         $this->hasArguments      = $arguments->count() !== 0;
         $this->returnDeclaration = self::extractReturnDeclaration($reflectionMethod);
         $this->description       = $description;
-    }
-
-    /**
-     * @psalm-return non-empty-string
-     */
-    private static function methodName(\ReflectionMethod $reflectionMethod): string
-    {
-        $methodName = $reflectionMethod->getName();
-
-        if ($methodName !== '')
-        {
-            return $methodName;
-        }
-
-        /** This cannot happen, but stubs do not support generic types. */
-        throw new \LogicException('Incorrect argument name');
     }
 
     /**
@@ -139,8 +123,7 @@ final class MessageHandler
         /** @psalm-var positive-int $position */
         $position = 1;
 
-        foreach ($reflectionMethod->getParameters() as $parameter)
-        {
+        foreach ($reflectionMethod->getParameters() as $parameter) {
             $argumentCollection->attach(new MessageHandlerArgument($position, $parameter));
 
             ++$position;
@@ -158,13 +141,11 @@ final class MessageHandler
     {
         $returnDeclaration = $reflectionMethod->getReturnType();
 
-        if ($returnDeclaration instanceof \ReflectionUnionType)
-        {
+        if ($returnDeclaration instanceof \ReflectionUnionType) {
             throw new \RuntimeException('Union return types are not supported');
         }
 
-        if ($returnDeclaration instanceof \ReflectionNamedType)
-        {
+        if ($returnDeclaration instanceof \ReflectionNamedType) {
             return MessageHandlerReturnDeclaration::create($returnDeclaration);
         }
 

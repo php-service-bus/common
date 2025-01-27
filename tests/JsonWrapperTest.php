@@ -14,6 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\Exceptions\JsonSerializationFailed;
+
 use function ServiceBus\Common\jsonDecode;
 use function ServiceBus\Common\jsonEncode;
 

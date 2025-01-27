@@ -15,6 +15,7 @@ namespace ServiceBus\Common\Context;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use ServiceBus\Common\Metadata\ServiceBusMetadata;
+
 use function ServiceBus\Common\throwableDetails;
 use function ServiceBus\Common\throwableMessage;
 
@@ -68,7 +69,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function emergency($message, array $context = []): void
+    public function emergency(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::EMERGENCY,
@@ -77,7 +78,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function alert($message, array $context = []): void
+    public function alert(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::ALERT,
@@ -86,7 +87,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function critical($message, array $context = []): void
+    public function critical(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::CRITICAL,
@@ -95,7 +96,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function error($message, array $context = []): void
+    public function error(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::ERROR,
@@ -104,7 +105,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function warning($message, array $context = []): void
+    public function warning(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::WARNING,
@@ -113,7 +114,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function notice($message, array $context = []): void
+    public function notice(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::NOTICE,
@@ -122,7 +123,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function info($message, array $context = []): void
+    public function info(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::INFO,
@@ -131,7 +132,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function debug($message, array $context = []): void
+    public function debug(string|\Stringable $message, array $context = []): void
     {
         $this->log(
             level: LogLevel::DEBUG,
@@ -140,7 +141,7 @@ final class DefaultContextLogger implements ContextLogger
         );
     }
 
-    public function log($level, $message, array $context = []): void
+    public function log($level, string|\Stringable $message, array $context = []): void
     {
         $this->logger->log(
             level: $level,

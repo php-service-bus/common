@@ -25,8 +25,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function withoutReturnDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method()
             {
             }
@@ -51,8 +50,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function voidReturnDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(): void
             {
             }
@@ -77,8 +75,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function noneReturnDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(): void
             {
             }
@@ -99,8 +96,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function promiseReturnDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(): Promise
             {
                 return new Success();
@@ -124,8 +120,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function generatorReturnDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(): \Generator
             {
                 yield from [];
@@ -149,8 +144,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function scalarReturnDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(): string
             {
                 return '';
@@ -174,8 +168,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function objectArgument(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(\stdClass $argument): string
             {
                 return (string) $argument->qwerty;
@@ -209,8 +202,7 @@ final class MessageHandlerTest extends TestCase
      */
     public function argumentWithoutTypeDeclaration(): void
     {
-        $object = new class ()
-        {
+        $object = new class () {
             public function method($argument): \Generator
             {
                 yield $argument;
@@ -248,8 +240,7 @@ final class MessageHandlerTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Union return types are not supported');
 
-        $object = new class ()
-        {
+        $object = new class () {
             public function method($argument): \Generator|Promise
             {
                 yield $argument;
@@ -272,8 +263,7 @@ final class MessageHandlerTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Union types are not supported');
 
-        $object = new class ()
-        {
+        $object = new class () {
             public function method(MessageHandler|MessageHandlerTest $argument): \Generator
             {
                 yield $argument;
@@ -290,16 +280,14 @@ final class MessageHandlerTest extends TestCase
 
     private static function emptyOptions(): MessageHandlerOptions
     {
-        return new class () implements MessageHandlerOptions
-        {
+        return new class () implements MessageHandlerOptions {
         };
     }
 
     private static function emptyClosure(): \Closure
     {
         return \Closure::fromCallable(
-            static function (): void
-            {
+            static function (): void {
             }
         );
     }

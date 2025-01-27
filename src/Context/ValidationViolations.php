@@ -17,6 +17,7 @@ namespace ServiceBus\Common\Context;
  *
  * @psalm-immutable
  * @codeCoverageIgnore
+ * @implements \IteratorAggregate<string|int,ValidationViolation>
  */
 final class ValidationViolations implements \IteratorAggregate, \Countable
 {

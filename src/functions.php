@@ -55,16 +55,12 @@ function isUuid(string $string): bool
  */
 function datetimeInstantiator(?string $datetimeString, \DateTimeZone|string $timezone = null): ?\DateTimeImmutable
 {
-    if ($datetimeString !== null && $datetimeString !== '')
-    {
-        try
-        {
+    if ($datetimeString !== null && $datetimeString !== '') {
+        try {
             $timezone = timezoneFactory($timezone);
 
             return new \DateTimeImmutable($datetimeString, $timezone);
-        }
-        catch (\Throwable $throwable)
-        {
+        } catch (\Throwable $throwable) {
             throw DateTimeException::fromThrowable($throwable);
         }
     }
@@ -82,8 +78,7 @@ function now(\DateTimeZone|string $timezone = null): \DateTimeImmutable
     /** @var \DateTimeImmutable $datetime */
     $datetime = \DateTimeImmutable::createFromFormat('0.u00 U', \microtime());
 
-    if ($timezone !== null)
-    {
+    if ($timezone !== null) {
         /** @var \DateTimeImmutable $datetime */
         $datetime = $datetime->setTimezone($timezone);
     }
@@ -96,8 +91,7 @@ function now(\DateTimeZone|string $timezone = null): \DateTimeImmutable
  */
 function timezoneFactory(\DateTimeZone|string $timezone = null): ?\DateTimeZone
 {
-    if (\is_string($timezone) && $timezone !== '')
-    {
+    if (\is_string($timezone) && $timezone !== '') {
         $timezone = new \DateTimeZone($timezone);
     }
 
@@ -115,13 +109,11 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
 {
     $format = $format ?? 'Y-m-d H:i:s';
 
-    if ($dateTime !== null)
-    {
+    if ($dateTime !== null) {
         /** @var false|string $result */
         $result = $dateTime->format($format);
 
-        if ($result !== false && \strtotime($result) !== false)
-        {
+        if ($result !== false && \strtotime($result) !== false) {
             return $result;
         }
 
@@ -138,15 +130,12 @@ function datetimeToString(?\DateTimeInterface $dateTime, ?string $format = null)
  */
 function invokeReflectionMethod(object $object, string $methodName, ...$parameters): mixed
 {
-    try
-    {
+    try {
         $reflectionMethod = new \ReflectionMethod($object, $methodName);
         $reflectionMethod->setAccessible(true);
 
         return $reflectionMethod->invoke($object, ...$parameters);
-    }
-    catch (\ReflectionException $exception)
-    {
+    } catch (\ReflectionException $exception) {
         throw ReflectionApiException::fromThrowable($exception);
     }
 }
@@ -191,23 +180,16 @@ function readReflectionPropertyValue(object $object, string $propertyName): mixe
  */
 function extractReflectionProperty(object $object, string $propertyName): \ReflectionProperty
 {
-    try
-    {
+    try {
         return new \ReflectionProperty($object, $propertyName);
-    }
-    catch (\ReflectionException)
-    {
+    } catch (\ReflectionException) {
         $reflector = new \ReflectionObject($object);
 
         // @noinspection LoopWhichDoesNotLoopInspection
-        while ($reflector = $reflector->getParentClass())
-        {
-            try
-            {
+        while ($reflector = $reflector->getParentClass()) {
+            try {
                 return $reflector->getProperty($propertyName);
-            }
-            catch (\Throwable)
-            {
+            } catch (\Throwable) {
                 // Not interested
             }
         }
@@ -225,12 +207,9 @@ function extractReflectionProperty(object $object, string $propertyName): \Refle
  */
 function createWithoutConstructor(string $class): object
 {
-    try
-    {
+    try {
         return (new \ReflectionClass($class))->newInstanceWithoutConstructor();
-    }
-    catch (\Throwable)
-    {
+    } catch (\Throwable) {
         throw ReflectionApiException::classNotExists($class);
     }
 }
@@ -244,16 +223,14 @@ function createWithoutConstructor(string $class): object
  */
 function fileGetContents(string $filePath): string
 {
-    if (\file_exists($filePath) === false || \is_readable($filePath) === false)
-    {
+    if (\file_exists($filePath) === false || \is_readable($filePath) === false) {
         throw FileSystemException::nonExistentFile($filePath);
     }
 
     $fileContents = \file_get_contents($filePath);
 
     // @codeCoverageIgnoreStart
-    if ($fileContents === false)
-    {
+    if ($fileContents === false) {
         throw FileSystemException::getContentFailed($filePath);
     }
 
@@ -274,8 +251,7 @@ function extractNamespaceFromFile(string $filePath): ?string
     $fileContents = fileGetContents($filePath);
 
     /** @phpstan-ignore-next-line */
-    if (\preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false && !empty($matches[1]))
-    {
+    if (\preg_match('#^namespace\s+(.+?);$#sm', $fileContents, $matches) !== false && ($matches[1] ?? '') !== '') {
         $fileName = \pathinfo($filePath)['filename'];
 
         return \sprintf('%s\\%s', $matches[1], $fileName);
@@ -294,8 +270,7 @@ function extractNamespaceFromFile(string $filePath): ?string
  */
 function searchFiles(array $directories, string $regExp): \Generator
 {
-    foreach ($directories as $directory)
-    {
+    foreach ($directories as $directory) {
         $iterator = new \RegexIterator(
             new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($directory)
@@ -304,8 +279,7 @@ function searchFiles(array $directories, string $regExp): \Generator
         );
 
         /** @var \SplFileInfo $fileInfo */
-        foreach ($iterator as $fileInfo)
-        {
+        foreach ($iterator as $fileInfo) {
             yield $fileInfo;
         }
     }
@@ -314,20 +288,18 @@ function searchFiles(array $directories, string $regExp): \Generator
 /**
  * Casting paths to canonical form.
  *
- * @psalm-param list<non-empty-string> $paths
+ * @param string[] $paths
  *
- * @psalm-return list<non-empty-string>
+ * @return string[]
  */
 function canonicalizeFilesPath(array $paths): array
 {
     $result = [];
 
-    foreach ($paths as $path)
-    {
+    foreach ($paths as $path) {
         $realPath = (new \SplFileInfo($path))->getRealPath();
 
-        if (\is_string($realPath) && $realPath !== '')
-        {
+        if (\is_string($realPath)) {
             $result[] = $realPath;
         }
     }
@@ -342,14 +314,12 @@ function canonicalizeFilesPath(array $paths): array
  */
 function formatBytes(int $bytes): string
 {
-    if (1024 * 1024 < $bytes)
-    {
+    if (1024 * 1024 < $bytes) {
         /** @psalm-suppress InvalidOperand */
         return \sprintf('%.2f mb', $bytes / 1024 / 1024);
     }
 
-    if (1024 < $bytes)
-    {
+    if (1024 < $bytes) {
         return \sprintf('%.2f kb', $bytes / 1024);
     }
 
@@ -367,8 +337,7 @@ function formatBytes(int $bytes): string
  */
 function throwableDetails(\Throwable $throwable): array
 {
-    $throwableFormatter = static function (\Throwable $throwable): array
-    {
+    $throwableFormatter = static function (\Throwable $throwable): array {
         return [
             'throwableMessage' => $throwable->getMessage(),
             'throwablePoint'   => \sprintf('%s:%d', $throwable->getFile(), $throwable->getLine()),
@@ -379,13 +348,10 @@ function throwableDetails(\Throwable $throwable): array
 
     $result['throwablePrevious'] = [];
 
-    if ($previous = $throwable->getPrevious())
-    {
-        do
-        {
+    if ($previous = $throwable->getPrevious()) {
+        do {
             $result['throwablePrevious'][] = $throwableFormatter($previous);
-        }
-        while ($previous = $previous->getPrevious());
+        } while ($previous = $previous->getPrevious());
     }
 
     return $result;
@@ -398,15 +364,12 @@ function throwableMessage(\Throwable $throwable): string
 {
     $message = $throwable->getMessage();
 
-    if ($previous = $throwable->getPrevious())
-    {
+    if ($previous = $throwable->getPrevious()) {
         $messages = [];
 
-        do
-        {
+        do {
             $messages[] = $previous->getMessage();
-        }
-        while ($previous = $previous->getPrevious());
+        } while ($previous = $previous->getPrevious());
 
         $message .= \sprintf(' (Previous: %s)', \implode('; ', $messages));
     }
@@ -421,8 +384,7 @@ function throwableMessage(\Throwable $throwable): string
  */
 function jsonEncode(array $data): string
 {
-    try
-    {
+    try {
         /** @psalm-var non-empty-string $result */
         $result = \json_encode(
             $data,
@@ -430,9 +392,7 @@ function jsonEncode(array $data): string
         );
 
         return $result;
-    }
-    catch (\Throwable $throwable)
-    {
+    } catch (\Throwable $throwable) {
         throw new JsonSerializationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
     }
 }
@@ -444,15 +404,12 @@ function jsonEncode(array $data): string
  */
 function jsonDecode(string $json): array
 {
-    try
-    {
+    try {
         /** @var array $data */
         $data = \json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
 
         return $data;
-    }
-    catch (\Throwable $throwable)
-    {
+    } catch (\Throwable $throwable) {
         throw new JsonSerializationFailed($throwable->getMessage(), (int) $throwable->getCode(), $throwable);
     }
 }

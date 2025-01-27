@@ -14,6 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\Exceptions\ReflectionApiException;
+
 use function ServiceBus\Common\createWithoutConstructor;
 use function ServiceBus\Common\invokeReflectionMethod;
 use function ServiceBus\Common\readReflectionPropertyValue;

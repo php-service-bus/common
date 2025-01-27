@@ -14,6 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\Exceptions\FileSystemException;
+
 use function ServiceBus\Common\canonicalizeFilesPath;
 use function ServiceBus\Common\extractNamespaceFromFile;
 use function ServiceBus\Common\searchFiles;

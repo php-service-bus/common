@@ -14,6 +14,7 @@ namespace ServiceBus\Common\Tests;
 
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Common\Exceptions\DateTimeException;
+
 use function ServiceBus\Common\datetimeInstantiator;
 use function ServiceBus\Common\datetimeToString;
 use function ServiceBus\Common\now;
@@ -30,15 +31,13 @@ final class DateTimeFunctionsTest extends TestCase
         ?string $expectedResult,
         bool $expectException = false
     ): void {
-        if ($expectException)
-        {
+        if ($expectException) {
             $this->expectException(DateTimeException::class);
         }
 
         $result = datetimeInstantiator($date, $timezone);
 
-        if ($expectedResult !== null)
-        {
+        if ($expectedResult !== null) {
             self::assertNotNull($result);
 
             /** @var \DateTimeImmutable $result */
@@ -53,7 +52,7 @@ final class DateTimeFunctionsTest extends TestCase
         self::assertNull($result);
     }
 
-    public function datetimeInstantiatorDataProvider(): array
+    public static function datetimeInstantiatorDataProvider(): array
     {
         return [
             ['qwerty', null, null, true],
@@ -73,18 +72,15 @@ final class DateTimeFunctionsTest extends TestCase
         ?string $expectedResult,
         bool $expectException = false
     ): void {
-        if ($expectException)
-        {
+        if ($expectException) {
             $this->expectException(DateTimeException::class);
         }
 
         $result = datetimeToString($dateTime, $format);
 
-        if ($expectedResult !== null)
-        {
+        if ($expectedResult !== null) {
             self::assertNotNull($result);
 
-            /** @var \DateTimeImmutable $result */
             self::assertSame($expectedResult, $result);
 
             return;
@@ -93,7 +89,7 @@ final class DateTimeFunctionsTest extends TestCase
         self::assertNull($result);
     }
 
-    public function datetimeToStringDataProvider(): array
+    public static function datetimeToStringDataProvider(): array
     {
         return [
             [new \DateTimeImmutable('2019-01-01 12:00:00'), 'Y-m-d H:i:s', '2019-01-01 12:00:00'],
